@@ -26,30 +26,33 @@
 3.1 Home
 baseUrl: localhost:3000
 
-3.2 Men
-baseUrl/men
-baseUrl/men/men-shirt
-baseUrl/men/men-trousers
-baseUrl/men/:productId
+3.2 Products
+baseUrl1: baseUrl/products
 
-3.3 Women
-baseUrl/women
-baseUrl/women/women-shirt
-baseUrl/women/women-trousers
-baseUrl/women/:productId
+    3.2.1 Men
+    baseUrl1/men
+    baseUrl1/men/men-shirt
+    baseUrl1/men/men-trousers
+    baseUrl1/men/:productId
 
-3.4 Kids
-baseUrl/kids
-baseUrl/kids/:productId
+    3.2.2. Women
+    baseUrl1/women
+    baseUrl1/women/women-shirt
+    baseUrl1/women/women-trousers
+    baseUrl1/women/:productId
 
-3.5 Shoes
-baseUrl/shoes
-baseUrl/shoes/men-shoes
-baseUrl/shoes/women-shoes
-baseUrl/shoes/:productId
+    3.2.3 Kids
+    baseUrl1/kids
+    baseUrl1/kids/:productId
 
-3.6 Login Page
+    3.2.4 Shoes
+    baseUrl1/shoes
+    baseUrl1/shoes/men-shoes
+    baseUrl/shoes/women-shoes
+    baseUrl1/shoes/:productId
+
+3.3 Login Page
 baseUrl/login
 
-3.7 Cart Page
+3.4 Cart Page
 baseUrl/cart/:orderId

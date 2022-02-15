@@ -1,12 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import ProductListPage from './pages/ProductListPage';
-import LoginPage from './pages/LoginPage';
-import CartPage from './pages/CartPage';
 import PrivateRoute from './components/PrivateRoute';
+import CartPage from './pages/CartPage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ProductListPage from './pages/ProductListPage';
+import ProductPage from './pages/ProductPage';
 
 function App() {
     return (
@@ -15,17 +16,11 @@ function App() {
                 <Route path='/' exact>
                     <HomePage />
                 </Route>
-                <Route path='/men'>
+                <Route path='/products'>
                     <ProductListPage />
                 </Route>
-                <Route path='/women'>
-                    <ProductListPage />
-                </Route>
-                <Route path='/kids'>
-                    <ProductListPage />
-                </Route>
-                <Route path='/shoes'>
-                    <ProductListPage />
+                <Route path='/product/:id'>
+                    <ProductPage />
                 </Route>
                 <Route path='/login'>
                     <LoginPage />
