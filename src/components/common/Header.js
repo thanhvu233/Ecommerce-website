@@ -1,14 +1,12 @@
-import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons/lib/icons';
 import { Menu } from 'antd';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
 import styles from './Header.module.scss';
 
 const { SubMenu } = Menu;
 
-export function Header() {
+export function Header({ current }) {
     const history = useHistory();
 
     const menNavigate = () => {
@@ -20,61 +18,40 @@ export function Header() {
     };
 
     return (
-        <Menu mode='horizontal' className={styles.menu}>
-            <div className={styles.menuItem}>
-                <Menu.Item key='logo'>
-                    <Link to='/'>
-                        <img src={logo} alt='logo' className={styles.logo} />
-                    </Link>
-                </Menu.Item>
+        <div className={styles.header}>
+            <div className={styles.logo}>
+                <Link to='/'>
+                    <img src={logo} alt='logo' />
+                </Link>
             </div>
-            <div className={styles.menuItem}>
-                <Menu.Item key='home'>
-                    <Link to='/'>Home</Link>
-                </Menu.Item>
-
-                <SubMenu key='men' title='Men' onTitleClick={menNavigate}>
-                    <Menu.Item key='men-shirt'>
-                        <Link to='/products/men/shirt'>Shirt</Link>
-                    </Menu.Item>
-                    <Menu.Item key='men-trousers'>
-                        <Link to='/products/men/trousers'>Trousers</Link>
-                    </Menu.Item>
-                </SubMenu>
-
-                <SubMenu key='women' title='Women' onTitleClick={womenNavigate}>
-                    <Menu.Item key='women-shirt'>
-                        <Link to='/products/women/shirt'>Shirt</Link>
-                    </Menu.Item>
-                    <Menu.Item key='women-trousers'>
-                        <Link to='/products/women/trousers'>Trousers</Link>
-                    </Menu.Item>
-                </SubMenu>
-
-                <Menu.Item key='kids'>
-                    <Link to='/products/kids'>Kids</Link>
-                </Menu.Item>
-
-                <SubMenu key='shoes' title='Shoes' onTitleClick={menNavigate}>
-                    <Menu.Item key='shoes-shirt'>
-                        <Link to='/products/shoes/men'>Men</Link>
-                    </Menu.Item>
-                    <Menu.Item key='men-trousers'>
-                        <Link to='/products/shoes/women'>Women</Link>
-                    </Menu.Item>
-                </SubMenu>
+            <div>
+                <ul className={styles.menu}>
+                    <li className={styles.menuItem}>
+                        <Link to='/'>Home</Link>
+                    </li>
+                    <li className={styles.menuItem}>
+                        <Link to='/products/men'>Men</Link>
+                    </li>
+                    <li className={styles.menuItem}>
+                        <Link to='/products/women'>Women</Link>
+                    </li>
+                    <li className={styles.menuItem}>
+                        <Link to='/products/kids'>Kids</Link>
+                    </li>
+                    <li className={styles.menuItem}>
+                        <Link to='/products/shoes'>Shoes</Link>
+                    </li>
+                </ul>
             </div>
-            <div className={styles.menuItem}>
-                <Menu.Item key='login' icon={<i className={`${styles.icon} las la-user`}></i>}>
-                    <Link to='/login'></Link>
-                </Menu.Item>
-                <Menu.Item
-                    key='cart'
-                    icon={<i className={`${styles.icon} las la-shopping-cart`}></i>}
-                >
-                    <Link to='/cart'></Link>
-                </Menu.Item>
+            <div className={styles.icon}>
+                <Link to='/login'>
+                    <i className={`${styles.icon} las la-user`} />
+                </Link>
+
+                <Link to='/cart'>
+                    <i className={`${styles.icon} las la-shopping-cart`} />
+                </Link>
             </div>
-        </Menu>
+        </div>
     );
 }

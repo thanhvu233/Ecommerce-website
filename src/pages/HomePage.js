@@ -6,7 +6,7 @@ function HomePage() {
     return (
         <div>
             {/* Begin Header */}
-            <Header />
+            <Header current='men' />
             {/* End Header */}
 
             {/* Begin Hero Section */}

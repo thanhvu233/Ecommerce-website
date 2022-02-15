@@ -1,58 +1,68 @@
 @import '../../variables/variables';
 
-.menu {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    position: fixed;
+    z-index: 10;
+
     background-color: $primary-color;
 
     min-height: 56px;
+    width: 100%;
 
     & .logo {
-        width: 100px;
-        height: auto;
-        object-fit: contain;
-    }
+        margin-left: 20px;
+        margin-top: 4px;
 
-    & .menuItem:nth-child(1) {
-        flex-grow: 1;
-    }
-
-    & .menuItem:nth-child(2) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 3;
-
-        & a {
-            color: $fourth-color;
-        }
-
-        & li:hover a {
-            color: $secondary-color;
+        & img {
+            object-fit: contain;
+            width: 100px;
         }
     }
+}
 
-    & .menuItem:nth-child(3) {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
 
-        flex-grow: 1;
 
-        & .icon {
-            color: $fourth-color;
-            font-size: 28px;
-            transform: translateY(6px);
-        }
+.menu {
+    width: 600px;
 
-        & li:hover .icon {
-            color: $secondary-color;
-        }
+    height: 57px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+
+    font-weight: 500;
+
+    margin-bottom: 0;
+
+    & a {
+        color: $fourth-color;
     }
 
-    & .menuItem li:active {
-        background-color: #101113;
+    & .menuItem:hover > a {
+        color: $secondary-color;
+        transition: color 0.3s ease-in-out;
+    }
+}
+
+.icon {
+    color: #fdfffe;
+    font-size: 28px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+
+    margin-right: 8px;
+
+    &:hover {
+        color: $secondary-color;
+        transition: color 0.3s ease-in-out;
     }
 }
