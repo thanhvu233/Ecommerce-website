@@ -1,0 +1,58 @@
+@import '../../variables/variables';
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: $primary-color;
+
+    min-height: 56px;
+
+    & .logo {
+        width: 100px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    & .menuItem:nth-child(1) {
+        flex-grow: 1;
+    }
+
+    & .menuItem:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 3;
+
+        & a {
+            color: $fourth-color;
+        }
+
+        & li:hover a {
+            color: $secondary-color;
+        }
+    }
+
+    & .menuItem:nth-child(3) {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        flex-grow: 1;
+
+        & .icon {
+            color: $fourth-color;
+            font-size: 28px;
+            transform: translateY(6px);
+        }
+
+        & li:hover .icon {
+            color: $secondary-color;
+        }
+    }
+
+    & .menuItem li:active {
+        background-color: #101113;
+    }
+}

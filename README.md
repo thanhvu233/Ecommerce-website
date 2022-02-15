@@ -14,12 +14,12 @@
 -   JSON-Server
 -   Redux Toolkit + Thunk
 -   react-reveal
--   CSS Modules + SASS
 -   uuid
 -   react-toastify
--   Material UI v4
 -   React-router-dom v5.2.0
 -   Axios
+-   CSS Module + SASS
+-   Ant Design
 
 3. Routing
 
