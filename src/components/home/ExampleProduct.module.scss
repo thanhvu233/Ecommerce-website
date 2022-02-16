@@ -1,0 +1,16 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 56px;
+
+    & img {
+        object-fit: cover;
+        width: 300px;
+    }
+}
