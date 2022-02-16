@@ -1,12 +1,13 @@
 import React from 'react';
 import { Footer, Header } from '../components/common';
 import { ExampleProduct, Hero, FeatureProduct, Comment, Logo } from '../components/home';
+import styles from '../components/common/_global.module.scss'
 
 function HomePage() {
     return (
-        <div>
+        <div className={styles.wrapper}>
             {/* Begin Header */}
-            <Header current='men' />
+            <Header />
             {/* End Header */}
 
             {/* Begin Hero Section */}
@@ -26,7 +27,7 @@ function HomePage() {
             {/* End Latest Products Section */}
 
             {/* Begin Unique Product Section */}
-            <Hero />
+            {/* <Hero /> */}
             {/* End Unique Prodcut Section */}
 
             {/* Begin Comments Section */}

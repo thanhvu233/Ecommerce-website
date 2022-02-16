@@ -38,7 +38,6 @@ export function Header({ current }) {
                     <img src={logo} alt='logo' />
                 </Link>
             </div>
-
             {/* Menu */}
             <div>
                 <ul className={styles.menu}>
@@ -47,7 +46,6 @@ export function Header({ current }) {
                     </li>
                     <li className={styles.menuItem}>
                         <Link to='/products/men'>Men</Link>
-
                         <div className={styles.dropdown}>
                             <Link to='/products/men/shirt'>Shirt</Link>
                             <Link to='/products/men/trousers'>Trousers</Link>
@@ -72,7 +70,6 @@ export function Header({ current }) {
                     </li>
                 </ul>
             </div>
-
             {/* Left bar */}
             {isLogin ? (
                 <div className={styles.leftIcon}>
@@ -80,7 +77,6 @@ export function Header({ current }) {
                         <Link to='/login'>
                             <i className={`${styles.icon} las la-user`} />
                         </Link>
-
                         <div className={styles.dropdown}>
                             <Link to={`/user/update/:${userId}`}>Edit Account</Link>
                             <Button type='text' block onClick={handleLogout}>

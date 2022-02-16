@@ -1,0 +1,56 @@
+@import '../../variables/variables.module';
+
+.hero {
+    padding: 56px 15px 0;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background-color: $primary-color;
+
+    height: 100vh;
+
+}
+
+.desc {
+    & h1,
+    & p {
+        color: $text-color;
+    }
+
+    & h1 {
+        font-weight: 700;
+        font-size: 40px;
+
+        margin-bottom: 20px;
+    }
+
+    & p {
+        font-size: 20px;
+        margin-bottom: 28px;
+    }
+}
+
+.btn {
+    & button {
+        border-color: $secondary-color;
+        background-color: $secondary-color;
+    }
+
+    & button:hover {
+        opacity: 0.9;
+        background-color: $secondary-color;
+        border-color: $secondary-color;
+
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.image {
+    transform: translate(16px, 12px);
+    & img {
+        object-fit: contain;
+        height: 600px;
+    }
+}
