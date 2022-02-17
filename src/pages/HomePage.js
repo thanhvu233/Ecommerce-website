@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Footer, Header } from '../components/common';
-import { ExampleProduct, Hero, FeatureProduct, Comment, Logo } from '../components/home';
-import styles from '../components/common/_global.module.scss'
+import styles from '../components/common/_global.module.scss';
+import { Comment, ExampleProduct, FeatureProduct, Hero, Logo } from '../components/home';
+import {
+    fetchProductList,
+    selectProductFilter,
+    selectProductList,
+} from '../redux/slices/productSlice';
+import { makeRandomNumber } from './../helpers/randomNumber';
 
 function HomePage() {
+    const dispatch = useDispatch();
+    const productList = useSelector(selectProductList);
+    const filter = useSelector(selectProductFilter);
+
+    useEffect(() => {
+        dispatch(
+            fetchProductList({ ...filter, _limit: 16, category: 'shirt', type_like: 'men|women' })
+        );
+    }, [dispatch, filter]);
+
+    // console.log(productList);
+
+    const featureList = productList.slice(0, 4);
+    const latestList = productList.slice(8, 16);
+
+    console.table(featureList);
+    console.table(latestList);
+
     return (
         <div className={styles.wrapper}>
             {/* Begin Header */}
@@ -19,11 +44,11 @@ function HomePage() {
             {/* End Example Products Section */}
 
             {/* Begin Feature Products Section */}
-            <FeatureProduct />
+            <FeatureProduct list={featureList} title='Featured Products' />
             {/* End Feature Products Section */}
 
             {/* Begin Latest Products Section */}
-            <FeatureProduct />
+            <FeatureProduct list={latestList} title='Latest Products' />
             {/* End Latest Products Section */}
 
             {/* Begin Unique Product Section */}

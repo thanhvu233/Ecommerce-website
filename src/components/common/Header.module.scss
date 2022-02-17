@@ -7,7 +7,7 @@
 
     position: fixed;
     z-index: 10;
-    padding: 0 15px;
+    padding: 0 160px;
 
     background-color: $primary-color;
 
@@ -15,7 +15,6 @@
     width: 100%;
 
     & .logo {
-        margin-left: 20px;
         margin-top: 4px;
 
         & img {
@@ -52,7 +51,7 @@
         display: inline-block;
         position: relative;
         height: 100%;
-        transform: translateY(25%);
+        transform: translateY(30%);
     }
 
     & .menuItem:hover > a {
@@ -97,11 +96,12 @@
 
 .leftIcon {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    gap: 12px;
-    margin-right: 20px;
+    gap: 28px;
     position: relative;
+
+    margin-right: -120px;
 
     min-height: 57px;
 
@@ -113,6 +113,7 @@
 
     & > div {
         height: 57px;
+        transform: translateY(12%);
     }
 
     & a {

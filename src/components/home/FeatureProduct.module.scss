@@ -1,0 +1,48 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.featureProduct {
+    margin-top: 120px;
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+
+    margin-bottom: 90px;
+    position: relative;
+
+    &::after {
+        content: '';
+        background-color: $third-color;
+        position: absolute;
+        left: 46.5%;
+        bottom: 0;
+        width: 74px;
+        height: 5px;
+        border-radius: 4px;
+        transform: translateY(10px);
+    }
+}
+
+
+.name {
+    line-height: 1.4;
+    font-size: 17px;
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+.price {
+    font-size: 17px;
+    line-height: 1.4;
+
+    margin-top: 10px;
+}
+
+.card {
+    width: 100%;
+}

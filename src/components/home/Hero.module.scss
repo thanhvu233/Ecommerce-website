@@ -1,10 +1,11 @@
 @import '../../variables/variables.module';
 
 .hero {
-    padding: 56px 15px 0;
+    padding: 56px 160px 0;
+
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     background-color: $primary-color;
