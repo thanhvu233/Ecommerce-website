@@ -11,6 +11,7 @@ import {
     selectProductList,
 } from '../redux/slices/productSlice';
 import productApi from './../API/productApi';
+import commentApi from './../API/commentApi';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function HomePage() {
     const filter = useSelector(selectProductFilter);
 
     const [item, setItem] = useState({});
+    const [comments, setComments] = useState([]);
 
     const fetchProductById = async (productId) => {
         try {
@@ -25,7 +27,17 @@ function HomePage() {
 
             setItem(data[0]);
         } catch (error) {
-            console.log('Failed to fetch student details', error);
+            console.log(error);
+        }
+    };
+
+    const fetchComment = async () => {
+        try {
+            const data = await commentApi.getAll();
+
+            setComments(data);
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -35,12 +47,12 @@ function HomePage() {
         );
 
         fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
+        fetchComment();
     }, [dispatch]);
 
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
 
-    // console.log('item', item);
 
     return (
         <div className={styles.wrapper}>
@@ -79,7 +91,7 @@ function HomePage() {
             {/* End Unique Prodcut Section */}
 
             {/* Begin Comments Section */}
-            <Comment />
+            <Comment comments={comments} />
             {/* End Comments Section */}
 
             {/* Begin Logo Section */}
