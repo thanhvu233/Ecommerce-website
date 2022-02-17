@@ -43,7 +43,7 @@ const productSlice = createSlice({
         },
         [fetchProductList.rejected]: (state, action) => {
             state.loading = false;
-        },
+        }
     },
 });
 

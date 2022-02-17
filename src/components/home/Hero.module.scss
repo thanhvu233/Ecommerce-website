@@ -3,7 +3,6 @@
 .hero {
     padding: 56px 160px 0;
 
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,7 +10,6 @@
     background-color: $primary-color;
 
     height: 100vh;
-
 }
 
 .desc {
@@ -22,14 +20,28 @@
 
     & h1 {
         font-weight: 700;
-        font-size: 40px;
+        font-size: 48px;
 
         margin-bottom: 20px;
+        max-width: 500px;
     }
 
     & p {
         font-size: 20px;
         margin-bottom: 28px;
+
+        max-width: 520px;
+    }
+
+    & .textClamp {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &--2 {
+            -webkit-line-clamp: 3;
+        }
     }
 }
 
@@ -53,5 +65,23 @@
     & img {
         object-fit: contain;
         height: 600px;
+    }
+}
+
+// Hero 2 CSS
+
+.hero2 {
+    @extend .hero;
+    flex-direction: row-reverse;
+    gap: 16px;
+
+    padding: 0 160px;
+    margin-top: 120px;
+}
+
+.image2 {
+    & img {
+        object-fit: contain;
+        width: 600px;
     }
 }

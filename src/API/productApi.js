@@ -10,6 +10,7 @@ const productApi = {
     },
     getById(id) {
         const url = `/products?productId=${id}`;
+        
 
         return axiosClient.get(url);
     },

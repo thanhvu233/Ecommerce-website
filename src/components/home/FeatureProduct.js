@@ -3,7 +3,6 @@ import React from 'react';
 import styles from './FeatureProduct.module.scss';
 
 export function FeatureProduct({ list, title }) {
-    console.log(list);
     return (
         <div className={styles.container}>
             <div className={styles.featureProduct}>

@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import heroImg from '../assets/images/heroimg.png';
+import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import { Comment, ExampleProduct, FeatureProduct, Hero, Logo } from '../components/home';
@@ -8,26 +10,37 @@ import {
     selectProductFilter,
     selectProductList,
 } from '../redux/slices/productSlice';
-import { makeRandomNumber } from './../helpers/randomNumber';
+import productApi from './../API/productApi';
 
 function HomePage() {
     const dispatch = useDispatch();
     const productList = useSelector(selectProductList);
     const filter = useSelector(selectProductFilter);
 
+    const [item, setItem] = useState({});
+
+    const fetchProductById = async (productId) => {
+        try {
+            const data = await productApi.getById(productId);
+
+            setItem(data[0]);
+        } catch (error) {
+            console.log('Failed to fetch student details', error);
+        }
+    };
+
     useEffect(() => {
         dispatch(
             fetchProductList({ ...filter, _limit: 16, category: 'shirt', type_like: 'men|women' })
         );
-    }, [dispatch, filter]);
 
-    // console.log(productList);
+        fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
+    }, [dispatch]);
 
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
 
-    console.table(featureList);
-    console.table(latestList);
+    // console.log('item', item);
 
     return (
         <div className={styles.wrapper}>
@@ -36,7 +49,12 @@ function HomePage() {
             {/* End Header */}
 
             {/* Begin Hero Section */}
-            <Hero />
+            <Hero
+                imgPosition='right'
+                title='Impress The World With Your Outfits'
+                desc='Style is something each of us already has, all we need to do is find it.'
+                image={heroImg}
+            />
             {/* End Hero Section */}
 
             {/* Begin Example Products Section */}
@@ -52,7 +70,12 @@ function HomePage() {
             {/* End Latest Products Section */}
 
             {/* Begin Unique Product Section */}
-            {/* <Hero /> */}
+            <Hero
+                imgPosition='left'
+                title={item.productName}
+                desc={item.description}
+                image={specialItem}
+            />
             {/* End Unique Prodcut Section */}
 
             {/* Begin Comments Section */}

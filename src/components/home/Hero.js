@@ -1,45 +1,47 @@
 import { Button } from 'antd';
 import React from 'react';
+import { Fade, Rotate, Zoom } from 'react-reveal';
 import styles from './Hero.module.scss';
-import heroImg from '../../assets/images/heroimg.png';
-import { Fade } from 'react-reveal';
+import Tada from 'react-reveal/Tada';
 
-export function Hero() {
+export function Hero({ imgPosition, title, desc, image }) {
     return (
-        <div className={styles.hero}>
+        <div className={imgPosition == 'right' ? styles.hero : styles.hero2}>
             {/* Hero Slogan */}
             <div className={styles.slogan}>
                 {/* Hero Description */}
                 <div className={styles.desc}>
-                    <Fade left delay={400} duration={3000}>
-                        <h1>
-                            Impress The World <br />
-                            With Your Outfits
-                        </h1>
-                    </Fade>
-                    <Fade bottom delay={400} duration={3000}>
-                        <p>
-                            Style is something each of us already has, <br />
-                            all we need to do is find it.
-                        </p>
+                    {imgPosition == 'right' ? (
+                        <Fade left delay={100} duration={3000}>
+                            <h1>{title}</h1>
+                        </Fade>
+                    ) : (
+                        <Fade right delay={100} duration={3000}>
+                            <h1>{title}</h1>
+                        </Fade>
+                    )}
+
+                    <Fade bottom delay={100} duration={3000}>
+                        <p>{desc}</p>
                     </Fade>
                 </div>
 
                 {/* explore Button */}
                 <div className={styles.btn}>
-                    <Fade delay={500} duration={3000}>
+                    <Fade delay={1500}>
                         <Button type='primary' shape='round' size='large'>
-                            Explore Now
+                        {imgPosition == 'right' ? 'Explore Now' : 'Buy Now'}
+                            
                         </Button>
                     </Fade>
                 </div>
             </div>
 
             {/* Hero Image */}
-            <div className={styles.image}>
-                <Fade delay={600} duration={3000}>
-                    <img src={heroImg} alt='Hero Image' />
-                </Fade>
+            <div className={imgPosition == 'right' ? styles.image : styles.image2}>
+                <Zoom delay={200} duration={3000}>
+                    <img src={image} alt='Hero Image' />
+                </Zoom>
             </div>
         </div>
     );
