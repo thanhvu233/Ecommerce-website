@@ -1,0 +1,72 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.footer {
+    margin-top: 120px;
+    padding: 32px 160px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: $primary-color;
+    color: #fff;
+
+    & .col {
+        text-align: center;
+    }
+
+    & .col:nth-child(1) {
+        max-width: 300px;
+    }
+    & .col:nth-child(2) {
+        max-width: 300px;
+    }
+    & .col:nth-child(3) {
+        max-width: 100px;
+    }
+    & .col:nth-child(4) {
+        max-width: 100px;
+    }
+}
+
+.heading {
+    font-size: 18px;
+    font-weight: 500;
+
+    transform: translateY(-3px);
+}
+
+.linkHeading {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.appImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+        object-fit: contain;
+        width: 200px;
+        height: 40px;
+    }
+}
+
+.logoImg {
+    & img {
+        object-fit: contain;
+        width: 150px;
+
+        margin: 0 auto;
+
+        transform: translateY(-54%);
+    }
+}
+
+.desc,
+.link {
+    color: #ccc;
+    font-size: 14px;
+}

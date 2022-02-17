@@ -12,6 +12,7 @@ import {
 } from '../redux/slices/productSlice';
 import productApi from './../API/productApi';
 import commentApi from './../API/commentApi';
+import { BackTop } from 'antd';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -53,6 +54,17 @@ function HomePage() {
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
 
+    const style = {
+        width: 50,
+        height: 50,
+        backgroundColor: '#157aea',
+        fontSize: 20,
+        borderRadius: 50,
+        textAlign: 'center',
+        color: '#fff',
+        paddingTop: 10,
+        transition: 'all 0.3 ease-in-out',
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -94,13 +106,14 @@ function HomePage() {
             <Comment comments={comments} />
             {/* End Comments Section */}
 
-            {/* Begin Logo Section */}
-            <Logo />
-            {/* End Logo Section */}
-
             {/* Begin Footer */}
             <Footer />
             {/* End Footer */}
+            <BackTop>
+                <div style={style}>
+                    <i class='las la-angle-up'></i>
+                </div>
+            </BackTop>
         </div>
     );
 }
