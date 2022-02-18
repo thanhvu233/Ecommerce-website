@@ -20,6 +20,12 @@ function App() {
                 <Route path='/products'>
                     <ProductListPage />
                 </Route>
+                <Route path='/products/:type:category'>
+                    <ProductListPage />
+                </Route>
+                <Route path='/products/:type'>
+                    <ProductListPage />
+                </Route>
                 <Route path='/product/:id'>
                     <ProductPage />
                 </Route>

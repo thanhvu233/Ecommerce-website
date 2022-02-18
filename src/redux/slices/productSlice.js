@@ -1,18 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import productApi from '../../API/productApi';
 
-export const fetchProductList = createAsyncThunk(
-    'product/getAll',
-    async (filter, { rejectWithValue }) => {
-        try {
-            const res = await productApi.getAll(filter);
+export const fetchProductList = createAsyncThunk('product/getAll', async (filter) => {
+    try {
+        const res = await productApi.getAll(filter);
 
-            return res;
-        } catch (err) {
-            return rejectWithValue(err.response.data);
-        }
+        return res;
+    } catch (error) {
+        console.log(error);
     }
-);
+});
 
 const initialState = {
     loading: false,
@@ -43,7 +40,7 @@ const productSlice = createSlice({
         },
         [fetchProductList.rejected]: (state, action) => {
             state.loading = false;
-        }
+        },
     },
 });
 

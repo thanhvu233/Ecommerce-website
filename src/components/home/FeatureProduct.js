@@ -1,5 +1,6 @@
 import { Card, Col, Rate, Row } from 'antd';
 import React from 'react';
+import truncate from './../../helpers/truncate';
 import styles from './FeatureProduct.module.scss';
 
 export function FeatureProduct({ list, title }) {
@@ -27,7 +28,9 @@ export function FeatureProduct({ list, title }) {
                                         }
                                     >
                                         <div className={styles.detail}>
-                                            <div className={styles.name}>{product.productName}</div>
+                                            <div className={styles.name}>
+                                                {truncate(product.productName, 44)}
+                                            </div>
                                             <div className={styles.rating}>
                                                 <Rate disabled defaultValue={product.rating} />
                                             </div>

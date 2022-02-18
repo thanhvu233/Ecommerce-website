@@ -1,18 +1,19 @@
+import { BackTop } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
-import { Comment, ExampleProduct, FeatureProduct, Hero, Logo } from '../components/home';
+import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
 import {
     fetchProductList,
     selectProductFilter,
     selectProductList,
 } from '../redux/slices/productSlice';
-import productApi from './../API/productApi';
 import commentApi from './../API/commentApi';
-import { BackTop } from 'antd';
+import productApi from './../API/productApi';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -21,6 +22,8 @@ function HomePage() {
 
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);
+
+    const history = useHistory();
 
     const fetchProductById = async (productId) => {
         try {
@@ -42,15 +45,6 @@ function HomePage() {
         }
     };
 
-    useEffect(() => {
-        dispatch(
-            fetchProductList({ ...filter, _limit: 16, category: 'shirt', type_like: 'men|women' })
-        );
-
-        fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
-        fetchComment();
-    }, [dispatch]);
-
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
 
@@ -65,6 +59,15 @@ function HomePage() {
         paddingTop: 10,
         transition: 'all 0.3 ease-in-out',
     };
+
+    useEffect(() => {
+        dispatch(
+            fetchProductList({ ...filter, _limit: 16, category: 'shirt', type_like: 'men|women' })
+        );
+
+        fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
+        fetchComment();
+    }, [dispatch]);
 
     return (
         <div className={styles.wrapper}>

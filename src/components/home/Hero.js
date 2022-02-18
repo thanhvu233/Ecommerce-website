@@ -28,10 +28,9 @@ export function Hero({ imgPosition, title, desc, image }) {
 
                 {/* explore Button */}
                 <div className={styles.btn}>
-                    <Fade delay={300}>
+                    <Fade delay={1000}>
                         <Button type='primary' shape='round' size='large'>
-                        {imgPosition == 'right' ? 'Explore Now' : 'Buy Now'}
-                            
+                            {imgPosition == 'right' ? 'Explore Now' : 'Buy Now'}
                         </Button>
                     </Fade>
                 </div>

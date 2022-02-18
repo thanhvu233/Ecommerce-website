@@ -1,21 +1,26 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
+import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 
-export function Header({ current }) {
+export function Header() {
     const [isLogin, setIsLogin] = useState(false);
     const [userId, setUserId] = useState('');
 
-    const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
         // Set access_token = empty
         localStorage.clear();
 
-        // Redirect to Home Page
-        history.push('./');
+        // Delete current user on redux store
+        dispatch(logout());
+
+        // refresh Home Page
+        setIsLogin(false);
     };
 
     useEffect(() => {
@@ -64,8 +69,8 @@ export function Header({ current }) {
                     <li className={styles.menuItem}>
                         <Link to='/products/shoes'>Shoes</Link>
                         <div className={styles.dropdown}>
-                            <Link to='/products/shoes/men'>Men</Link>
-                            <Link to='/products/shoes/women'>Women</Link>
+                            <Link to='/products/men/shoes'>Men</Link>
+                            <Link to='/products/women/shoes'>Women</Link>
                         </div>
                     </li>
                 </ul>

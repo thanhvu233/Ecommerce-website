@@ -1,4 +1,4 @@
-1. Functional Analysis
+1. Functional expect
 
 -   Login
 -   Register
@@ -33,26 +33,47 @@ baseUrl1: baseUrl/products
     baseUrl1/men
     baseUrl1/men/men-shirt
     baseUrl1/men/men-trousers
-    baseUrl1/men/:productId
+    baseUrl1/:productId
 
     3.2.2. Women
     baseUrl1/women
     baseUrl1/women/women-shirt
     baseUrl1/women/women-trousers
-    baseUrl1/women/:productId
+    baseUrl1/:productId
 
     3.2.3 Kids
     baseUrl1/kids
-    baseUrl1/kids/:productId
+    baseUrl1/:productId
 
     3.2.4 Shoes
-    baseUrl1/shoes
-    baseUrl1/shoes/men-shoes
-    baseUrl/shoes/women-shoes
-    baseUrl1/shoes/:productId
+    baseUrl1/men
+    baseUrl1/women
+    baseUrl1/men/shoes
+    baseUrl/women/shoes
+    baseUrl1/:productId
 
 3.3 Login Page
 baseUrl/login
 
 3.4 Cart Page
 baseUrl/cart/:orderId
+
+4. Functional Analysis
+   4.1 Product List Page
+
+-   Filter
+
+    -   Category
+    -   Price
+    -   Rating
+
+-   Sort
+
+    -   Name ASC
+    -   Name DESC
+    -   Price ASC
+    -   Price DESC
+    -   Rating ASC
+    -   Rating DESC
+
+-   Pagination
