@@ -77,7 +77,7 @@ export function ProductList({ list, onSelectionChange, type, category, onPageCha
                                 >
                                     <div className={styles.detail}>
                                         <div className={styles.name}>
-                                            {truncate(product.productName, 44)}
+                                            {truncate(product.productName, 20)}
                                         </div>
                                         <h4 className={styles.price}>${product.price}.00</h4>
                                     </div>

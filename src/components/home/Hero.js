@@ -3,6 +3,7 @@ import React from 'react';
 import { Fade, Rotate, Zoom } from 'react-reveal';
 import styles from './Hero.module.scss';
 import Tada from 'react-reveal/Tada';
+import { Link } from 'react-router-dom';
 
 export function Hero({ imgPosition, title, desc, image }) {
     return (
@@ -26,14 +27,26 @@ export function Hero({ imgPosition, title, desc, image }) {
                     </Fade>
                 </div>
 
-                {/* explore Button */}
-                <div className={styles.btn}>
-                    <Fade delay={1000}>
-                        <Button type='primary' shape='round' size='large'>
-                            {imgPosition == 'right' ? 'Explore Now' : 'Buy Now'}
-                        </Button>
-                    </Fade>
-                </div>
+                {/* Button */}
+                {imgPosition == 'right' ? (
+                    <div className={styles.btn}>
+                        <Fade delay={1000}>
+                            <Link to='./products/men'>
+                                <Button type='primary' shape='round' size='large'>
+                                    Explore Now
+                                </Button>
+                            </Link>
+                        </Fade>
+                    </div>
+                ) : (
+                    <div className={styles.btn}>
+                        <Fade delay={1000}>
+                            <Button type='primary' shape='round' size='large'>
+                                Buy Now
+                            </Button>
+                        </Fade>
+                    </div>
+                )}
             </div>
 
             {/* Hero Image */}

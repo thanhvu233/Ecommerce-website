@@ -59,11 +59,14 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(
-            fetchProductList({ ...filter, _limit: 16, category: 'shirt', type_like: 'men|women' })
+            fetchProductList({ _page: 1, _limit: 16, category: 'shirt', type_like: 'men|women' })
         );
 
         fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
         fetchComment();
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
     }, [dispatch]);
 
     return (
