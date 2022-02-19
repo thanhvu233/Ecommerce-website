@@ -34,7 +34,7 @@ export function FeatureProduct({ list, title }) {
                                             <div className={styles.rating}>
                                                 <Rate disabled defaultValue={product.rating} />
                                             </div>
-                                            <h4 className={styles.price}>{product.price}</h4>
+                                            <h4 className={styles.price}>${product.price}.00</h4>
                                         </div>
                                     </Card>
                                 </Col>

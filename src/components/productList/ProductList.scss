@@ -1,0 +1,43 @@
+.ant-pagination-item {
+    & a {
+        font-size: 16px;
+    }
+}
+
+.ant-pagination-item:hover {
+    border-color: #1890ff;
+    background-color: #1890ff;
+    transition: all 0.3s;
+
+    & a {
+        color: #fff;
+    }
+}
+
+
+
+.ant-pagination-prev:hover {
+    & button {
+        border-color: #1890ff;
+        background-color: #1890ff;
+        transition: all 0.3s;
+    }
+
+    & span {
+        color: #fff;
+    }
+}
+
+
+
+.ant-pagination-next:hover {
+    & button {
+        border-color: #1890ff;
+        background-color: #1890ff;
+        transition: all 0.3s;
+    }
+
+    & span {
+        color: #fff;
+    }
+}

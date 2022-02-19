@@ -1,0 +1,14 @@
+@import '../variables/variables.module';
+@import '../components/common/global.module';
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+}

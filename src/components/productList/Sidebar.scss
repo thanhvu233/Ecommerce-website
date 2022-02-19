@@ -1,0 +1,9 @@
+.ant-btn:hover {
+    border-color: #1890ff;
+    background-color: #1890ff;
+    transition: all 0.3s;
+
+    & span {
+        color: #fff;
+    }
+}

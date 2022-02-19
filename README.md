@@ -63,7 +63,7 @@ baseUrl/cart/:orderId
 
 -   Filter
 
-    -   Category
+    -   Category (If has)
     -   Price
     -   Rating
 

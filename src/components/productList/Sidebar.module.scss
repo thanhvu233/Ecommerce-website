@@ -1,0 +1,32 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.sidebar {
+    min-width: 232px;
+    & span {
+        font-size: 16px;
+    }
+}
+
+
+.price {
+    margin-top: 48px;
+
+    display: flex;
+    justify-content: flex-start;
+    // gap: 40px;
+
+    & .clearBtn {
+        flex-grow: 1;
+        margin-left: 20px;
+    }
+
+    & .clearBtn span {
+        transform: translateY(-1px);
+    }
+}
+
+.rating {
+    margin-top: 24px;
+
+}

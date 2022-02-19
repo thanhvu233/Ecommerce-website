@@ -1,7 +1,6 @@
 import { BackTop } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header } from '../components/common';
@@ -22,8 +21,6 @@ function HomePage() {
 
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);
-
-    const history = useHistory();
 
     const fetchProductById = async (productId) => {
         try {

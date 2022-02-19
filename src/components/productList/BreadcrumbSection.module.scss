@@ -6,8 +6,19 @@
 
     text-transform: capitalize;
 
+    & a,
+    & span {
+        font-size: 15px;
+    }
+
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+
     & h2 {
-        transform: translate(50%, 30%);
+        margin: 0 auto;
         font-size: 32px;
     }
 }

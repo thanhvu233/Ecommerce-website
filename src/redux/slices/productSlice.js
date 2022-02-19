@@ -17,8 +17,9 @@ const initialState = {
     filter: {
         _page: 1,
         _limit: 56,
-        category: '',
-        type_like: '',
+        category: undefined,
+        type_like: undefined,
+        type: undefined,
     },
 };
 
