@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ProductList.module.scss';
 import { Card, Col, Row, Select } from 'antd';
 import truncate from '../../helpers/truncate';
@@ -6,15 +6,34 @@ import { Pagination } from 'antd';
 
 const { Option } = Select;
 
-export function ProductList({ list }) {
+export function ProductList({ list, onSelectionChange, type, category }) {
+    const [selectValue, setSelectValue] = useState('');
+
+    const handleSelectChange = (value) => {
+        // Split field and _order from value
+        const [field, order] = value.split('.');
+
+        onSelectionChange(field, order);
+
+        setSelectValue(value);
+    };
+
+    useEffect(() => {
+        setSelectValue('');
+    }, [type, category]);
+
     return (
         <div className={styles.main}>
             <div className={styles.dropdown}>
                 <span className={styles.text}>Sort by</span>
-                <Select defaultValue='default' style={{ width: 200 }} size='large'>
-                    <Option value='default'>Default</Option>
-                    <Option value='name.asc'>Name ASC</Option>
-                    <Option value='name.desc'>Name DESC</Option>
+                <Select
+                    defaultValue=''
+                    style={{ width: 200 }}
+                    size='large'
+                    onChange={handleSelectChange}
+                    value={selectValue}
+                >
+                    <Option value=''>Default</Option>
                     <Option value='price.asc'>Price ASC</Option>
                     <Option value='price.desc'>Price DESC</Option>
                     <Option value='rating.asc'>Rating ASC</Option>

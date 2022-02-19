@@ -59,6 +59,10 @@ function ProductListPage() {
         );
     };
 
+    const handleSelectChange = (field, order) => {
+        dispatch(setFilter({ ...filter, _sort: field, _order: order }));
+    };
+
     useEffect(() => {
         dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
     }, [dispatch, filter, type, category]);
@@ -80,7 +84,12 @@ function ProductListPage() {
                 />
 
                 {/* ProductList */}
-                <ProductList list={list} />
+                <ProductList
+                    list={list}
+                    onSelectionChange={handleSelectChange}
+                    type={type}
+                    category={category}
+                />
             </div>
 
             {/* Footer */}
