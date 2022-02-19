@@ -16,10 +16,7 @@ const initialState = {
     list: [],
     filter: {
         _page: 1,
-        _limit: 56,
-        category: undefined,
-        type_like: undefined,
-        type: undefined,
+        _limit: 8,
     },
 };
 

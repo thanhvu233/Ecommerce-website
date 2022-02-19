@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ProductList.module.scss';
-import './ProductList.scss';
 import { Card, Col, Row, Select } from 'antd';
 import truncate from '../../helpers/truncate';
 import { Pagination } from 'antd';

@@ -1,10 +1,10 @@
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
-import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
 
 export function Header() {
     const [isLogin, setIsLogin] = useState(false);
@@ -69,8 +69,8 @@ export function Header() {
                     <li className={styles.menuItem}>
                         <Link to='/products/shoes'>Shoes</Link>
                         <div className={styles.dropdown}>
-                            <Link to='/products/men/shoes'>Men</Link>
-                            <Link to='/products/women/shoes'>Women</Link>
+                            <Link to='/products/shoes/men'>Men</Link>
+                            <Link to='/products/shoes/women'>Women</Link>
                         </div>
                     </li>
                 </ul>
