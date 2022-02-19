@@ -15,6 +15,7 @@ import styles from './ProductListPage.module.scss';
 function ProductListPage() {
     // Get params from URL
     const { pathname } = useLocation();
+
     const dispatch = useDispatch();
     const filter = useSelector(selectProductFilter);
     const list = useSelector(selectProductList);
@@ -63,9 +64,19 @@ function ProductListPage() {
         dispatch(setFilter({ ...filter, _sort: field, _order: order }));
     };
 
+    const handlePageChange = (page) => {
+        dispatch(setFilter({ ...filter, _page: page }));
+    };
+
+    // Sort, filter, pagination render
     useEffect(() => {
         dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
-    }, [dispatch, filter, type, category]);
+    }, [dispatch, filter]);
+
+    // Dang trang 2 mà thay doi duong dan thì reset ve trang 1
+    useEffect(() => {
+        dispatch(setFilter({ ...filter, _page: 1, category: category || undefined, type: type }));
+    }, [category, type]);
 
     return (
         <div className={styles.wrapper}>
@@ -89,6 +100,8 @@ function ProductListPage() {
                     onSelectionChange={handleSelectChange}
                     type={type}
                     category={category}
+                    onPageChange={handlePageChange}
+                    currentPage={filter._page}
                 />
             </div>
 

@@ -6,8 +6,23 @@ import { Pagination } from 'antd';
 
 const { Option } = Select;
 
-export function ProductList({ list, onSelectionChange, type, category }) {
+export function ProductList({ list, onSelectionChange, type, category, onPageChange, currentPage }) {
     const [selectValue, setSelectValue] = useState('');
+
+    // Count totalPage;
+    let totalItem = 0;
+    // /men, /women, /shoes
+    if (!category && type != 'kids') {
+        totalItem = 16;
+    }
+    // /kids
+    else if (!category && type == 'kids') {
+        totalItem = 8;
+    }
+    // Other cases
+    else {
+        totalItem = 8;
+    }
 
     const handleSelectChange = (value) => {
         // Split field and _order from value
@@ -16,6 +31,10 @@ export function ProductList({ list, onSelectionChange, type, category }) {
         onSelectionChange(field, order);
 
         setSelectValue(value);
+    };
+
+    const handlePageChange = (page) => {
+        onPageChange(page);
     };
 
     useEffect(() => {
@@ -69,7 +88,7 @@ export function ProductList({ list, onSelectionChange, type, category }) {
                 </div>
             </div>
             <div className={styles.pagination}>
-                <Pagination defaultCurrent={1} defaultPageSize={8} total={list.length} />
+                <Pagination current={currentPage} total={totalItem} onChange={handlePageChange} />
             </div>
         </div>
     );
