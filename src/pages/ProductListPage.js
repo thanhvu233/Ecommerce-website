@@ -71,11 +71,17 @@ function ProductListPage() {
     // Sort, filter, pagination render
     useEffect(() => {
         dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
     }, [dispatch, filter]);
 
     // Dang trang 2 mà thay doi duong dan thì reset ve trang 1
     useEffect(() => {
         dispatch(setFilter({ ...filter, _page: 1, category: category || undefined, type: type }));
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
     }, [category, type]);
 
     return (

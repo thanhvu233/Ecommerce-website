@@ -53,15 +53,16 @@
 
         &::after {
             content: '';
-            width: 12px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             position: absolute;
             right: 0;
             bottom: 0;
-            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAxNiAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMjg1MTU2IDE0LjQ0NjNMMTUuMTYwMiAwLjQ0NjI4OVYxNC40NDYzSDAuMjg1MTU2WiIgZmlsbD0iIzMzM0Y0OCIvPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIj4KPHBhdGggZD0iTTguOTgyMDcgMTEuMzgwMUw3LjEyNjAxIDkuNTUxNjlMNi41MDczMiAxMC4xNjExTDguOTgyMDcgMTIuNTk5TDE0LjI4NTEgNy4zNzUwOEwxMy42NjY0IDYuNzY1NjJMOC45ODIwNyAxMS4zODAxWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSI4Ljc1IiBoZWlnaHQ9IjguNzUiIGZpbGw9IndoaXRlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LjUzNTE2IDQuODIxMjkpIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==);
+            background-image: url('../../assets/images/checkMark.svg');
             background-repeat: no-repeat;
             background-position: right -1px bottom -1px;
             background-size: 14px 14px;
+            
         }
     }
 

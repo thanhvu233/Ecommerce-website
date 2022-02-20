@@ -4,9 +4,15 @@ import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import productApi from './../API/productApi';
 import { ProductDetail, RelatedProduct } from './../components/product/';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductList, selectProductList } from './../redux/slices/productSlice';
 
 function ProductPage() {
     const [product, setProduct] = useState({});
+    const list = useSelector(selectProductList);
+
+    const dispatch = useDispatch();
+
     const { id } = useParams();
 
     const fetchProductById = async (productId) => {
@@ -21,6 +27,16 @@ function ProductPage() {
 
     useEffect(() => {
         fetchProductById(id);
+
+        dispatch(
+            fetchProductList({
+                _page: 1,
+                _limit: 4,
+                category: product.category,
+                type: product.type,
+                productId_ne: id,
+            })
+        );
     }, [id]);
 
     // Tạo 1 object ban đầu và ném xuống component để nó render nháp
@@ -42,7 +58,7 @@ function ProductPage() {
         <div className={styles.wrapper}>
             <Header />
             <ProductDetail product={initialValues} />
-            <RelatedProduct />
+            <RelatedProduct list={list} item={initialValues} />
             <Footer />
         </div>
     );
