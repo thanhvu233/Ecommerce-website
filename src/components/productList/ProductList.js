@@ -1,8 +1,8 @@
+import { Card, Col, Pagination, Row, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
-import styles from './ProductList.module.scss';
-import { Card, Col, Row, Select } from 'antd';
+import { Link } from 'react-router-dom';
 import truncate from '../../helpers/truncate';
-import { Pagination } from 'antd';
+import styles from './ProductList.module.scss';
 
 const { Option } = Select;
 
@@ -70,26 +70,28 @@ export function ProductList({
                 <div className={styles.row}>
                     <Row gutter={[18, 18]}>
                         {list.map((product) => (
-                            <Col span={6} key={product.productId}>
-                                <Card
-                                    hoverable
-                                    style={{ width: 224 }}
-                                    cover={
-                                        <img
-                                            alt='product'
-                                            src={product.images[0]}
-                                            className={styles.card}
-                                        />
-                                    }
-                                >
-                                    <div className={styles.detail}>
-                                        <div className={styles.name}>
-                                            {truncate(product.productName, 20)}
+                            <Link to={`/products/detail/${product.productId}`}>
+                                <Col span={6} key={product.productId}>
+                                    <Card
+                                        hoverable
+                                        style={{ width: 224 }}
+                                        cover={
+                                            <img
+                                                alt='product'
+                                                src={product.images[0]}
+                                                className={styles.card}
+                                            />
+                                        }
+                                    >
+                                        <div className={styles.detail}>
+                                            <div className={styles.name}>
+                                                {truncate(product.productName, 20)}
+                                            </div>
+                                            <h4 className={styles.price}>${product.price}.00</h4>
                                         </div>
-                                        <h4 className={styles.price}>${product.price}.00</h4>
-                                    </div>
-                                </Card>
-                            </Col>
+                                    </Card>
+                                </Col>
+                            </Link>
                         ))}
                     </Row>
                 </div>

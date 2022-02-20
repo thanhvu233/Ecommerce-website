@@ -37,6 +37,8 @@ function ProductPage() {
                 productId_ne: id,
             })
         );
+
+        window.scrollTo(0, 0);
     }, [id]);
 
     // Tạo 1 object ban đầu và ném xuống component để nó render nháp

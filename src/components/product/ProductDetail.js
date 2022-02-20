@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './ProductDetail.module.scss';
 import './ProductDetail.scss';
 import { Button, InputNumber, Radio } from 'antd';
@@ -14,6 +14,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper';
 
 export function ProductDetail({ product }) {
+    const [srcImg, setSrcImg] = useState(product.images[0]);
     const [size, setSize] = useState('S');
     const [amount, setAmount] = useState(1);
 
@@ -23,6 +24,10 @@ export function ProductDetail({ product }) {
         { label: 'L', value: 'L' },
         { label: 'XL', value: 'XL' },
     ];
+
+    const handleSelectImg = (e) => {
+        setSrcImg(e.target.currentSrc);
+    };
 
     const handleSizeChange = (e) => {
         setSize(e.target.value);
@@ -37,16 +42,9 @@ export function ProductDetail({ product }) {
             <div className={styles.productDetail}>
                 <div className={styles.imgList}>
                     <div className={styles.mainImg}>
-                        <img src={product?.images[0]} alt='mainImg' />
+                        <img src={srcImg ? srcImg : product.images[0]} alt='mainImg' />
                     </div>
 
-                    {/* <div className={styles.otherImg}>
-                        {product?.images.map((image, idx) => (
-                            <div key={idx} className={styles.imgItem}>
-                                <img src={image} alt={`img${idx}`} />
-                            </div>
-                        ))}
-                    </div> */}
                     <div className={`${styles.otherImg} otherImg`}>
                         <Swiper
                             slidesPerView={4}
@@ -63,7 +61,7 @@ export function ProductDetail({ product }) {
                         >
                             {product?.images.map((image, idx) => (
                                 <SwiperSlide key={idx} className={styles.imgItem}>
-                                    <img src={image} alt={`img${idx}`} />
+                                    <img src={image} alt={`img${idx}`} onClick={handleSelectImg} />
                                 </SwiperSlide>
                             ))}
                         </Swiper>

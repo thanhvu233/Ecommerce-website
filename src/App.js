@@ -17,8 +17,8 @@ function App() {
                 <Route path='/' exact>
                     <HomePage />
                 </Route>
-                <Route path='/products'>
-                    <ProductListPage />
+                <Route path='/products/detail/:id'>
+                    <ProductPage />
                 </Route>
                 <Route path='/products/:type:category'>
                     <ProductListPage />
@@ -26,9 +26,7 @@ function App() {
                 <Route path='/products/:type'>
                     <ProductListPage />
                 </Route>
-                <Route path='/product/:id'>
-                    <ProductPage />
-                </Route>
+                
                 <Route path='/login'>
                     <LoginPage />
                 </Route>

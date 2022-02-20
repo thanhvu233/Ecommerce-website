@@ -34,24 +34,24 @@ baseUrl1: baseUrl/products
     baseUrl1/men
     baseUrl1/men/men-shirt
     baseUrl1/men/men-trousers
-    baseUrl1/:productId
+    baseUrl1/detail/:productId
 
     3.2.2. Women
     baseUrl1/women
     baseUrl1/women/women-shirt
     baseUrl1/women/women-trousers
-    baseUrl1/:productId
+    baseUrl1/detail/:productId
 
     3.2.3 Kids
     baseUrl1/kids
-    baseUrl1/:productId
+    baseUrl1/detail/:productId
 
     3.2.4 Shoes
     baseUrl1/men
     baseUrl1/women
     baseUrl1/men/shoes
     baseUrl/women/shoes
-    baseUrl1/:productId
+    baseUrl1/detail/:productId
 
 3.3 Login Page
 baseUrl/login
