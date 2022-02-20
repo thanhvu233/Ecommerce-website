@@ -6,7 +6,14 @@ import { Pagination } from 'antd';
 
 const { Option } = Select;
 
-export function ProductList({ list, onSelectionChange, type, category, onPageChange, currentPage }) {
+export function ProductList({
+    list,
+    onSelectionChange,
+    type,
+    category,
+    onPageChange,
+    currentPage,
+}) {
     const [selectValue, setSelectValue] = useState('');
 
     // Count totalPage;

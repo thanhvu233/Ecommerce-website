@@ -20,6 +20,7 @@
 -   Axios
 -   CSS Module + SASS
 -   Ant Design
+-   Swiper
 
 3. Routing
 
@@ -69,11 +70,11 @@ baseUrl/cart/:orderId
 
 -   Sort
 
-    -   Name ASC
-    -   Name DESC
     -   Price ASC
     -   Price DESC
     -   Rating ASC
     -   Rating DESC
 
 -   Pagination
+
+4.2 Prodct Page

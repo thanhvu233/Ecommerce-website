@@ -1,0 +1,105 @@
+@import '../../variables/variables.module';
+
+.otherImg {
+    & .swiper-button-next,
+    .swiper-button-prev {
+        color: #fff;
+    }
+
+    & .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    & .swiper-button-next,
+    .swiper-rtl .swiper-button-prev {
+        right: 2px;
+        left: auto;
+    }
+
+    & .swiper-button-prev,
+    .swiper-rtl .swiper-button-next {
+        left: 2px;
+        right: auto;
+    }
+}
+
+.sizeOpts {
+    & .ant-radio-button-wrapper {
+        margin-right: 16px;
+        position: relative;
+
+        width: 40px;
+        height: 40px;
+        text-align: center;
+
+        padding: 4px 0;
+
+        font-size: 16px;
+    }
+
+    & .ant-radio-button-wrapper:hover {
+        border: 1px solid #1890ff;
+
+        &::before {
+            background-color: #1890ff;
+        }
+    }
+
+    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+        font-weight: 500;
+        border-width: 2px;
+
+        &::after {
+            content: '';
+            width: 12px;
+            height: 16px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAxNiAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMjg1MTU2IDE0LjQ0NjNMMTUuMTYwMiAwLjQ0NjI4OVYxNC40NDYzSDAuMjg1MTU2WiIgZmlsbD0iIzMzM0Y0OCIvPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIj4KPHBhdGggZD0iTTguOTgyMDcgMTEuMzgwMUw3LjEyNjAxIDkuNTUxNjlMNi41MDczMiAxMC4xNjExTDguOTgyMDcgMTIuNTk5TDE0LjI4NTEgNy4zNzUwOEwxMy42NjY0IDYuNzY1NjJMOC45ODIwNyAxMS4zODAxWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSI4Ljc1IiBoZWlnaHQ9IjguNzUiIGZpbGw9IndoaXRlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LjUzNTE2IDQuODIxMjkpIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==);
+            background-repeat: no-repeat;
+            background-position: right -1px bottom -1px;
+            background-size: 14px 14px;
+        }
+    }
+
+    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+        width: 0;
+    }
+
+    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover::before {
+        width: 0;
+    }
+}
+
+.amountInput {
+    & .ant-input-number {
+        width: 44px;
+        height: 40px;
+        padding-top: 3px;
+        padding-left: 1px;
+    }
+
+    & .ant-input-number:focus,
+    & .ant-input-number-focused {
+        border: 2px solid #40a9ff;
+        border-right-width: 2px !important;
+    }
+}
+
+.buyBtn {
+    & button {
+        background-color: $third-color;
+        color: #fff;
+        border: none;
+    }
+
+    & button:hover {
+        opacity: 0.9;
+        background-color: $third-color;
+        color: #fff;
+        border: none;
+    }
+}
