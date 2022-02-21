@@ -11,7 +11,7 @@ import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import productApi from './../API/productApi';
 import { ProductDetail, RelatedProduct } from './../components/product/';
 import { fetchProductList, selectProductList } from './../redux/slices/productSlice';
-
+import { v4 as uuidv4 } from 'uuid';
 const MySwal = withReactContent(Swal);
 
 function ProductPage() {
@@ -50,6 +50,22 @@ function ProductPage() {
         }
     };
 
+    const addOrder = async (data) => {
+        try {
+            await orderApi.add(data);
+
+            // Hiện thông báo update thành công
+            Swal.fire({
+                icon: 'success',
+                title: 'Item has been added to cart',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleGetOrder = async (item) => {
         const actionResult = await dispatch(
             fetchOrderList({
@@ -61,62 +77,88 @@ function ProductPage() {
 
         let result = unwrapResult(actionResult);
 
-        // Tách object chứa product đã mua trước đó, ra khỏi mảng result
-        const productArr = result[0].products;
+        // ALL ORDERS ARE FINISHED
+        if (result.length == 0) {
+            const newOrder = {
+                id: uuidv4(),
+                userId: localStorage.getItem('access_token'),
+                isCheckout: false,
+                products: [
+                    {
+                        productId: `${item.productId}`,
+                        amount: item.amount,
+                        size: `${item.size}`,
+                    },
+                ],
+            };
 
-        const objWanted = productArr.find((obj) => {
-            return obj.productId == item.productId && obj.size == item.size;
-        });
+            console.log('newOrder', newOrder);
 
-        // Kiểm tra xem order có sản phẩm không
-        const isContain = Boolean(objWanted);
-
-        // UNFINISHED ORDER CONTAINS THIS CURRENT PRODUCT
-        if (isContain) {
-            // Tính amount mới
-            const newAmount = objWanted.amount + item.amount;
-
-            // Tạo mảng products mới để update property products
-            let newProductList = productArr.filter((obj) => {
-                return (
-                    obj.productId != item.productId ||
-                    (obj.productId == item.productId && obj.size != item.size)
-                );
-            });
-
-            // Thêm product mới vào mảng products
-            newProductList.push({
-                productId: objWanted.productId,
-                amount: newAmount,
-                size: objWanted.size,
-            });
-
-            updateOrder({
-                id: result[0].id,
-                products: newProductList,
-            });
+            await addOrder(newOrder);
 
             // Update số lượng product trong cart lên localStorage
-            localStorage.setItem('quantity', newProductList.length);
+            localStorage.setItem('quantity', 1);
 
             // Set lại state orderQuantity để re-render Header
-            setOrderQuantity(newProductList.length);
-        }
-        // UNFINISHED ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
-        else if (!isContain) {
-            // Add this currentProduct to that order
-            let newProductList = [...productArr, item];
+            setOrderQuantity(1);
+        } else {
+            // Tách object chứa product đã mua trước đó, ra khỏi mảng result
+            const productArr = result[0].products;
 
-            updateOrder({
-                id: result[0].id,
-                products: newProductList,
+            const objWanted = productArr.find((obj) => {
+                return obj.productId == item.productId && obj.size == item.size;
             });
 
-            // Update số lượng product trong cart lên localStorage
-            localStorage.setItem('quantity', newProductList.length);
+            // Kiểm tra xem order có sản phẩm không
+            const isContain = Boolean(objWanted);
 
-            // Set lại state orderQuantity để re-render Header
-            setOrderQuantity(newProductList.length);
+            // UNFINISHED ORDER CONTAINS THIS CURRENT PRODUCT
+            if (isContain) {
+                // Tính amount mới
+                const newAmount = objWanted.amount + item.amount;
+
+                // Tạo mảng products mới để update property products
+                let newProductList = productArr.filter((obj) => {
+                    return (
+                        obj.productId != item.productId ||
+                        (obj.productId == item.productId && obj.size != item.size)
+                    );
+                });
+
+                // Thêm product mới vào mảng products
+                newProductList.push({
+                    productId: objWanted.productId,
+                    amount: newAmount,
+                    size: objWanted.size,
+                });
+
+                updateOrder({
+                    id: result[0].id,
+                    products: newProductList,
+                });
+
+                // Update số lượng product trong cart lên localStorage
+                localStorage.setItem('quantity', newProductList.length);
+
+                // Set lại state orderQuantity để re-render Header
+                setOrderQuantity(newProductList.length);
+            }
+            // UNFINISHED ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
+            else if (!isContain) {
+                // Add this currentProduct to that order
+                let newProductList = [...productArr, item];
+
+                updateOrder({
+                    id: result[0].id,
+                    products: newProductList,
+                });
+
+                // Update số lượng product trong cart lên localStorage
+                localStorage.setItem('quantity', newProductList.length);
+
+                // Set lại state orderQuantity để re-render Header
+                setOrderQuantity(newProductList.length);
+            }
         }
     };
 

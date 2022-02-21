@@ -23,9 +23,14 @@ function LoginPage() {
         );
 
         let result = unwrapResult(actionResult);
+        let quantity = 0;
+
 
         // Lấy ra số lượng product chưa thanh toán trong cart
-        const quantity = result[0].products.length;
+        // nếu còn đơn chưa thanh toán
+        if (result.length != 0) {
+            quantity = result[0].products.length;
+        }
 
         localStorage.setItem('quantity', quantity);
         localStorage.setItem('access_token', 'bfb8ed25-84e0-4bad-b366-751f66276b7b');
