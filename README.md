@@ -100,5 +100,5 @@ b. LOGINED
 
 *   IF THERE IS AN UNFINISHED ORDER AND THAT ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
 
--   Add this currentProduct to that order with appropriate SIZE (Call API)
+-   Add this currentProduct to that order (Call API)
 -   Update badge on cart icon on Header

@@ -6,6 +6,12 @@ body {
     font-family: Roboto, Helvetica, sans-serif;
     font-size: 100%;
 }
+
+html.swal2-shown,
+body.swal2-shown {
+    overflow-y: auto !important;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -21,6 +21,7 @@ function HomePage() {
 
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);
+    const [orderQuantity, setOrderQuantity] = useState(0);
 
     const fetchProductById = async (productId) => {
         try {
@@ -65,6 +66,12 @@ function HomePage() {
         fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
         fetchComment();
 
+        if (localStorage.getItem('quantity')) {
+            setOrderQuantity(localStorage.getItem('quantity'));
+        } else {
+            setOrderQuantity(0);
+        }
+
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, [dispatch]);
@@ -72,7 +79,7 @@ function HomePage() {
     return (
         <div className={styles.wrapper}>
             {/* Begin Header */}
-            <Header />
+            <Header quantity={orderQuantity} />
             {/* End Header */}
 
             {/* Begin Hero Section */}

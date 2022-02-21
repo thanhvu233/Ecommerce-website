@@ -1,18 +1,15 @@
 import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
 import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 import './Header.scss';
 
-export function Header() {
+export function Header({ quantity }) {
     const [isLogin, setIsLogin] = useState(false);
     const [userId, setUserId] = useState('');
-    const [quantity, setQuantity] = useState(0);
 
     const { pathname } = useLocation();
     const history = useHistory();
@@ -43,7 +40,6 @@ export function Header() {
         if (Boolean(accessToken)) {
             setIsLogin(true);
             setUserId(accessToken);
-            setQuantity(localStorage.getItem('quantity'));
         } else {
             setIsLogin(false);
         }

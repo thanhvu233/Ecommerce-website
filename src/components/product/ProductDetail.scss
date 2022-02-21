@@ -62,7 +62,6 @@
             background-repeat: no-repeat;
             background-position: right -1px bottom -1px;
             background-size: 14px 14px;
-            
         }
     }
 
@@ -92,13 +91,19 @@
 
 .buyBtn {
     & button {
+        background-color: $third-color !important;
+        color: #fff !important;
+        border: none !important;
+    }
+
+    & button:hover {
+        opacity: 0.9;
         background-color: $third-color;
         color: #fff;
         border: none;
     }
 
-    & button:hover {
-        opacity: 0.9;
+    & button:active {
         background-color: $third-color;
         color: #fff;
         border: none;

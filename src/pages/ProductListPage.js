@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Footer, Header } from '../components/common';
@@ -13,6 +13,8 @@ import {
 import styles from './ProductListPage.module.scss';
 
 function ProductListPage() {
+    const [orderQuantity, setOrderQuantity] = useState(0);
+
     // Get params from URL
     const { pathname } = useLocation();
 
@@ -80,6 +82,12 @@ function ProductListPage() {
     useEffect(() => {
         dispatch(setFilter({ ...filter, _page: 1, category: category || undefined, type: type }));
 
+        if (localStorage.getItem('quantity')) {
+            setOrderQuantity(localStorage.getItem('quantity'));
+        } else {
+            setOrderQuantity(0);
+        }
+
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, [category, type]);
@@ -87,7 +95,7 @@ function ProductListPage() {
     return (
         <div className={styles.wrapper}>
             {/* Header */}
-            <Header />
+            <Header quantity={orderQuantity} />
 
             {/* Breadcrumb */}
             <BreadcrumbSection type={type} category={category} />
