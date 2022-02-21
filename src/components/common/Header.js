@@ -1,26 +1,39 @@
-import { Button } from 'antd';
+import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
-import styles from './Header.module.scss';
-import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
+import styles from './Header.module.scss';
+import './Header.scss';
 
 export function Header() {
     const [isLogin, setIsLogin] = useState(false);
     const [userId, setUserId] = useState('');
+    const [quantity, setQuantity] = useState(0);
+
+    const { pathname } = useLocation();
+    const history = useHistory();
 
     const dispatch = useDispatch();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         // Set access_token = empty
         localStorage.clear();
 
         // Delete current user on redux store
-        dispatch(logout());
+        await dispatch(logout());
 
         // refresh Home Page
         setIsLogin(false);
+    };
+
+    const handleLogin = () => {
+        localStorage.setItem('path', pathname);
+
+        history.push('/login');
     };
 
     useEffect(() => {
@@ -30,10 +43,11 @@ export function Header() {
         if (Boolean(accessToken)) {
             setIsLogin(true);
             setUserId(accessToken);
+            setQuantity(localStorage.getItem('quantity'));
         } else {
             setIsLogin(false);
         }
-    }, [isLogin]);
+    }, [isLogin, quantity]);
 
     return (
         <div className={styles.header}>
@@ -77,7 +91,7 @@ export function Header() {
             </div>
             {/* Left bar */}
             {isLogin ? (
-                <div className={styles.leftIcon}>
+                <div className={`${styles.leftIcon} leftIcon`}>
                     <div>
                         <Link to='/login'>
                             <i className={`${styles.icon} las la-user`} />
@@ -89,15 +103,17 @@ export function Header() {
                             </Button>
                         </div>
                     </div>
-                    <div>
-                        <Link to='/cart'>
-                            <i className={`${styles.icon} las la-shopping-cart`} />
-                        </Link>
-                    </div>
+                    <Badge count={quantity} size='small' offset={[-1, 4]}>
+                        <div>
+                            <Link to='/cart'>
+                                <i className={`${styles.icon} las la-shopping-cart`} />
+                            </Link>
+                        </div>
+                    </Badge>
                 </div>
             ) : (
                 <div>
-                    <Button type='primary' className={styles.loginBtn}>
+                    <Button type='primary' className={styles.loginBtn} onClick={handleLogin}>
                         <Link to='/login'>Login</Link>
                     </Button>
                 </div>

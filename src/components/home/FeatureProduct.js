@@ -16,8 +16,11 @@ export function FeatureProduct({ list, title }) {
                     <div className={styles.row}>
                         <Row gutter={[24, 48]}>
                             {list.map((product) => (
-                                <Link to={`/products/detail/${product.productId}`}>
-                                    <Col span={6} key={product.productId}>
+                                <Link
+                                    to={`/products/detail/${product.productId}`}
+                                    key={product.productId}
+                                >
+                                    <Col span={6}>
                                         <Card
                                             hoverable
                                             style={{ width: 280 }}

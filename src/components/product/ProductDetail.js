@@ -1,22 +1,24 @@
-import React, { useRef, useState } from 'react';
-import styles from './ProductDetail.module.scss';
-import './ProductDetail.scss';
 import { Button, InputNumber, Radio } from 'antd';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+// import required modules
+import { Navigation, Pagination } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import styles from './ProductDetail.module.scss';
+import './ProductDetail.scss';
 
-// import required modules
-import { Pagination, Navigation } from 'swiper';
-
-export function ProductDetail({ product }) {
+export function ProductDetail({ product, onGetOrder }) {
     const [srcImg, setSrcImg] = useState(product.images[0]);
     const [size, setSize] = useState('S');
     const [amount, setAmount] = useState(1);
+
+    const history = useHistory();
+    const { pathname } = useLocation();
 
     const options = [
         { label: 'S', value: 'S' },
@@ -35,6 +37,41 @@ export function ProductDetail({ product }) {
 
     const handleAmountChange = (value) => {
         setAmount(value);
+    };
+
+    const handleAddCart = () => {
+        // a. NOT LOGINED
+        if (!Boolean(localStorage.getItem('access_token'))) {
+            // Store current URL on localStorage
+            localStorage.setItem('path', pathname);
+
+            // Navigate to Login Page
+            history.push('/login');
+
+            // After logining successfully, navigate back to Product Page
+            // User has to press ADD TO CART again
+        }
+
+        // b. LOGINED
+        else {
+            const item = {
+                productId: product.productId,
+                amount: amount,
+                size: size,
+            };
+
+            // Get an order which isn't finished and has this currentProduct, of user from DB (Call API)
+            onGetOrder(item);
+
+            // 1. IF ALL ORDERS ARE FINISHED
+            // -   Create new order and add currentProduct in it (Call API)
+            // 2. IF THERE IS AN UNFINISHED ORDER AND THAT ORDER CONTAINS THIS CURRENT PRODUCT
+            // -   Update amount of currentProduct (Call API)
+            // -   Update badge on cart icon on Header
+            // 3. IF THERE IS AN UNFINISHED ORDER AND THAT ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
+            // -   Add this currentProduct to that order (Call API)
+            // -   Update badge on cart icon on Header
+        }
     };
 
     return (
@@ -105,7 +142,7 @@ export function ProductDetail({ product }) {
                         <div>PRODUCT DETAILS</div>
                         <p>{product.description}</p>
                     </div>
-                    <div className={`${styles.button} buyBtn`}>
+                    <div className={`${styles.button} buyBtn`} onClick={handleAddCart}>
                         <Button shape='round' size='large'>
                             Add To Cart
                         </Button>

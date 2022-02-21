@@ -1,6 +1,13 @@
 import axiosClient from './axiosClient';
 
 const orderApi = {
+    getAll(params) {
+        const url = '/orders';
+
+        return axiosClient.get(url, {
+            params,
+        });
+    },
     getById(id) {
         const url = `/orders?orderId=${id}`;
 
@@ -11,13 +18,13 @@ const orderApi = {
 
         return axiosClient.post(url, data);
     },
-    update({ id, ...data }) {
-        const url = `/orders?orderId=${id}`;
+    update(data) {
+        const url = `/orders/${data.id}`;
 
         return axiosClient.patch(url, data);
     },
     delete(id) {
-        const url = `/orders?orderId=${id}`;
+        const url = `/orders/${id}`;
 
         return axiosClient.delete(url);
     },

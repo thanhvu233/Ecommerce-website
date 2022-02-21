@@ -70,8 +70,11 @@ export function ProductList({
                 <div className={styles.row}>
                     <Row gutter={[18, 18]}>
                         {list.map((product) => (
-                            <Link to={`/products/detail/${product.productId}`}>
-                                <Col span={6} key={product.productId}>
+                            <Link
+                                to={`/products/detail/${product.productId}`}
+                                key={product.productId}
+                            >
+                                <Col span={6}>
                                     <Card
                                         hoverable
                                         style={{ width: 224 }}

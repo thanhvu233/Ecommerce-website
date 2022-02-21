@@ -1,7 +1,43 @@
+import { unwrapResult } from '@reduxjs/toolkit';
+import { Button } from 'antd';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 
 function LoginPage() {
-    return <div>LoginPage</div>;
+    const history = useHistory();
+
+    const orderFilter = useSelector(selectOrderFilter);
+    const dispatch = useDispatch();
+
+    const path = localStorage.getItem('path');
+
+    const handleClick = async () => {
+        const actionResult = await dispatch(
+            fetchOrderList({
+                ...orderFilter,
+                isCheckout: false,
+                userId: localStorage.getItem('access_token'),
+            })
+        );
+
+        let result = unwrapResult(actionResult);
+
+        // Lấy ra số lượng product chưa thanh toán trong cart
+        const quantity = result[0].products.length;
+
+        localStorage.setItem('quantity', quantity);
+        localStorage.setItem('access_token', 'bfb8ed25-84e0-4bad-b366-751f66276b7b');
+
+        history.push(`${path}`);
+    };
+
+    return (
+        <Button type='primary' onClick={handleClick}>
+            Login
+        </Button>
+    );
 }
 
 export default LoginPage;

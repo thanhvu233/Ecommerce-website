@@ -77,4 +77,28 @@ baseUrl/cart/:orderId
 
 -   Pagination
 
-4.2 Prodct Page
+4.2 Product Page
+If pressed ADD TO CART:
+a. NOT LOGINED:
+
+-   Navigate to Login Page
+-   After logining successfully, navigate back to Product Page
+-   User has to press ADD TO CART again
+
+b. LOGINED
+
+-   Get an order which isn't finished and has this currentProduct, of user from DB (Call API)
+
+*   IF ALL ORDERS ARE FINISHED
+
+-   Create new order and add currentProduct in it (Call API)
+
+*   IF THERE IS AN UNFINISHED ORDER AND THAT ORDER CONTAINS THIS CURRENT PRODUCT
+
+-   Update amount of currentProduct with appropriate SIZE (Call API)
+-   Update badge on cart icon on Header
+
+*   IF THERE IS AN UNFINISHED ORDER AND THAT ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
+
+-   Add this currentProduct to that order with appropriate SIZE (Call API)
+-   Update badge on cart icon on Header
