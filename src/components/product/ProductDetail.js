@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './ProductDetail.module.scss';
 import './ProductDetail.scss';
+import Magnifier from 'react-magnifier';
 
 export function ProductDetail({ product, onGetOrder }) {
     const [srcImg, setSrcImg] = useState(product.images[0]);
@@ -78,8 +79,14 @@ export function ProductDetail({ product, onGetOrder }) {
         <div className={styles.container}>
             <div className={styles.productDetail}>
                 <div className={styles.imgList}>
-                    <div className={styles.mainImg}>
-                        <img src={srcImg ? srcImg : product.images[0]} alt='mainImg' />
+                    <div className={`${styles.mainImg} mainImg`}>
+                        <Magnifier
+                            src={srcImg ? srcImg : product.images[0]}
+                            alt='mainImg'
+                            mgWidth={130}
+                            mgHeight={130}
+                            mgBorderWidth={0}
+                        />
                     </div>
 
                     <div className={`${styles.otherImg} otherImg`}>

@@ -1,5 +1,13 @@
 @import '../../variables/variables.module';
 
+.mainImg {
+    & .magnifier-image {
+        object-fit: cover;
+        width: 520px;
+        height: 500px;
+    }
+}
+
 .otherImg {
     & .swiper-button-next,
     .swiper-button-prev {

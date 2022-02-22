@@ -21,6 +21,7 @@
 -   CSS Module + SASS
 -   Ant Design
 -   Swiper
+-   React-magnifier
 
 3. Routing
 
