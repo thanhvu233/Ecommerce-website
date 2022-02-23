@@ -90,6 +90,7 @@ function ProductPage() {
                         amount: item.amount,
                         size: `${item.size}`,
                         subtotal: item.subtotal,
+                        image: item.image,
                     },
                 ],
             };
@@ -136,7 +137,8 @@ function ProductPage() {
                     name: objWanted.name,
                     amount: newAmount,
                     size: objWanted.size,
-                    subTotal: newSubtotal
+                    subTotal: newSubtotal,
+                    image: objWanted.image,
                 });
 
                 updateOrder({

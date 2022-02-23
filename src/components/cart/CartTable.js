@@ -58,32 +58,42 @@ const columns = [
     },
 ];
 
-const data = [
-    {
-        key: '1',
-        product: "Men's Cafe Polo Shirt Coordinating Color",
-        size: 'S',
-        quantity: 2,
-        subtotal: '$32.00',
-    },
-    {
-        key: '2',
-        product: "Men's Cafe Polo Shirt Coordinating Color",
-        size: 'S',
-        quantity: 2,
-        subtotal: '$32.00',
-    },
-    {
-        key: '3',
-        product: "Men's Cafe Polo Shirt Coordinating Color",
-        size: 'S',
-        quantity: 2,
-        subtotal: '$32.00',
-    },
-];
+// const data = [
+//     {
+//         key: '1',
+//         product: "Men's Cafe Polo Shirt Coordinating Color",
+//         size: 'S',
+//         quantity: 2,
+//         subtotal: '$32.00',
+//     },
+//     {
+//         key: '2',
+//         product: "Men's Cafe Polo Shirt Coordinating Color",
+//         size: 'S',
+//         quantity: 2,
+//         subtotal: '$32.00',
+//     },
+//     {
+//         key: '3',
+//         product: "Men's Cafe Polo Shirt Coordinating Color",
+//         size: 'S',
+//         quantity: 2,
+//         subtotal: '$32.00',
+//     },
+// ];
 
-export function CartTable() {
+export function CartTable({ list }) {
+    const data = list.map((product, idx) => {
+        return {
+            key: idx + 1,
+            product: product.name,
+            size: product.size,
+            quantity: product.amount,
+            subtotal: product.subtotal,
+        };
+    });
 
+    console.log('data', data);
 
     return (
         <div className={styles.container}>

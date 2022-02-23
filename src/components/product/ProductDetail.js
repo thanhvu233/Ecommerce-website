@@ -61,6 +61,7 @@ export function ProductDetail({ product, onGetOrder }) {
                 amount: amount,
                 size: size,
                 subtotal: product.price * amount,
+                image: product.images[0],
             };
 
             // Get an order which isn't finished and has this currentProduct, of user from DB (Call API)

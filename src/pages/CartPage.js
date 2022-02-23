@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import userApi from '../API/userApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
 import { Footer, Header } from '../components/common';
-import { fetchOrderList, selectOrderFilter, selectOrderList } from '../redux/slices/orderSlice';
+import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import styles from './ProductListPage.module.scss';
 
 function CartPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
     const [user, setUser] = useState({});
+    const [orderList, setOrderList] = useState([]);
 
     const orderFilter = useSelector(selectOrderFilter);
-    const orderList = useSelector(selectOrderList);
     const dispatch = useDispatch();
 
     const fetchUserById = async (id) => {
@@ -25,14 +25,18 @@ function CartPage() {
         }
     };
 
-    useEffect(() => {
-        dispatch(
+    useEffect(async () => {
+        const actionResult = await dispatch(
             fetchOrderList({
                 ...orderFilter,
                 isCheckout: false,
                 userId: localStorage.getItem('access_token'),
             })
-        )
+        );
+
+        const result = unwrapResult(actionResult);
+
+        setOrderList(result.data[0].products);
 
         if (localStorage.getItem('quantity')) {
             setOrderQuantity(localStorage.getItem('quantity'));
@@ -46,12 +50,11 @@ function CartPage() {
         window.scrollTo(0, 0);
     }, [dispatch]);
 
-    // console.log('orderList', orderList);
 
     return (
         <div className={styles.wrapper}>
             <Header quantity={orderQuantity} />
-            <CartTable  />
+            <CartTable list={orderList} />
             <UserInfo user={user} />
             <PaymentMethod />
             <PurchaseButton />
