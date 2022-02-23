@@ -1,99 +1,24 @@
-import { Table, Tag, Space, InputNumber } from 'antd';
 import React from 'react';
 import styles from './CartTable.module.scss';
-import './CartTable.scss';
+import { InputNumber } from 'antd';
 
-const columns = [
-    {
-        title: 'Remove',
-        key: 'remove',
-        render: () => (
-            <div className={styles.removeBtn}>
-                <i class='las la-times'></i>
-            </div>
-        ),
-    },
-    {
-        title: 'Product',
-        dataIndex: 'product',
-        key: 'product',
-        render: (product) => (
-            <div className={styles.product}>
-                <img
-                    src='https://bizweb.dktcdn.net/thumb/1024x1024/100/438/408/products/apm5355-trd-6.jpg?v=1641174453047'
-                    alt=''
-                    className={styles.img}
-                />
-                <div className={styles.name}>{product}</div>
-            </div>
-        ),
-    },
-    {
-        title: 'Size',
-        dataIndex: 'size',
-        key: 'size',
-        render: (size) => <div className={styles.size}>{size}</div>,
-    },
-    {
-        title: 'Quantity',
-        dataIndex: 'quantity',
-        key: 'quantity',
-        render: (quantity) => (
-            <div className={`${styles.amountInput} amountInput`}>
-                <InputNumber
-                    min={1}
-                    max={100}
-                    controls={false}
-                    defaultValue={quantity}
-                    // onChange={handleAmountChange}
-                />
-            </div>
-        ),
-    },
-    {
-        title: 'Subtotal',
-        key: 'subtotal',
-        dataIndex: 'subtotal',
-        render: (subtotal) => <div className={styles.subtotal}>{subtotal}</div>,
-    },
-];
+export function CartTable({ list, onRemove }) {
+    let subTotal = 0;
+    const transferFee = 2;
+    let total = 0;
 
-// const data = [
-//     {
-//         key: '1',
-//         product: "Men's Cafe Polo Shirt Coordinating Color",
-//         size: 'S',
-//         quantity: 2,
-//         subtotal: '$32.00',
-//     },
-//     {
-//         key: '2',
-//         product: "Men's Cafe Polo Shirt Coordinating Color",
-//         size: 'S',
-//         quantity: 2,
-//         subtotal: '$32.00',
-//     },
-//     {
-//         key: '3',
-//         product: "Men's Cafe Polo Shirt Coordinating Color",
-//         size: 'S',
-//         quantity: 2,
-//         subtotal: '$32.00',
-//     },
-// ];
+    if (list.length != 0) {
+        subTotal = list.reduce((sum, item) => {
+            return sum + item.subTotal;
+        }, 0);
 
-export function CartTable({ list }) {
-    const data = list.map((product, idx) => {
-        return {
-            key: idx + 1,
-            product: product.name,
-            size: product.size,
-            quantity: product.amount,
-            subtotal: product.subtotal,
-        };
-    });
+        total = subTotal + transferFee;
+    }
 
-    console.log('data', data);
+    const handleRemove = (e) => {
+        onRemove(e);
+
+    };
 
     return (
         <div className={styles.container}>
@@ -101,7 +26,46 @@ export function CartTable({ list }) {
                 <div className={styles.header}>Cart</div>
 
                 <div className={`${styles.detail} detail`}>
-                    <Table columns={columns} dataSource={data} size='middle' pagination={false} />
+                    <table className={styles.table}>
+                        <thead>
+                            <tr className={styles.tableHeader}>
+                                <th>Remove</th>
+                                <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {list.map((item, idx) => (
+                                <tr key={idx}>
+                                    <td className={styles.removeBtn}>
+                                        <i
+                                            className={`las la-times`}
+                                            onClick={handleRemove}
+                                            aria-current={item.productId}
+                                            aria-setsize={item.size}
+                                        ></i>
+                                    </td>
+                                    <td className={styles.product}>
+                                        <img src={item.image} alt='' className={styles.img} />
+                                        <div className={styles.name}>{item.name}</div>
+                                    </td>
+                                    <td className={styles.size}>{item.size}</td>
+                                    <td className={`${styles.amountInput} amountInput`}>
+                                        <InputNumber
+                                            min={1}
+                                            max={100}
+                                            controls={false}
+                                            defaultValue={item.amount}
+                                            // onChange={handleAmountChange}
+                                        />
+                                    </td>
+                                    <td className={styles.subtotal}>${item.subTotal}.00</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div className={styles.checkout}>
@@ -111,9 +75,9 @@ export function CartTable({ list }) {
                         <div>Total:</div>
                     </div>
                     <div className={styles.payment}>
-                        <div>$200.00</div>
-                        <div>$35.00</div>
-                        <div>$235.00</div>
+                        <div>${subTotal}.00</div>
+                        <div>${transferFee}.00</div>
+                        <div>${total}.00</div>
                     </div>
                 </div>
             </div>

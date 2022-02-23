@@ -21,12 +21,23 @@ export function ProductDetail({ product, onGetOrder }) {
     const history = useHistory();
     const { pathname } = useLocation();
 
-    const options = [
-        { label: 'S', value: 'S' },
-        { label: 'M', value: 'M' },
-        { label: 'L', value: 'L' },
-        { label: 'XL', value: 'XL' },
-    ];
+    let options =
+        product.type == 'shoes'
+            ? [
+                  { label: '39', value: '39' },
+                  { label: '40', value: '40' },
+                  { label: '41', value: '41' },
+                  { label: '42', value: '42' },
+                  { label: '43', value: '43' },
+                  { label: '44', value: '44' },
+                  { label: '45', value: '45' },
+              ]
+            : [
+                  { label: 'S', value: 'S' },
+                  { label: 'M', value: 'M' },
+                  { label: 'L', value: 'L' },
+                  { label: 'XL', value: 'XL' },
+              ];
 
     const handleSelectImg = (e) => {
         setSrcImg(e.target.currentSrc);
@@ -60,7 +71,7 @@ export function ProductDetail({ product, onGetOrder }) {
                 name: product.productName,
                 amount: amount,
                 size: size,
-                subtotal: product.price * amount,
+                subTotal: product.price * amount,
                 image: product.images[0],
             };
 

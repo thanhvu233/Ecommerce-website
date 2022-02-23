@@ -89,7 +89,7 @@ function ProductPage() {
                         name: `${item.name}`,
                         amount: item.amount,
                         size: `${item.size}`,
-                        subtotal: item.subtotal,
+                        subTotal: item.subTotal,
                         image: item.image,
                     },
                 ],
@@ -121,7 +121,7 @@ function ProductPage() {
                 const newAmount = objWanted.amount + item.amount;
 
                 // Tính subtotal mới
-                const newSubtotal = objWanted.subtotal + item.subtotal;
+                const newSubTotal = objWanted.subTotal + item.subTotal;
 
                 // Tạo mảng products mới để update property products
                 let newProductList = productArr.filter((obj) => {
@@ -137,7 +137,7 @@ function ProductPage() {
                     name: objWanted.name,
                     amount: newAmount,
                     size: objWanted.size,
-                    subTotal: newSubtotal,
+                    subTotal: newSubTotal,
                     image: objWanted.image,
                 });
 
