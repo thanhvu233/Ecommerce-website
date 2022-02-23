@@ -82,7 +82,9 @@ const data = [
     },
 ];
 
-export function CartTable() {
+export function CartTable({ orderList }) {
+    // console.log('orderList', orderList);
+
     return (
         <div className={styles.container}>
             <div className={styles.cartTable}>
@@ -103,7 +105,6 @@ export function CartTable() {
                         <div>$35.00</div>
                         <div>$235.00</div>
                     </div>
-                    
                 </div>
             </div>
         </div>

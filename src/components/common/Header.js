@@ -1,3 +1,4 @@
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,6 +7,8 @@ import logo from '../../assets/images/logo-white.png';
 import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 import './Header.scss';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export function Header({ quantity }) {
     const [isLogin, setIsLogin] = useState(false);
@@ -31,6 +34,23 @@ export function Header({ quantity }) {
         localStorage.setItem('path', pathname);
 
         history.push('/login');
+    };
+
+    const handleClickCart = () => {
+        // Kiểm tra xem có order chưa thanh toán không
+        // CÓ: navigate to CartPage
+        // KHÔNG: hiện thông báo không có order
+        if (quantity != 0) {
+            history.push('/cart');
+        } else {
+            // Hiện thông báo update thành công
+            Swal.fire({
+                icon: 'error',
+                title: 'There aren&apos;t any items in cart',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
     };
 
     useEffect(() => {
@@ -100,10 +120,8 @@ export function Header({ quantity }) {
                         </div>
                     </div>
                     <Badge count={quantity} size='small' offset={[-1, 4]}>
-                        <div>
-                            <Link to='/cart'>
-                                <i className={`${styles.icon} las la-shopping-cart`} />
-                            </Link>
+                        <div onClick={handleClickCart} className={styles.cartIcon}>
+                            <i className={`${styles.icon} las la-shopping-cart`} />
                         </div>
                     </Badge>
                 </div>

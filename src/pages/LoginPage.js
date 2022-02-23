@@ -22,7 +22,7 @@ function LoginPage() {
             })
         );
 
-        let result = unwrapResult(actionResult);
+        let {data: result} = unwrapResult(actionResult);
         let quantity = 0;
 
 

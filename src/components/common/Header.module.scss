@@ -130,6 +130,16 @@
         display: block;
     }
 
+    & .cartIcon {
+        font-size: 28px;
+        color: $text-color;
+        height: 100%;
+
+        font-weight: 400;
+
+        cursor: pointer;
+    }
+
     & .dropdown {
         transform: translateX(-25%);
         display: none;
