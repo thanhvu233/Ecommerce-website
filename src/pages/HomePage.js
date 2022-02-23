@@ -20,7 +20,7 @@ function HomePage() {
 
     const fetchProductById = async (productId) => {
         try {
-            const data = await productApi.getById(productId);
+            const { data } = await productApi.getById(productId);
 
             setItem(data[0]);
         } catch (error) {
@@ -30,7 +30,7 @@ function HomePage() {
 
     const fetchComment = async () => {
         try {
-            const data = await commentApi.getAll();
+            const { data } = await commentApi.getAll();
 
             setComments(data);
         } catch (error) {

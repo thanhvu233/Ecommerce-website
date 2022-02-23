@@ -8,6 +8,7 @@ import {
     fetchProductList,
     selectProductFilter,
     selectProductList,
+    selectProductTotalRow,
     setFilter,
 } from '../redux/slices/productSlice';
 import styles from './ProductListPage.module.scss';
@@ -21,6 +22,7 @@ function ProductListPage() {
     const dispatch = useDispatch();
     const filter = useSelector(selectProductFilter);
     const list = useSelector(selectProductList);
+    const totalRow = useSelector(selectProductTotalRow);
 
     let [type, category] = getParams(pathname);
 
@@ -102,6 +104,7 @@ function ProductListPage() {
         window.scrollTo(0, 0);
     }, [category, type]);
 
+
     return (
         <div className={styles.wrapper}>
             {/* Header */}
@@ -128,6 +131,7 @@ function ProductListPage() {
                     category={category}
                     onPageChange={handlePageChange}
                     currentPage={filter._page}
+                    totalRow={totalRow}
                 />
             </div>
 

@@ -26,7 +26,7 @@ function ProductPage() {
 
     const fetchProductById = async (productId) => {
         try {
-            const data = await productApi.getById(productId);
+            const { data } = await productApi.getById(productId);
 
             setProduct(data[0]);
         } catch (error) {
@@ -75,7 +75,7 @@ function ProductPage() {
             })
         );
 
-        let result = unwrapResult(actionResult);
+        let { data: result } = unwrapResult(actionResult);
 
         // ALL ORDERS ARE FINISHED
         if (result.length == 0) {

@@ -18,6 +18,7 @@ const initialState = {
         _page: 1,
         _limit: 8,
     },
+    totalRow: 0,
 };
 
 const productSlice = createSlice({
@@ -29,14 +30,15 @@ const productSlice = createSlice({
         },
     },
     extraReducers: {
-        [fetchProductList.pending]: (state, action) => {
+        [fetchProductList.pending]: (state) => {
             state.loading = true;
         },
         [fetchProductList.fulfilled]: (state, action) => {
             state.loading = false;
-            state.list = action.payload;
+            state.list = action.payload.data;
+            state.totalRow = action.payload.totalRow;
         },
-        [fetchProductList.rejected]: (state, action) => {
+        [fetchProductList.rejected]: (state) => {
             state.loading = false;
         },
     },
@@ -47,5 +49,6 @@ export const { setFilter } = productSlice.actions;
 export const selectProductList = (state) => state.product.list;
 export const selectProductLoading = (state) => state.product.loading;
 export const selectProductFilter = (state) => state.product.filter;
+export const selectProductTotalRow = (state) => state.product.totalRow;
 
 export default productSlice.reducer;

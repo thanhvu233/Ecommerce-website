@@ -3,9 +3,9 @@ import orderApi from './../../API/orderApi';
 
 export const fetchOrderList = createAsyncThunk('order/getAllOrders', async (filter) => {
     try {
-        const data = await orderApi.getAll(filter);
+        const res = await orderApi.getAll(filter);
 
-        return data;
+        return res;
     } catch (error) {
         console.log('Cant get orders');
     }
@@ -18,6 +18,7 @@ const initialState = {
         _page: 1,
         _limit: 5,
     },
+    totalRow: 0,
 };
 
 const orderSlice = createSlice({
@@ -34,7 +35,8 @@ const orderSlice = createSlice({
         },
 
         [fetchOrderList.fulfilled]: (state, action) => {
-            state.list = action.payload;
+            state.list = action.payload.data;
+            state.totalRow = action.payload.totalRow;
             state.isProgressed = false;
         },
 
@@ -49,5 +51,6 @@ export const { setFilter } = orderSlice.actions;
 export const selectOrderProgressed = (state) => state.order.isProgressed;
 export const selectOrderList = (state) => state.order.list;
 export const selectOrderFilter = (state) => state.order.filter;
+export const selectOrderTotalRow = (state) => state.order.totalRow;
 
 export default orderSlice.reducer;

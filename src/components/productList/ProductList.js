@@ -13,6 +13,7 @@ export function ProductList({
     category,
     onPageChange,
     currentPage,
+    totalRow,
 }) {
     const [selectValue, setSelectValue] = useState('');
 
@@ -100,7 +101,7 @@ export function ProductList({
                 </div>
             </div>
             <div className={styles.pagination}>
-                <Pagination current={currentPage} total={totalItem} onChange={handlePageChange} />
+                <Pagination current={currentPage} total={totalRow} onChange={handlePageChange} />
             </div>
         </div>
     );
