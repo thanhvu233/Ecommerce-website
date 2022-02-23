@@ -32,7 +32,10 @@ function CartPage() {
     const removeItem = async (productId, size, orderId) => {
         try {
             const newOrderList = orderList.filter((item) => {
-                return item.productId != productId || item.size != size;
+                return (
+                    item.productId != productId ||
+                    (item.size != size && item.productId == productId)
+                );
             });
 
             await orderApi.update({
@@ -66,16 +69,40 @@ function CartPage() {
         });
     };
 
-    const handleAmountChange = async (productId, size, amount) => {
+    const handleAmountChange = async (product, value) => {
         try {
-            let objTarget = orderList.find((item) => {
-                return item.productId == productId && item.size == size;
+            // Tìm product có id được chọn
+            const objTarget = orderList.find((item) => {
+                return item.productId == product.productId && item.size == product.size;
             });
 
-            // objTarget.prototype.amount = amount;
+            // Update amount và subTotal
+            const newObj = {
+                ...objTarget,
+                amount: value,
+                subTotal: (product.subTotal / product.amount) * value,
+            };
 
-            console.log('objTarget', objTarget);
-        } catch (error) {}
+            // Lấy ra các product khác
+            const newOrderList = orderList.filter((item) => {
+                return (
+                    item.productId != product.productId ||
+                    (item.productId == product.productId && item.size != product.size)
+                );
+            });
+
+            // Thêm product mới sửa vào mảng products mới
+            newOrderList.push(newObj);
+
+            await orderApi.update({
+                id: orderId,
+                products: newOrderList,
+            });
+
+            setOrderList(newOrderList);
+        } catch (error) {
+            console.log('Can@apos;t update quantity for item', error);
+        }
     };
 
     useEffect(async () => {

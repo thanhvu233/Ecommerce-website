@@ -19,9 +19,8 @@ export function CartTable({ list, onRemove, onAmountChange }) {
         onRemove(item);
     };
 
-    const handleAmountChange = (item) => {
-
-        onAmountChange(item);
+    const handleAmountChange = (product, e) => {
+        onAmountChange(product, e.target.value);
     };
 
     return (
@@ -47,7 +46,6 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                                         <i
                                             className={`las la-times`}
                                             onClick={() => handleRemove(item)}
-                                            
                                         ></i>
                                     </td>
                                     <td className={styles.product}>
@@ -61,7 +59,8 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                                             max={100}
                                             controls={false}
                                             value={item.amount}
-                                            onChange={() => handleAmountChange(item)}
+                                            onPressEnter={(e) => handleAmountChange(item, e)}
+                                            keyboard={false}
                                         />
                                     </td>
                                     <td className={styles.subtotal}>${item.subTotal}.00</td>
