@@ -82,8 +82,8 @@ const data = [
     },
 ];
 
-export function CartTable({ orderList }) {
-    // console.log('orderList', orderList);
+export function CartTable() {
+
 
     return (
         <div className={styles.container}>

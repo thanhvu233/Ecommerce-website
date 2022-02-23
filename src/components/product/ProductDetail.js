@@ -57,8 +57,10 @@ export function ProductDetail({ product, onGetOrder }) {
         else {
             const item = {
                 productId: product.productId,
+                name: product.productName,
                 amount: amount,
                 size: size,
+                subtotal: product.price * amount,
             };
 
             // Get an order which isn't finished and has this currentProduct, of user from DB (Call API)

@@ -52,5 +52,17 @@ export const selectOrderProgressed = (state) => state.order.isProgressed;
 export const selectOrderList = (state) => state.order.list;
 export const selectOrderFilter = (state) => state.order.filter;
 export const selectOrderTotalRow = (state) => state.order.totalRow;
+export const selectOrderCart = createSelector(selectOrderList, async (list) => {
+    let productList = list[0].products;
+
+    productList = productList.map((product, idx) => {
+        return {
+            key: idx + 1,
+            id: product.productId,
+            size: product.size,
+            quantity: product.amount,
+        };
+    });
+});
 
 export default orderSlice.reducer;

@@ -32,7 +32,7 @@ function CartPage() {
                 isCheckout: false,
                 userId: localStorage.getItem('access_token'),
             })
-        );
+        )
 
         if (localStorage.getItem('quantity')) {
             setOrderQuantity(localStorage.getItem('quantity'));
@@ -46,12 +46,12 @@ function CartPage() {
         window.scrollTo(0, 0);
     }, [dispatch]);
 
-    console.log('orderList', orderList);
+    // console.log('orderList', orderList);
 
     return (
         <div className={styles.wrapper}>
             <Header quantity={orderQuantity} />
-            <CartTable orderList={orderList} />
+            <CartTable  />
             <UserInfo user={user} />
             <PaymentMethod />
             <PurchaseButton />
