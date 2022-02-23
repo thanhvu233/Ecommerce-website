@@ -1,8 +1,8 @@
+import { InputNumber } from 'antd';
 import React from 'react';
 import styles from './CartTable.module.scss';
-import { InputNumber } from 'antd';
 
-export function CartTable({ list, onRemove }) {
+export function CartTable({ list, onRemove, onAmountChange }) {
     let subTotal = 0;
     const transferFee = 2;
     let total = 0;
@@ -15,9 +15,13 @@ export function CartTable({ list, onRemove }) {
         total = subTotal + transferFee;
     }
 
-    const handleRemove = (e) => {
-        onRemove(e);
+    const handleRemove = (item) => {
+        onRemove(item);
+    };
 
+    const handleAmountChange = (item) => {
+
+        onAmountChange(item);
     };
 
     return (
@@ -42,9 +46,8 @@ export function CartTable({ list, onRemove }) {
                                     <td className={styles.removeBtn}>
                                         <i
                                             className={`las la-times`}
-                                            onClick={handleRemove}
-                                            aria-current={item.productId}
-                                            aria-setsize={item.size}
+                                            onClick={() => handleRemove(item)}
+                                            
                                         ></i>
                                     </td>
                                     <td className={styles.product}>
@@ -57,8 +60,8 @@ export function CartTable({ list, onRemove }) {
                                             min={1}
                                             max={100}
                                             controls={false}
-                                            defaultValue={item.amount}
-                                            // onChange={handleAmountChange}
+                                            value={item.amount}
+                                            onChange={() => handleAmountChange(item)}
                                         />
                                     </td>
                                     <td className={styles.subtotal}>${item.subTotal}.00</td>

@@ -48,7 +48,7 @@ function CartPage() {
         }
     };
 
-    const handleRemove = (e) => {
+    const handleRemove = (item) => {
         Swal.fire({
             icon: 'info',
             title: 'Do you really want to remove this item?',
@@ -58,12 +58,24 @@ function CartPage() {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Goi API update data
-                const productId = e.target.ariaCurrent;
-                const productSize = e.target.ariaSetSize;
+                // const productId = e.target.ariaCurrent;
+                // const productSize = e.target.ariaSetSize;
 
-                removeItem(productId, productSize, orderId);
+                removeItem(item.productId, item.size, orderId);
             }
         });
+    };
+
+    const handleAmountChange = async (productId, size, amount) => {
+        try {
+            let objTarget = orderList.find((item) => {
+                return item.productId == productId && item.size == size;
+            });
+
+            // objTarget.prototype.amount = amount;
+
+            console.log('objTarget', objTarget);
+        } catch (error) {}
     };
 
     useEffect(async () => {
@@ -95,7 +107,11 @@ function CartPage() {
     return (
         <div className={styles.wrapper}>
             <Header quantity={orderQuantity} />
-            <CartTable list={orderList} onRemove={handleRemove} />
+            <CartTable
+                list={orderList}
+                onRemove={handleRemove}
+                onAmountChange={handleAmountChange}
+            />
             <UserInfo user={user} />
             <PaymentMethod />
             <PurchaseButton />
