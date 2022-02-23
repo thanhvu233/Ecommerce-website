@@ -6,18 +6,13 @@ import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
-import {
-    fetchProductList,
-    selectProductFilter,
-    selectProductList,
-} from '../redux/slices/productSlice';
+import { fetchProductList, selectProductList } from '../redux/slices/productSlice';
 import commentApi from './../API/commentApi';
 import productApi from './../API/productApi';
 
 function HomePage() {
     const dispatch = useDispatch();
     const productList = useSelector(selectProductList);
-    const filter = useSelector(selectProductFilter);
 
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);

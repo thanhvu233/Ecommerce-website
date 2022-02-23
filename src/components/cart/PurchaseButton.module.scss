@@ -1,0 +1,10 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.purchaseBtn {
+    margin-top: 48px;
+    margin-bottom: -48px;
+
+    display: flex;
+    justify-content: flex-end;
+}

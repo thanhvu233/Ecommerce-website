@@ -1,10 +1,9 @@
 import { Button, Radio, Rate, Space } from 'antd';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectProductFilter } from '../../redux/slices/productSlice';
+import React, { useState, useEffect } from 'react';
 import styles from './Sidebar.module.scss';
+import './Sidebar.scss';
 
-export function Sidebar({ onChangePrice, onChangeRating, onClear }) {
+export function Sidebar({ onChangePrice, onChangeRating, onClear, type, category }) {
     const [price, setPrice] = useState('');
     const [rating, setRating] = useState(0);
 
@@ -32,8 +31,14 @@ export function Sidebar({ onChangePrice, onChangeRating, onClear }) {
         setIsFilter(false);
     };
 
+    // Đường dẫn thay đổi thì set lại filter price và rating
+    useEffect(() => {
+        setPrice('');
+        setRating('');
+    }, [type, category]);
+
     return (
-        <div className={styles.sidebar}>
+        <div className={`${styles.sidebar} sidebar`}>
             <div className={styles.price}>
                 <div>
                     <h3>Price</h3>

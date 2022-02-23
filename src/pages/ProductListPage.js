@@ -80,7 +80,17 @@ function ProductListPage() {
 
     // Dang trang 2 mà thay doi duong dan thì reset ve trang 1
     useEffect(() => {
-        dispatch(setFilter({ ...filter, _page: 1, category: category || undefined, type: type }));
+        dispatch(
+            setFilter({
+                ...filter,
+                _page: 1,
+                category: category || undefined,
+                type: type,
+                price_gte: undefined,
+                price_lte: undefined,
+                rating: undefined,
+            })
+        );
 
         if (localStorage.getItem('quantity')) {
             setOrderQuantity(localStorage.getItem('quantity'));
@@ -106,6 +116,8 @@ function ProductListPage() {
                     onChangePrice={handleChangePrice}
                     onChangeRating={handleChangeRating}
                     onClear={handleClear}
+                    type={type}
+                    category={category}
                 />
 
                 {/* ProductList */}

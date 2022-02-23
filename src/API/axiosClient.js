@@ -10,6 +10,7 @@ const axiosClient = axios.create({
 // Add a response interceptor
 axiosClient.interceptors.response.use(
     function (response) {
+        // console.log('x-total-count', response.headers['x-total-count']);
         return response.data;
     },
     function (error) {

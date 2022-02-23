@@ -1,0 +1,23 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.purchaseBtn {
+    & button {
+        background-color: $third-color !important;
+        color: #fff !important;
+        border: none !important;
+    }
+
+    & button:hover {
+        opacity: 0.9;
+        background-color: $third-color;
+        color: #fff;
+        border: none;
+    }
+
+    & button:active {
+        background-color: $third-color;
+        color: #fff;
+        border: none;
+    }
+}
