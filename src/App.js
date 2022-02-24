@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductPage from './pages/ProductPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
     return (
@@ -26,9 +27,11 @@ function App() {
                 <Route path='/products/:type'>
                     <ProductListPage />
                 </Route>
-                
                 <Route path='/login'>
                     <LoginPage />
+                </Route>
+                <Route path='/register'>
+                    <RegisterPage />
                 </Route>
                 <PrivateRoute path='/cart'>
                     <CartPage />

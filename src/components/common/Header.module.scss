@@ -162,16 +162,31 @@
             background-color: rgba(0, 0, 0, 0.04);
             transition: all 0.3s ease-in-out;
         }
+        & button.loginBtn {
+            min-height: 49px;
+            color: #000;
+            font-size: 1rem;
+            text-align: center;
+            background-color: #fff;
+            border: none;
+        }
 
-        & button {
+        & button:not(.logoutBtn):hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease-in-out;
+            color: #157aea;
+        }
+
+        & button.logoutBtn {
             min-height: 49px;
             color: red;
             font-size: 1rem;
             text-align: center;
-        }
-        & button:hover {
-            background-color: rgba(0, 0, 0, 0.04);
-            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.04);
+                transition: all 0.3s ease-in-out;
+            }
         }
     }
 }

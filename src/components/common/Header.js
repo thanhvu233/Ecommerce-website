@@ -113,7 +113,12 @@ export function Header({ quantity }) {
                         </Link>
                         <div className={styles.dropdown}>
                             <Link to={`/user/update/:${userId}`}>Edit Account</Link>
-                            <Button type='text' block onClick={handleLogout}>
+                            <Button
+                                type='text'
+                                block
+                                onClick={handleLogout}
+                                className={styles.logoutBtn}
+                            >
                                 Logout
                             </Button>
                         </div>
@@ -125,10 +130,29 @@ export function Header({ quantity }) {
                     </Badge>
                 </div>
             ) : (
-                <div>
-                    <Button type='primary' className={styles.loginBtn} onClick={handleLogin}>
-                        <Link to='/login'>Login</Link>
-                    </Button>
+                <div className={`${styles.leftIcon} leftIcon`}>
+                    <div>
+                        <Link to='/login'>
+                            <i className={`${styles.icon} las la-user`} />
+                        </Link>
+                        <div className={styles.dropdown}>
+                            <Link to={`/register`}>Register</Link>
+                            <Button
+                                type='text'
+                                block
+                                onClick={handleLogin}
+                                className={styles.loginBtn}
+                            >
+                                Login
+                            </Button>
+                        </div>
+                    </div>
+
+                    <Badge count={quantity} size='small' offset={[-1, 4]}>
+                        <div onClick={handleClickCart} className={styles.cartIcon}>
+                            <i className={`${styles.icon} las la-shopping-cart`} />
+                        </div>
+                    </Badge>
                 </div>
             )}
         </div>
