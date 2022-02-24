@@ -1,5 +1,5 @@
 import { Button, InputNumber, Radio } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 // import required modules
 import { Navigation, Pagination } from 'swiper';
@@ -14,30 +14,19 @@ import './ProductDetail.scss';
 import Magnifier from 'react-magnifier';
 
 export function ProductDetail({ product, onGetOrder }) {
+    let options = [];
+    if (product) {
+        options = product.sizes.map((size) => {
+            return { label: `${size}`, value: `${size}` };
+        });
+    }
+
     const [srcImg, setSrcImg] = useState(product.images[0]);
-    const [size, setSize] = useState('S');
+    const [size, setSize] = useState();
     const [amount, setAmount] = useState(1);
 
     const history = useHistory();
     const { pathname } = useLocation();
-
-    let options =
-        product.type == 'shoes'
-            ? [
-                  { label: '39', value: '39' },
-                  { label: '40', value: '40' },
-                  { label: '41', value: '41' },
-                  { label: '42', value: '42' },
-                  { label: '43', value: '43' },
-                  { label: '44', value: '44' },
-                  { label: '45', value: '45' },
-              ]
-            : [
-                  { label: 'S', value: 'S' },
-                  { label: 'M', value: 'M' },
-                  { label: 'L', value: 'L' },
-                  { label: 'XL', value: 'XL' },
-              ];
 
     const handleSelectImg = (e) => {
         setSrcImg(e.target.currentSrc);
@@ -88,6 +77,14 @@ export function ProductDetail({ product, onGetOrder }) {
             // -   Update badge on cart icon on Header
         }
     };
+
+    useEffect(() => {
+        if (product.type == 'shoes') {
+            setSize('39');
+        } else {
+            setSize('S');
+        }
+    });
 
     return (
         <div className={styles.container}>

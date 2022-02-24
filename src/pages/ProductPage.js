@@ -171,8 +171,8 @@ function ProductPage() {
         }
     };
 
-    useEffect(() => {
-        fetchProductById(id);
+    useEffect(async () => {
+        await fetchProductById(id);
 
         dispatch(
             fetchProductList({
@@ -201,7 +201,7 @@ function ProductPage() {
         price: 0,
         description: '',
         images: [],
-        sizes: '',
+        sizes: [],
         rating: 0,
         category: '',
         type: '',

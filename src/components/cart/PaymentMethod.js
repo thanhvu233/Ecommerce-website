@@ -4,10 +4,10 @@ import styles from './PaymentMethod.module.scss';
 import './PaymentMethod.scss';
 
 export function PaymentMethod() {
-    const [price, setPrice] = useState('');
+    const [method, setMethod] = useState('cod');
 
-    const handleChangePrice = (e) => {
-        setPrice(e.target.value);
+    const handleChangeMethod = (e) => {
+        setMethod(e.target.value);
     };
 
     return (
@@ -15,8 +15,8 @@ export function PaymentMethod() {
             <div className={styles.paymentMethod}>
                 <div className={styles.header}>Payment Method:</div>
                 <Radio.Group
-                    onChange={handleChangePrice}
-                    value={price}
+                    onChange={handleChangeMethod}
+                    value={method}
                     className={`${styles.paymentOtps} paymentOtps`}
                 >
                     <Space direction='vertical'>

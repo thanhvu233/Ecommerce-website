@@ -1,14 +1,14 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import orderApi from '../API/orderApi';
 import userApi from '../API/userApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
 import { Footer, Header } from '../components/common';
 import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import styles from './ProductListPage.module.scss';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import orderApi from '../API/orderApi';
 
 function CartPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
@@ -18,6 +18,8 @@ function CartPage() {
 
     const orderFilter = useSelector(selectOrderFilter);
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const fetchUserById = async (id) => {
         try {
@@ -43,6 +45,8 @@ function CartPage() {
                 products: newOrderList,
             });
 
+            localStorage.setItem('quantity', newOrderList.length);
+
             // Re-render component
             setOrderList(newOrderList);
             setOrderQuantity(newOrderList.length);
@@ -61,9 +65,6 @@ function CartPage() {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Goi API update data
-                // const productId = e.target.ariaCurrent;
-                // const productSize = e.target.ariaSetSize;
-
                 removeItem(item.productId, item.size, orderId);
             }
         });
@@ -105,6 +106,28 @@ function CartPage() {
         }
     };
 
+    const handlePurchase = async () => {
+        // set quantity in localStore = 0
+        localStorage.setItem('quantity', 0);
+
+        // Set isCheckout = true
+        await orderApi.update({
+            id: orderId,
+            isCheckout: true,
+        });
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Purchase Successfully',
+            showConfirmButton: false,
+            timer: 2000,
+        });
+
+        setTimeout(() => {
+            history.push('/');
+        }, 2000);
+    };
+
     useEffect(async () => {
         const actionResult = await dispatch(
             fetchOrderList({
@@ -141,7 +164,7 @@ function CartPage() {
             />
             <UserInfo user={user} />
             <PaymentMethod />
-            <PurchaseButton />
+            <PurchaseButton onPurchase={handlePurchase} />
             <Footer />
         </div>
     );
