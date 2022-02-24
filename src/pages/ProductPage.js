@@ -12,10 +12,11 @@ import productApi from './../API/productApi';
 import { ProductDetail, RelatedProduct } from './../components/product/';
 import { fetchProductList, selectProductList } from './../redux/slices/productSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { useLocation } from 'react-router-dom';
 const MySwal = withReactContent(Swal);
 
 function ProductPage() {
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState();
     const [orderQuantity, setOrderQuantity] = useState(0);
     const productList = useSelector(selectProductList);
     const orderFilter = useSelector(selectOrderFilter);
@@ -23,6 +24,8 @@ function ProductPage() {
     const dispatch = useDispatch();
 
     const { id } = useParams();
+
+    window.scrollTo(0, 0);
 
     const fetchProductById = async (productId) => {
         try {
@@ -189,8 +192,6 @@ function ProductPage() {
         } else {
             setOrderQuantity(0);
         }
-
-        window.scrollTo(0, 0);
     }, [id, orderQuantity]);
 
     // Tạo 1 object ban đầu và ném xuống component để nó render nháp
@@ -211,7 +212,9 @@ function ProductPage() {
     return (
         <div className={styles.wrapper}>
             <Header quantity={orderQuantity} />
-            <ProductDetail product={initialValues} onGetOrder={handleGetOrder} />
+            {Boolean(product) && (
+                <ProductDetail product={initialValues} onGetOrder={handleGetOrder} />
+            )}
             <RelatedProduct list={productList} item={initialValues} />
             <Footer />
         </div>

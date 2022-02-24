@@ -84,7 +84,7 @@ export function ProductDetail({ product, onGetOrder }) {
         } else {
             setSize('S');
         }
-    });
+    }, []);
 
     return (
         <div className={styles.container}>

@@ -100,7 +100,16 @@ function CartPage() {
                 products: newOrderList,
             });
 
-            setOrderList(newOrderList);
+            Swal.fire({
+                icon: 'success',
+                title: 'Increase quantity of items successfully',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+
+            setTimeout(() => {
+                setOrderList(newOrderList);
+            }, 500);
         } catch (error) {
             console.log('Can@apos;t update quantity for item', error);
         }

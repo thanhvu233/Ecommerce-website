@@ -52,6 +52,7 @@ export function Header({ quantity }) {
         // KHÔNG: hiện thông báo không có order
 
         if (!isLogin) {
+            localStorage.setItem('path', pathname);
             history.push('/login');
         } else {
             if (quantity != 0) {

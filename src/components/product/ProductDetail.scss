@@ -112,8 +112,8 @@
     }
 
     & button:active {
-        background-color: $third-color;
-        color: #fff;
-        border: none;
+        background-color: $third-color !important;
+        color: #fff !important;
+        border: none !important;
     }
 }

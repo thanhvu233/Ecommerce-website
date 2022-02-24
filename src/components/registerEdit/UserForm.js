@@ -157,7 +157,7 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
                         {/* Submit Button */}
                         <div className={`${styles.submitBtn} submitBtn`}>
                             <Button htmlType='submit' size='large'>
-                                Create
+                                {isEdit ? 'Enter' : 'Create'}
                             </Button>
                         </div>
                         {error && (
