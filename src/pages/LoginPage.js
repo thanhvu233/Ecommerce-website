@@ -24,35 +24,13 @@ function LoginPage() {
 
     const path = localStorage.getItem('path');
 
-    // const handleClick = async () => {
-    //     const actionResult = await dispatch(
-    //         fetchOrderList({
-    //             ...orderFilter,
-    //             isCheckout: false,
-    //             userId: localStorage.getItem('access_token'),
-    //         })
-    //     );
-
-    //     let { data: result } = unwrapResult(actionResult);
-    //     let quantity = 0;
-
-    //     // Lấy ra số lượng product chưa thanh toán trong cart
-    //     // nếu còn đơn chưa thanh toán
-    //     if (result.length != 0) {
-    //         quantity = result[0].products.length;
-    //     }
-
-    //     localStorage.setItem('quantity', quantity);
-    //     localStorage.setItem('access_token', 'bfb8ed25-84e0-4bad-b366-751f66276b7b');
-
-    //     history.push(`${path}`);
-    // };
-
     const handleFormSubmit = async (formValues) => {
-        // Gọi API để kiểu tra account
+        // Gọi API để kiểm tra account
         const userResult = await dispatch(fetchUserByAcc(formValues));
 
         const { data: userAcc } = unwrapResult(userResult);
+
+        console.log('userAcc', userAcc);
 
         if (userAcc.length == 0) {
             Swal.fire({
@@ -67,7 +45,7 @@ function LoginPage() {
                 fetchOrderList({
                     ...orderFilter,
                     isCheckout: false,
-                    userId: userAcc[0].userId,
+                    userId: userAcc[0].id,
                 })
             );
 
@@ -81,8 +59,13 @@ function LoginPage() {
             }
 
             localStorage.setItem('quantity', quantity);
-            localStorage.setItem('access_token', userAcc[0].userId);
-            history.push(`${path}`);
+            localStorage.setItem('access_token', userAcc[0].id);
+
+            if (path == '/register') {
+                history.push('/');
+            } else {
+                history.push(`${path}`);
+            }
         }
     };
 

@@ -9,7 +9,7 @@ import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductPage from './pages/ProductPage';
-import RegisterPage from './pages/RegisterPage';
+import RegisterEditPage from './pages/RegisterEditPage';
 
 function App() {
     return (
@@ -31,7 +31,10 @@ function App() {
                     <LoginPage />
                 </Route>
                 <Route path='/register'>
-                    <RegisterPage />
+                    <RegisterEditPage />
+                </Route>
+                <Route path='/user/:userId'>
+                    <RegisterEditPage />
                 </Route>
                 <PrivateRoute path='/cart'>
                     <CartPage />

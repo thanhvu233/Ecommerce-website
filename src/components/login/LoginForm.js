@@ -37,33 +37,31 @@ export function LoginForm({ initialValues, onSubmit }) {
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className={styles.username}>
-                <label className={styles.label}>
-                    Username<sup>*</sup>
-                </label>
+                <label className={styles.label}>Username</label>
                 <Controller
                     name='username'
                     control={control}
-                    render={({ field }) => <Input {...field} type='text' className='inputField' />}
+                    render={({ field }) => <Input {...field} type='text' className='inputField' placeholder='Username...' />}
                 />
                 <p className={styles.errorMsg}>{errors.username?.message}</p>
             </div>
 
             <div className={styles.password}>
-                <label className={styles.label}>
-                    Password<sup>*</sup>
-                </label>
+                <label className={styles.label}>Password</label>
                 <Controller
                     name='password'
                     control={control}
                     render={({ field }) => (
-                        <Input {...field} type='password' className='inputField' />
+                        <Input {...field} type='password' className='inputField' placeholder='Password...' />
                     )}
                 />
                 <p className={styles.errorMsg}>{errors.password?.message}</p>
             </div>
 
             <div className={`${styles.submitBtn} submitBtn`}>
-                <Button htmlType='submit' size='large'>Enter</Button>
+                <Button htmlType='submit' size='large'>
+                    Enter
+                </Button>
             </div>
             {error && <Alert message={error} type='error' showIcon className={styles.formErr} />}
         </form>

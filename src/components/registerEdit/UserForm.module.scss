@@ -1,0 +1,64 @@
+@import '../../variables/variables.module';
+@import '../../components/common/global.module';
+
+.userForm {
+    padding-top: 76px;
+}
+
+.header {
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 24px;
+}
+
+.mainForm {
+    margin-top: 24px;
+}
+
+.name {
+    margin-bottom: 20px;
+}
+
+.label {
+    margin-bottom: 8px;
+    display: inline-block;
+
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.errorMsg {
+    color: red;
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.address {
+    @extend .name;
+}
+
+.phone {
+    @extend .name;
+}
+
+.email {
+    @extend .name;
+}
+
+.username {
+    @extend .name;
+}
+
+.password {
+    @extend .name;
+}
+
+.submitBtn {
+    margin-top: 24px;
+    display: flex;
+}
+
+.formErr {
+}

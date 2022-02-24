@@ -122,6 +122,11 @@
         font-weight: 400;
     }
 
+    & a.disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+
     & a:hover {
         color: $secondary-color;
     }
@@ -138,6 +143,11 @@
         font-weight: 400;
 
         cursor: pointer;
+    }
+
+    & .cartIcon:hover {
+        color: $secondary-color;
+        transition: all 0.3s ease-in-out;
     }
 
     & .dropdown {

@@ -45,19 +45,26 @@ export function Header({ quantity }) {
     };
 
     const handleClickCart = () => {
-        // Kiểm tra xem có order chưa thanh toán không
+        // Kiểm tra đã login hay chưa
+        // CHƯA: navagate to Login Page
+        // RỒI: Kiểm tra xem có order chưa thanh toán không
         // CÓ: navigate to CartPage
         // KHÔNG: hiện thông báo không có order
-        if (quantity != 0) {
-            history.push('/cart');
+
+        if (!isLogin) {
+            history.push('/login');
         } else {
-            // Hiện thông báo update thành công
-            Swal.fire({
-                icon: 'error',
-                title: 'There aren&apos;t any items in cart',
-                showConfirmButton: false,
-                timer: 2000,
-            });
+            if (quantity != 0) {
+                history.push('/cart');
+            } else {
+                // Hiện thông báo update thành công
+                Swal.fire({
+                    icon: 'error',
+                    title: 'There aren&apos;t any items in cart',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
         }
     };
 
@@ -117,11 +124,11 @@ export function Header({ quantity }) {
             {isLogin ? (
                 <div className={`${styles.leftIcon} leftIcon`}>
                     <div>
-                        <Link to='/login'>
+                        <Link to='/login' className={styles.disabled}>
                             <i className={`${styles.icon} las la-user`} />
                         </Link>
                         <div className={styles.dropdown}>
-                            <Link to={`/user/update/:${userId}`}>Edit Account</Link>
+                            <Link to={`/user/${userId}`}>Edit Account</Link>
                             <Button
                                 type='text'
                                 block
@@ -141,7 +148,7 @@ export function Header({ quantity }) {
             ) : (
                 <div className={`${styles.leftIcon} leftIcon`}>
                     <div>
-                        <Link to='/login'>
+                        <Link to='/login' className={styles.disabled}>
                             <i className={`${styles.icon} las la-user`} />
                         </Link>
                         <div className={styles.dropdown}>
