@@ -16,6 +16,11 @@ const userApi = {
 
         return axiosClient.patch(url, data);
     },
+    add(data) {
+        const url = '/users';
+
+        return axiosClient.post(url, data);
+    },
 };
 
 export default userApi;

@@ -1,8 +1,7 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { v4 as uuid } from 'uuid';
 import userApi from '../API/userApi';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
@@ -14,9 +13,8 @@ function RegisterEditPage() {
     // là null, nếu không sẽ không đổ được data lên form
     const [currentUser, setCurrentUser] = useState();
 
-    console.log('currentUser', currentUser);
-
     const { userId } = useParams();
+    const history = useHistory();
 
     const isEdit = Boolean(userId);
 
@@ -31,22 +29,46 @@ function RegisterEditPage() {
     };
 
     const handleFormSubmit = async (formValues) => {
-        try {
-            const newInfo = {
-                id: userId,
-                ...formValues,
-            };
+        if (isEdit) {
+            try {
+                const newInfo = {
+                    id: userId,
+                    ...formValues,
+                };
 
-            await userApi.update(newInfo);
+                await userApi.update(newInfo);
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Update info successfully',
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        } catch (error) {
-            console.log('Can&apos;t update info by id', error);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Update info successfully',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            } catch (error) {
+                console.log('Can&apos;t update info by id', error);
+            }
+        } else {
+            try {
+                const newUser = {
+                    id: uuid(),
+                    ...formValues,
+                };
+
+                await userApi.add(newUser);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Create account successfully',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+
+                setTimeout(() => {
+                    history.push('/login');
+                }, 2000);
+            } catch (error) {
+                console.log('Can&apos;t create account', error);
+            }
         }
     };
 
