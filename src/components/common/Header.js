@@ -26,8 +26,7 @@ export function Header({ quantity }) {
         // Delete current user on redux store
         await dispatch(logout());
 
-        // refresh Home Page
-        setIsLogin(false);
+        history.push('/');
     };
 
     const handleLogin = () => {
