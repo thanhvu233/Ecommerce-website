@@ -35,6 +35,7 @@ export function Sidebar({ onChangePrice, onChangeRating, onClear, type, category
     useEffect(() => {
         setPrice('');
         setRating('');
+        setIsFilter(false);
     }, [type, category]);
 
     return (
