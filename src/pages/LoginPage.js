@@ -49,26 +49,6 @@ function LoginPage() {
     // };
 
     const handleFormSubmit = async (formValues) => {
-        // Gọi API để lấy unfinished order
-        const actionResult = await dispatch(
-            fetchOrderList({
-                ...orderFilter,
-                isCheckout: false,
-                userId: localStorage.getItem('access_token'),
-            })
-        );
-
-        let { data: result } = unwrapResult(actionResult);
-        let quantity = 0;
-
-        // Lấy ra số lượng product chưa thanh toán trong cart
-        // nếu còn đơn chưa thanh toán
-        if (result.length != 0) {
-            quantity = result[0].products.length;
-        }
-
-        localStorage.setItem('quantity', quantity);
-
         // Gọi API để kiểu tra account
         const userResult = await dispatch(fetchUserByAcc(formValues));
 
@@ -82,9 +62,27 @@ function LoginPage() {
                 timer: 2000,
             });
         } else {
+            // Gọi API để lấy unfinished order
+            const actionResult = await dispatch(
+                fetchOrderList({
+                    ...orderFilter,
+                    isCheckout: false,
+                    userId: userAcc[0].userId,
+                })
+            );
+
+            let { data: result } = unwrapResult(actionResult);
+            let quantity = 0;
+
+            // Lấy ra số lượng product chưa thanh toán trong cart
+            // nếu còn đơn chưa thanh toán
+            if (result.length != 0) {
+                quantity = result[0].products.length;
+            }
+
+            localStorage.setItem('quantity', quantity);
             localStorage.setItem('access_token', userAcc[0].userId);
             history.push(`${path}`);
-            
         }
     };
 

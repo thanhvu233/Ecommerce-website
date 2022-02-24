@@ -40,7 +40,7 @@ export function Hero({ imgPosition, title, desc, image }) {
                     </div>
                 ) : (
                     <div className={styles.btn}>
-                        <Fade delay={1000}>
+                        <Fade delay={500}>
                             <Link to='./products/detail/2e5b5a37-6e52-4263-87d4-c8c84aab8cb8'>
                                 <Button type='primary' shape='round' size='large'>
                                     Buy Now

@@ -63,7 +63,7 @@ export function LoginForm({ initialValues, onSubmit }) {
             </div>
 
             <div className={`${styles.submitBtn} submitBtn`}>
-                <Button htmlType='submit'>Enter</Button>
+                <Button htmlType='submit' size='large'>Enter</Button>
             </div>
             {error && <Alert message={error} type='error' showIcon className={styles.formErr} />}
         </form>
