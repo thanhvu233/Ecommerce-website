@@ -1,0 +1,45 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.darkBackground {
+    background-color: $third-color;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+
+    padding-right: 240px;
+    padding-left: 240px;
+    padding-top: 72px;
+
+    background-color: $primary-color;
+}
+
+.loginImg {
+    & img {
+        object-fit: contain;
+        height: 540px;
+    }
+}
+
+.loginForm {
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 10px;
+
+    margin-bottom: 32px;
+}
+
+.header {
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+
+    margin-top: 16px;
+    margin-bottom: 24px;
+}

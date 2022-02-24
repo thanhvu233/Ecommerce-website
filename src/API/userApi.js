@@ -6,8 +6,8 @@ const userApi = {
 
         return axiosClient.get(url);
     },
-    getByAccount({ username, pwd }) {
-        const url = `/users?username=${username}&password=${pwd}`;
+    getByAccount({ username, password }) {
+        const url = `/users?username=${username}&password=${password}`;
 
         return axiosClient.get(url);
     },

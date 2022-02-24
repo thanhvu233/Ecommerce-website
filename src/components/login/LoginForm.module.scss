@@ -1,0 +1,38 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.username {
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 500;
+
+    display: inline-block;
+    margin-bottom: 8px;
+
+    & sup {
+        color: red;
+    }
+}
+
+.errorMsg {
+    color: red;
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.password {
+    margin-top: 20px;
+}
+
+.submitBtn {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.formErr {
+    margin-top: 8px;
+}

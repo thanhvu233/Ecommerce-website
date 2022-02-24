@@ -1,0 +1,29 @@
+@import '../../variables/variables.module';
+@import '../common/global.module';
+
+.inputField {
+    height: 40px;
+}
+
+.submitBtn {
+    & button {
+        background-color: $secondary-color !important;
+        color: #fff !important;
+        border: none;
+
+        border-radius: 4px;
+    }
+
+    & button:hover {
+        opacity: 0.9;
+        background-color: $secondary-color;
+        color: #fff;
+        border: none;
+    }
+
+    & button:active {
+        background-color: $secondary-color;
+        color: #fff;
+        border: none;
+    }
+}

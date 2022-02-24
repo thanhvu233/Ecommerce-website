@@ -26,7 +26,16 @@ export function Header({ quantity }) {
         // Delete current user on redux store
         await dispatch(logout());
 
-        history.push('/');
+        console.log('userId', userId);
+
+        setIsLogin(false);
+        setUserId('');
+
+        if (pathname == '/') {
+            window.location.reload();
+        } else {
+            history.push('/');
+        }
     };
 
     const handleLogin = () => {
@@ -62,7 +71,7 @@ export function Header({ quantity }) {
         } else {
             setIsLogin(false);
         }
-    }, [isLogin, quantity]);
+    }, [quantity, isLogin]);
 
     return (
         <div className={styles.header}>

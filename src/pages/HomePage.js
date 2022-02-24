@@ -53,7 +53,7 @@ function HomePage() {
         transition: 'all 0.3 ease-in-out',
     };
 
-    useEffect(() => {
+    useEffect( async () => {
         dispatch(
             fetchProductList({ _page: 1, _limit: 16, category: 'shirt', type_like: 'men|women' })
         );
@@ -62,9 +62,9 @@ function HomePage() {
         fetchComment();
 
         if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
+            await setOrderQuantity(localStorage.getItem('quantity'));
         } else {
-            setOrderQuantity(0);
+            await setOrderQuantity(0);
         }
 
         // Scroll to top when navigate from other page

@@ -3,11 +3,11 @@ import userApi from './../../API/userApi';
 
 export const fetchUserByAcc = createAsyncThunk('auth/getByAcc', async (account) => {
     try {
-        const data = userApi.getByAccount(account);
+        const res = userApi.getByAccount(account);
 
-        return data;
+        return res;
     } catch (error) {
-        console.log(error);
+        console.log('Can@apos;t get account');
     }
 });
 
@@ -38,7 +38,7 @@ const authSlice = createSlice({
         [fetchUserByAcc.fulfilled]: (state, action) => {
             state.isLogined = true;
             state.isLogging = false;
-            state.currentUser = action.payload;
+            state.currentUser = action.payload.data;
         },
         [fetchUserByAcc.rejected]: (state) => {
             state.isLogined = false;
