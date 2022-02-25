@@ -2,10 +2,13 @@
 
 -   Login
 -   Register
--   Add to cart
--   Update cart
--   Delete item
--   Update profile
+-   Add item to cart
+-   Update item in cart
+-   Delete item in cart
+-   Filter
+-   Sorting
+-   Pagination
+-   Edit profile
 
 2. Technologies
 
