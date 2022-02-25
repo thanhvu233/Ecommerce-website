@@ -8,7 +8,7 @@ export function BreadcrumbSection({ type, category }) {
         <div className={styles.container}>
             <div className={styles.breadcrumb}>
                 <div className={styles.navigate}>
-                    <Breadcrumb >
+                    <Breadcrumb>
                         <Breadcrumb.Item>
                             <Link to='/'>Home</Link>
                         </Breadcrumb.Item>
@@ -29,9 +29,7 @@ export function BreadcrumbSection({ type, category }) {
 
                 <div className={styles.heading}>
                     {category ? (
-                        <h2>
-                            {type} {category}
-                        </h2>
+                        <h2>{type === 'shoes' ? `${category} ${type}` : `${type} ${category}`}</h2>
                     ) : (
                         <h2>{type}</h2>
                     )}
