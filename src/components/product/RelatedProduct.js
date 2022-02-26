@@ -19,29 +19,34 @@ export function RelatedProduct({ list, item }) {
                     <div className={styles.row}>
                         <Row gutter={[24, 48]}>
                             {list.map((product) => (
-                                <Col span={6} key={product.productId}>
-                                    <Card
-                                        hoverable
-                                        style={{ width: 280 }}
-                                        cover={
-                                            <img
-                                                alt='product'
-                                                src={product.images[0]}
-                                                className={styles.card}
-                                            />
-                                        }
-                                    >
-                                        <div className={styles.detail}>
-                                            <div className={styles.name}>
-                                                {truncate(product.productName, 44)}
+                                <Link
+                                    to={`/products/detail/${product.productId}`}
+                                    key={product.productId}
+                                >
+                                    <Col span={6}>
+                                        <Card
+                                            hoverable
+                                            style={{ width: 280 }}
+                                            cover={
+                                                <img
+                                                    alt='product'
+                                                    src={product.images[0]}
+                                                    className={styles.card}
+                                                />
+                                            }
+                                        >
+                                            <div className={styles.detail}>
+                                                <div className={styles.name}>
+                                                    {truncate(product.productName, 44)}
+                                                </div>
+                                                <div className={styles.rating}>
+                                                    <Rate disabled defaultValue={product.rating} />
+                                                </div>
+                                                <h4 className={styles.price}>${product.price}.00</h4>
                                             </div>
-                                            <div className={styles.rating}>
-                                                <Rate disabled defaultValue={product.rating} />
-                                            </div>
-                                            <h4 className={styles.price}>${product.price}.00</h4>
-                                        </div>
-                                    </Card>
-                                </Col>
+                                        </Card>
+                                    </Col>
+                                </Link>
                             ))}
                         </Row>
                     </div>
