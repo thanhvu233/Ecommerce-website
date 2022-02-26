@@ -9,7 +9,7 @@ import {
     selectProductFilter,
     selectProductList,
     selectProductTotalRow,
-    setFilter,
+    setFilter
 } from '../redux/slices/productSlice';
 import styles from './ProductListPage.module.scss';
 

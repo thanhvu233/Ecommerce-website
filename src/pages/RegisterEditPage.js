@@ -6,6 +6,7 @@ import userApi from '../API/userApi';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import { UserForm } from '../components/registerEdit';
+import { fetchUserById } from '../helpers/fetchUserById';
 
 function RegisterEditPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
@@ -17,17 +18,7 @@ function RegisterEditPage() {
     const history = useHistory();
 
     const isEdit = Boolean(userId);
-
-    const fetchUserById = async (id) => {
-        try {
-            const { data } = await userApi.getById(id);
-
-            setCurrentUser(data[0]);
-        } catch (error) {
-            console.log('Can&apos;t fetch user by id', error);
-        }
-    };
-
+    
     const handleFormSubmit = async (formValues) => {
         if (isEdit) {
             try {
@@ -75,7 +66,9 @@ function RegisterEditPage() {
     useEffect(async () => {
         if (userId) {
             // Gọi API lấy data của user đổ lên form
-            await fetchUserById(userId);
+            const data = await fetchUserById(userId);
+
+            setCurrentUser(data[0]);
         }
         if (localStorage.getItem('quantity')) {
             setOrderQuantity(localStorage.getItem('quantity'));

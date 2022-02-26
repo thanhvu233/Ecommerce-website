@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
-import userApi from '../API/userApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
 import { Footer, Header } from '../components/common';
+import { fetchUserById } from '../helpers/fetchUserById';
 import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import styles from './ProductListPage.module.scss';
 
@@ -20,16 +20,6 @@ function CartPage() {
     const dispatch = useDispatch();
 
     const history = useHistory();
-
-    const fetchUserById = async (id) => {
-        try {
-            const { data } = await userApi.getById(id);
-
-            setUser(data[0]);
-        } catch (error) {
-            console.log('Cant get user by ID');
-        }
-    };
 
     const removeItem = async (productId, size, orderId) => {
         try {
@@ -102,7 +92,7 @@ function CartPage() {
 
             Swal.fire({
                 icon: 'success',
-                title: 'Increase quantity of items successfully',
+                title: 'Change quantity of items successfully',
                 showConfirmButton: false,
                 timer: 2000,
             });
@@ -157,7 +147,9 @@ function CartPage() {
             setOrderQuantity(0);
         }
 
-        fetchUserById(localStorage.getItem('access_token'));
+        const user = await fetchUserById(localStorage.getItem('access_token'));
+
+        setUser(user[0]);
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);

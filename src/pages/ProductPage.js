@@ -2,18 +2,15 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import orderApi from '../API/orderApi';
+import { v4 as uuidv4 } from 'uuid';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
+import { addOrder } from '../helpers/addOrder';
+import { updateOrder } from '../helpers/updateOrder';
 import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
-import productApi from './../API/productApi';
 import { ProductDetail, RelatedProduct } from './../components/product/';
+import { fetchProductById } from './../helpers/fetchProductById';
 import { fetchProductList, selectProductList } from './../redux/slices/productSlice';
-import { v4 as uuidv4 } from 'uuid';
-import { useLocation } from 'react-router-dom';
-const MySwal = withReactContent(Swal);
 
 function ProductPage() {
     const [product, setProduct] = useState();
@@ -26,48 +23,6 @@ function ProductPage() {
     const { id } = useParams();
 
     window.scrollTo(0, 0);
-
-    const fetchProductById = async (productId) => {
-        try {
-            const { data } = await productApi.getById(productId);
-
-            setProduct(data[0]);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const updateOrder = async (data) => {
-        try {
-            await orderApi.update(data);
-
-            // Hiện thông báo update thành công
-            Swal.fire({
-                icon: 'success',
-                title: 'Item has been added to cart',
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const addOrder = async (data) => {
-        try {
-            await orderApi.add(data);
-
-            // Hiện thông báo update thành công
-            Swal.fire({
-                icon: 'success',
-                title: 'Item has been added to cart',
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const handleGetOrder = async (item) => {
         const actionResult = await dispatch(
@@ -175,7 +130,9 @@ function ProductPage() {
     };
 
     useEffect(async () => {
-        await fetchProductById(id);
+        const product = await fetchProductById(id);
+
+        setProduct(product[0]);
 
         dispatch(
             fetchProductList({

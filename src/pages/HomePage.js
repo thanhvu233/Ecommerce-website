@@ -6,9 +6,9 @@ import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
+import { fetchComment } from '../helpers/fetchComment';
+import { fetchProductById } from '../helpers/fetchProductById';
 import { fetchProductList, selectProductList } from '../redux/slices/productSlice';
-import commentApi from './../API/commentApi';
-import productApi from './../API/productApi';
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -17,26 +17,6 @@ function HomePage() {
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState(0);
-
-    const fetchProductById = async (productId) => {
-        try {
-            const { data } = await productApi.getById(productId);
-
-            setItem(data[0]);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const fetchComment = async () => {
-        try {
-            const { data } = await commentApi.getAll();
-
-            setComments(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
@@ -53,13 +33,16 @@ function HomePage() {
         transition: 'all 0.3 ease-in-out',
     };
 
-    useEffect( async () => {
+    useEffect(async () => {
         dispatch(
             fetchProductList({ _page: 1, _limit: 16, category: 'shirt', type_like: 'men|women' })
         );
 
-        fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
-        fetchComment();
+        const product = await fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
+        setItem(product[0]);
+
+        const comment = await fetchComment();
+        setComments(comment);
 
         if (localStorage.getItem('quantity')) {
             await setOrderQuantity(localStorage.getItem('quantity'));
