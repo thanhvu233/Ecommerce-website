@@ -86,6 +86,10 @@ export function ProductDetail({ product, onGetOrder }) {
         }
     }, []);
 
+    useEffect(async () => {
+        await setSrcImg(product.images[0]);
+    }, [product]);
+
     return (
         <div className={styles.container}>
             <div className={styles.productDetail}>

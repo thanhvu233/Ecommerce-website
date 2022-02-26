@@ -138,8 +138,8 @@ function ProductPage() {
             fetchProductList({
                 _page: 1,
                 _limit: 4,
-                category: product.category,
-                type: product.type,
+                category: product[0].category,
+                type: product[0].type,
                 productId_ne: id,
             })
         );
