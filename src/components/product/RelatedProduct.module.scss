@@ -21,6 +21,13 @@
     }
 }
 
+.row {
+    & img {
+        object-fit: cover;
+        height: 350px;
+    }
+}
+
 .name {
     line-height: 1.4;
     font-size: 18px;
