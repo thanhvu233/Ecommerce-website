@@ -8,15 +8,21 @@ import styles from '../components/common/_global.module.scss';
 import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
 import { fetchComment } from '../helpers/fetchComment';
 import { fetchProductById } from '../helpers/fetchProductById';
-import { fetchProductList, selectProductList } from '../redux/slices/productSlice';
+import {
+    fetchProductList,
+    selectProductList,
+    selectProductLoading
+} from '../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
 
 function HomePage() {
-    const dispatch = useDispatch();
-    const productList = useSelector(selectProductList);
-
     const [item, setItem] = useState({});
     const [comments, setComments] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState(0);
+
+    const dispatch = useDispatch();
+    const productList = useSelector(selectProductList);
+    const loading = useSelector(selectProductLoading);
 
     const featureList = productList.slice(0, 4);
     const latestList = productList.slice(8, 16);
@@ -54,56 +60,60 @@ function HomePage() {
         window.scrollTo(0, 0);
     }, [dispatch]);
 
-    return (
-        <div className={styles.wrapper}>
-            {/* Begin Header */}
-            <Header quantity={orderQuantity} />
-            {/* End Header */}
+    if (loading) {
+        return <LoadingPage />;
+    } else {
+        return (
+            <div className={styles.wrapper}>
+                {/* Begin Header */}
+                <Header quantity={orderQuantity} />
+                {/* End Header */}
 
-            {/* Begin Hero Section */}
-            <Hero
-                imgPosition='right'
-                title='Impress The World With Your Outfits'
-                desc='Style is something each of us already has, all we need to do is find it.'
-                image={heroImg}
-            />
-            {/* End Hero Section */}
+                {/* Begin Hero Section */}
+                <Hero
+                    imgPosition='right'
+                    title='Impress The World With Your Outfits'
+                    desc='Style is something each of us already has, all we need to do is find it.'
+                    image={heroImg}
+                />
+                {/* End Hero Section */}
 
-            {/* Begin Example Products Section */}
-            <ExampleProduct />
-            {/* End Example Products Section */}
+                {/* Begin Example Products Section */}
+                <ExampleProduct />
+                {/* End Example Products Section */}
 
-            {/* Begin Feature Products Section */}
-            <FeatureProduct list={featureList} title='Featured Products' />
-            {/* End Feature Products Section */}
+                {/* Begin Feature Products Section */}
+                <FeatureProduct list={featureList} title='Featured Products' />
+                {/* End Feature Products Section */}
 
-            {/* Begin Latest Products Section */}
-            <FeatureProduct list={latestList} title='Latest Products' />
-            {/* End Latest Products Section */}
+                {/* Begin Latest Products Section */}
+                <FeatureProduct list={latestList} title='Latest Products' />
+                {/* End Latest Products Section */}
 
-            {/* Begin Unique Product Section */}
-            <Hero
-                imgPosition='left'
-                title={item.productName}
-                desc={item.description}
-                image={specialItem}
-            />
-            {/* End Unique Prodcut Section */}
+                {/* Begin Unique Product Section */}
+                <Hero
+                    imgPosition='left'
+                    title={item.productName}
+                    desc={item.description}
+                    image={specialItem}
+                />
+                {/* End Unique Prodcut Section */}
 
-            {/* Begin Comments Section */}
-            <Comment comments={comments} />
-            {/* End Comments Section */}
+                {/* Begin Comments Section */}
+                <Comment comments={comments} />
+                {/* End Comments Section */}
 
-            {/* Begin Footer */}
-            <Footer />
-            {/* End Footer */}
-            <BackTop>
-                <div style={style}>
-                    <i class='las la-angle-up'></i>
-                </div>
-            </BackTop>
-        </div>
-    );
+                {/* Begin Footer */}
+                <Footer />
+                {/* End Footer */}
+                <BackTop>
+                    <div style={style}>
+                        <i class='las la-angle-up'></i>
+                    </div>
+                </BackTop>
+            </div>
+        );
+    }
 }
 
 export default HomePage;

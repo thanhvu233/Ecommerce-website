@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { v4 as uuid } from 'uuid';
@@ -7,18 +8,21 @@ import { Footer, Header } from '../components/common';
 import styles from '../components/common/_global.module.scss';
 import { UserForm } from '../components/registerEdit';
 import { fetchUserById } from '../helpers/fetchUserById';
+import { selectProductLoading } from '../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
 
 function RegisterEditPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
     // Phải set initial value cho currentUser
     // là null, nếu không sẽ không đổ được data lên form
     const [currentUser, setCurrentUser] = useState();
+    const [loading, setLoading] = useState(true);
 
     const { userId } = useParams();
     const history = useHistory();
 
     const isEdit = Boolean(userId);
-    
+
     const handleFormSubmit = async (formValues) => {
         if (isEdit) {
             try {
@@ -55,6 +59,7 @@ function RegisterEditPage() {
                 });
 
                 setTimeout(() => {
+                    localStorage.setItem('path', '/register');
                     history.push('/login');
                 }, 2000);
             } catch (error) {
@@ -69,6 +74,7 @@ function RegisterEditPage() {
             const data = await fetchUserById(userId);
 
             setCurrentUser(data[0]);
+            setLoading(false);
         }
         if (localStorage.getItem('quantity')) {
             setOrderQuantity(localStorage.getItem('quantity'));
@@ -89,6 +95,10 @@ function RegisterEditPage() {
         password: '',
         ...currentUser,
     };
+
+    if (loading && isEdit) {
+        return <LoadingPage />;
+    }
 
     return (
         <div className={styles.wrapper}>

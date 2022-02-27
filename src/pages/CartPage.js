@@ -7,8 +7,13 @@ import orderApi from '../API/orderApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
 import { Footer, Header } from '../components/common';
 import { fetchUserById } from '../helpers/fetchUserById';
-import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
+import {
+    fetchOrderList,
+    selectOrderFilter,
+    selectOrderProgressed,
+} from '../redux/slices/orderSlice';
 import styles from './ProductListPage.module.scss';
+import LoadingPage from './LoadingPage';
 
 function CartPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
@@ -17,6 +22,7 @@ function CartPage() {
     const [orderId, setOrderId] = useState();
 
     const orderFilter = useSelector(selectOrderFilter);
+    const loading = useSelector(selectOrderProgressed);
     const dispatch = useDispatch();
 
     const history = useHistory();
@@ -154,6 +160,10 @@ function CartPage() {
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, [dispatch]);
+
+    if (loading) {
+        return <LoadingPage />;
+    }
 
     return (
         <div className={styles.wrapper}>

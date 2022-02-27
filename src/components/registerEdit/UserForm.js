@@ -132,6 +132,7 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
                                         type='text'
                                         className='inputField'
                                         placeholder='Username...'
+                                        readOnly={isEdit ? true : false}
                                     />
                                 )}
                             />

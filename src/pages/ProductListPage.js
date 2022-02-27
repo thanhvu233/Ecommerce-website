@@ -8,9 +8,11 @@ import {
     fetchProductList,
     selectProductFilter,
     selectProductList,
+    selectProductLoading,
     selectProductTotalRow,
     setFilter
 } from '../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
 import styles from './ProductListPage.module.scss';
 
 function ProductListPage() {
@@ -23,6 +25,7 @@ function ProductListPage() {
     const filter = useSelector(selectProductFilter);
     const list = useSelector(selectProductList);
     const totalRow = useSelector(selectProductTotalRow);
+    // const loading = useSelector(selectProductLoading);
 
     let [type, category] = getParams(pathname);
 
@@ -104,6 +107,9 @@ function ProductListPage() {
         window.scrollTo(0, 0);
     }, [category, type]);
 
+    // if (loading) {
+    //     return <LoadingPage />;
+    // }
 
     return (
         <div className={styles.wrapper}>

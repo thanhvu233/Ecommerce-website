@@ -10,13 +10,19 @@ import { updateOrder } from '../helpers/updateOrder';
 import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import { ProductDetail, RelatedProduct } from './../components/product/';
 import { fetchProductById } from './../helpers/fetchProductById';
-import { fetchProductList, selectProductList } from './../redux/slices/productSlice';
+import {
+    fetchProductList,
+    selectProductList,
+    selectProductLoading,
+} from './../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
 
 function ProductPage() {
     const [product, setProduct] = useState();
     const [orderQuantity, setOrderQuantity] = useState(0);
     const productList = useSelector(selectProductList);
     const orderFilter = useSelector(selectOrderFilter);
+    // const loading = useSelector(selectProductLoading);
 
     const dispatch = useDispatch();
 
@@ -165,6 +171,10 @@ function ProductPage() {
         type: '',
         ...product,
     };
+
+    // if (loading) {
+    //     return <LoadingPage />;
+    // }
 
     return (
         <div className={styles.wrapper}>
