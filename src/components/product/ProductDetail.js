@@ -154,7 +154,6 @@ export function ProductDetail({ product, onGetOrder }) {
                             <InputNumber
                                 min={1}
                                 max={100}
-                                controls={false}
                                 defaultValue={1}
                                 onChange={handleAmountChange}
                             />

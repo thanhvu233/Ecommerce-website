@@ -1,6 +1,7 @@
 import { InputNumber } from 'antd';
 import React from 'react';
 import styles from './CartTable.module.scss';
+import './CartTable.scss';
 
 export function CartTable({ list, onRemove, onAmountChange }) {
     let subTotal = 0;
@@ -53,7 +54,7 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                                         <div className={styles.name}>{item.name}</div>
                                     </td>
                                     <td className={styles.size}>{item.size}</td>
-                                    <td className={`${styles.amountInput} amountInput`}>
+                                    <td className={`${styles.amountInput} quantityInput`}>
                                         <InputNumber
                                             min={1}
                                             max={100}
