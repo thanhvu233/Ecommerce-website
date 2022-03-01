@@ -13,8 +13,8 @@ export function FeatureProduct({ list, title }) {
 
                 {/* Feature Product List */}
                 <div className={styles.featureList}>
-                    <div className={styles.row}>
-                        <Row gutter={[24, 48]}>
+                    <div>
+                        <Row gutter={[0, 24]} className={styles.row}>
                             {list.map((product) => (
                                 <Link
                                     to={`/products/detail/${product.productId}`}
