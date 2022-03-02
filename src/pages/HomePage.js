@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
-import { Footer, Header } from '../components/common';
-import styles from '../components/common/_global.module.scss';
+import { Footer, Header, Wrapper } from '../components/common';
 import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
 import { fetchComment } from '../helpers/fetchComment';
 import { fetchProductById } from '../helpers/fetchProductById';
@@ -64,7 +63,7 @@ function HomePage() {
         return <LoadingPage />;
     } else {
         return (
-            <div className={styles.wrapper}>
+            <Wrapper>
                 {/* Begin Header */}
                 <Header quantity={orderQuantity} />
                 {/* End Header */}
@@ -111,7 +110,7 @@ function HomePage() {
                         <i class='las la-angle-up'></i>
                     </div>
                 </BackTop>
-            </div>
+            </Wrapper>
         );
     }
 }

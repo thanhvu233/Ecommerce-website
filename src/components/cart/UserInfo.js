@@ -1,9 +1,10 @@
 import React from 'react';
+import { Container } from '../common';
 import styles from './UserInfo.module.scss';
 
 export function UserInfo({ user }) {
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.userInfo}>
                 <div className={styles.header}>
                     <span className={styles.locationImg}>
@@ -17,6 +18,6 @@ export function UserInfo({ user }) {
                     <span className={styles.address}>{user.address}</span>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

@@ -1,5 +1,4 @@
 @import '../../variables/variables.module';
-@import '../common/global.module';
 
 .paymentOtps {
     & .ant-radio-wrapper {
@@ -38,6 +37,4 @@
         width: 32px;
         transform: translateY(25%);
     }
-
-
 }

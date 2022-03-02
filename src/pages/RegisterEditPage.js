@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { v4 as uuid } from 'uuid';
 import userApi from '../API/userApi';
-import { Footer, Header } from '../components/common';
-import styles from '../components/common/_global.module.scss';
+import { Footer, Header, Wrapper } from '../components/common';
 import { UserForm } from '../components/registerEdit';
 import { fetchUserById } from '../helpers/fetchUserById';
-import { selectProductLoading } from '../redux/slices/productSlice';
 import LoadingPage from './LoadingPage';
 
 function RegisterEditPage() {
@@ -101,7 +98,7 @@ function RegisterEditPage() {
     }
 
     return (
-        <div className={styles.wrapper}>
+        <Wrapper>
             <Header quantity={orderQuantity} />
             {/* Là trang ADD hoặc phải có currentUser thì mới render form */}
             {(!isEdit || Boolean(currentUser)) && (
@@ -112,7 +109,7 @@ function RegisterEditPage() {
                 />
             )}
             <Footer />
-        </div>
+        </Wrapper>
     );
 }
 

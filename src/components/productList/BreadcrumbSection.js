@@ -1,11 +1,12 @@
-import React from 'react';
-import styles from './BreadcrumbSection.module.scss';
 import { Breadcrumb } from 'antd';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container } from '../common';
+import styles from './BreadcrumbSection.module.scss';
 
 export function BreadcrumbSection({ type, category }) {
     return (
-        <div className={styles.container}>
+        <Container> 
             <div className={styles.breadcrumb}>
                 <div className={styles.navigate}>
                     <Breadcrumb>
@@ -35,6 +36,6 @@ export function BreadcrumbSection({ type, category }) {
                     )}
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

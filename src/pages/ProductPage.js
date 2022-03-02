@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { Footer, Header } from '../components/common';
-import styles from '../components/common/_global.module.scss';
+import { Footer, Header, Wrapper } from '../components/common';
 import { addOrder } from '../helpers/addOrder';
 import { updateOrder } from '../helpers/updateOrder';
 import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
@@ -12,10 +11,8 @@ import { ProductDetail, RelatedProduct } from './../components/product/';
 import { fetchProductById } from './../helpers/fetchProductById';
 import {
     fetchProductList,
-    selectProductList,
-    selectProductLoading,
+    selectProductList
 } from './../redux/slices/productSlice';
-import LoadingPage from './LoadingPage';
 
 function ProductPage() {
     const [product, setProduct] = useState();
@@ -177,14 +174,14 @@ function ProductPage() {
     // }
 
     return (
-        <div className={styles.wrapper}>
+        <Wrapper>
             <Header quantity={orderQuantity} />
             {Boolean(product) && (
                 <ProductDetail product={initialValues} onGetOrder={handleGetOrder} />
             )}
             <RelatedProduct list={productList} item={initialValues} />
             <Footer />
-        </div>
+        </Wrapper>
     );
 }
 

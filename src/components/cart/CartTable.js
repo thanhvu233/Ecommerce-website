@@ -1,5 +1,6 @@
 import { InputNumber } from 'antd';
 import React from 'react';
+import { Container } from './../common';
 import styles from './CartTable.module.scss';
 import './CartTable.scss';
 
@@ -25,7 +26,7 @@ export function CartTable({ list, onRemove, onAmountChange }) {
     };
 
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.cartTable}>
                 <div className={styles.header}>Cart</div>
 
@@ -84,6 +85,6 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

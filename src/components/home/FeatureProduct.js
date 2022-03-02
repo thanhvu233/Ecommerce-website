@@ -2,11 +2,12 @@ import { Card, Col, Rate, Row } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import truncate from './../../helpers/truncate';
+import { Container } from './../common';
 import styles from './FeatureProduct.module.scss';
 
 export function FeatureProduct({ list, title }) {
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.featureProduct}>
                 {/* Title */}
                 <div className={styles.heading}>{title}</div>
@@ -51,6 +52,6 @@ export function FeatureProduct({ list, title }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

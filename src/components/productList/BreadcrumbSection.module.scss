@@ -1,5 +1,4 @@
 @import '../../variables/variables.module';
-@import '../common/global.module';
 
 .breadcrumb {
     padding-top: 100px;
@@ -10,7 +9,6 @@
     & span {
         font-size: 15px;
     }
-
 }
 
 .heading {

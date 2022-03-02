@@ -5,14 +5,13 @@ import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
-import { Footer, Header } from '../components/common';
+import { Footer, Header, Wrapper } from '../components/common';
 import { fetchUserById } from '../helpers/fetchUserById';
 import {
     fetchOrderList,
     selectOrderFilter,
-    selectOrderProgressed,
+    selectOrderProgressed
 } from '../redux/slices/orderSlice';
-import styles from './ProductListPage.module.scss';
 import LoadingPage from './LoadingPage';
 
 function CartPage() {
@@ -166,7 +165,7 @@ function CartPage() {
     }
 
     return (
-        <div className={styles.wrapper}>
+        <Wrapper>
             <Header quantity={orderQuantity} />
             <CartTable
                 list={orderList}
@@ -177,7 +176,7 @@ function CartPage() {
             <PaymentMethod />
             <PurchaseButton onPurchase={handlePurchase} />
             <Footer />
-        </div>
+        </Wrapper>
     );
 }
 

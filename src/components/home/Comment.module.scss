@@ -1,5 +1,4 @@
 @import '../../variables/variables.module';
-@import '../common/global.module';
 
 .comment {
     min-height: 200px;
@@ -22,7 +21,9 @@
     }
 }
 
-.detail, .rating, .avatar {
+.detail,
+.rating,
+.avatar {
     margin-top: 16px;
     text-align: center;
 }
@@ -30,5 +31,3 @@
 .avatar h3 {
     margin-top: 8px;
 }
-
-

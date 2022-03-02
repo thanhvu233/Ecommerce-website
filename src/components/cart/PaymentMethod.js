@@ -1,5 +1,6 @@
 import { Radio, Space } from 'antd';
 import React, { useState } from 'react';
+import { Container } from './../common';
 import styles from './PaymentMethod.module.scss';
 import './PaymentMethod.scss';
 
@@ -11,7 +12,7 @@ export function PaymentMethod() {
     };
 
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.paymentMethod}>
                 <div className={styles.header}>Payment Method:</div>
                 <Radio.Group
@@ -59,6 +60,6 @@ export function PaymentMethod() {
                     </Space>
                 </Radio.Group>
             </div>
-        </div>
+        </Container>
     );
 }

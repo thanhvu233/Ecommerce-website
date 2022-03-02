@@ -1,15 +1,13 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Button } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
-import styles from '../components/common/_global.module.scss';
-import { Header } from './../components/common/Header';
+import Swal from 'sweetalert2';
 import { Main } from '../components/login';
 import { fetchUserByAcc } from '../redux/slices/authSlice';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
+import { Wrapper } from './../components/common';
+import { Header } from './../components/common/Header';
 
 function LoginPage() {
     const history = useHistory();
@@ -70,13 +68,10 @@ function LoginPage() {
     };
 
     return (
-        // <Button type='primary' onClick={handleClick}>
-        //     Login
-        // </Button>
-        <div className={styles.wrapper}>
+        <Wrapper>
             <Header />
             <Main initialValues={initialValues} onSubmit={handleFormSubmit} />
-        </div>
+        </Wrapper>
     );
 }
 

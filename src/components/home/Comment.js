@@ -1,12 +1,13 @@
 import { Avatar, Card, Rate } from 'antd';
 import React from 'react';
-import styles from './Comment.module.scss';
-import quote from '../../assets/images/quotation-marks-svgrepo-com.svg';
 import { Zoom } from 'react-reveal';
+import quote from '../../assets/images/quotation-marks-svgrepo-com.svg';
+import { Container } from '../common';
+import styles from './Comment.module.scss';
 
 export function Comment({ comments }) {
     return (
-        <div className={styles.container}>
+        <Container>
             <Zoom delay={200} duration={3000}>
                 <div className={styles.comment}>
                     {comments.map((comment) => (
@@ -26,6 +27,6 @@ export function Comment({ comments }) {
                     ))}
                 </div>
             </Zoom>
-        </div>
+        </Container>
     );
 }

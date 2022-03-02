@@ -3,10 +3,11 @@ import styles from './RelatedProduct.module.scss';
 import { Link } from 'react-router-dom';
 import { Card, Col, Rate, Row } from 'antd';
 import truncate from '../../helpers/truncate';
+import { Container } from './../common';
 
 export function RelatedProduct({ list, item }) {
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.relatedProduct}>
                 <div className={styles.title}>
                     <span>Related Products</span>
@@ -42,7 +43,9 @@ export function RelatedProduct({ list, item }) {
                                                 <div className={styles.rating}>
                                                     <Rate disabled defaultValue={product.rating} />
                                                 </div>
-                                                <h4 className={styles.price}>${product.price}.00</h4>
+                                                <h4 className={styles.price}>
+                                                    ${product.price}.00
+                                                </h4>
                                             </div>
                                         </Card>
                                     </Col>
@@ -52,6 +55,6 @@ export function RelatedProduct({ list, item }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

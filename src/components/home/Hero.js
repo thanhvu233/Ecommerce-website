@@ -1,9 +1,8 @@
 import { Button } from 'antd';
 import React from 'react';
-import { Fade, Rotate, Zoom } from 'react-reveal';
-import styles from './Hero.module.scss';
-import Tada from 'react-reveal/Tada';
+import { Fade, Zoom } from 'react-reveal';
 import { Link } from 'react-router-dom';
+import styles from './Hero.module.scss';
 
 export function Hero({ imgPosition, title, desc, image }) {
     return (

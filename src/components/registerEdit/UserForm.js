@@ -3,6 +3,7 @@ import { Alert, Button, Input } from 'antd';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { Container } from './../common';
 import styles from './UserForm.module.scss';
 
 const schema = yup
@@ -47,7 +48,7 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
         }
     };
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.userForm}>
                 {/* Header */}
                 <div className={styles.header}>
@@ -172,6 +173,6 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
                     </form>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

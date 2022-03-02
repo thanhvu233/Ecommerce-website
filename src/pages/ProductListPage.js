@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Footer, Header } from '../components/common';
+import { Container, Footer, Header, Wrapper } from '../components/common';
 import { BreadcrumbSection, ProductList, Sidebar } from '../components/productList';
 import getParams from '../helpers/getParams';
 import {
     fetchProductList,
     selectProductFilter,
     selectProductList,
-    selectProductLoading,
     selectProductTotalRow,
-    setFilter
+    setFilter,
 } from '../redux/slices/productSlice';
-import LoadingPage from './LoadingPage';
 import styles from './ProductListPage.module.scss';
 
 function ProductListPage() {
@@ -112,38 +110,39 @@ function ProductListPage() {
     // }
 
     return (
-        <div className={styles.wrapper}>
+        <Wrapper>
             {/* Header */}
             <Header quantity={orderQuantity} />
 
             {/* Breadcrumb */}
             <BreadcrumbSection type={type} category={category} />
 
-            <div className={`${styles.main} ${styles.container}`}>
-                {/* Sidebar */}
-                <Sidebar
-                    onChangePrice={handleChangePrice}
-                    onChangeRating={handleChangeRating}
-                    onClear={handleClear}
-                    type={type}
-                    category={category}
-                />
-
-                {/* ProductList */}
-                <ProductList
-                    list={list}
-                    onSelectionChange={handleSelectChange}
-                    type={type}
-                    category={category}
-                    onPageChange={handlePageChange}
-                    currentPage={filter._page}
-                    totalRow={totalRow}
-                />
-            </div>
+            <Container>
+                <div className={styles.main}>
+                    {/* Sidebar */}
+                    <Sidebar
+                        onChangePrice={handleChangePrice}
+                        onChangeRating={handleChangeRating}
+                        onClear={handleClear}
+                        type={type}
+                        category={category}
+                    />
+                    {/* ProductList */}
+                    <ProductList
+                        list={list}
+                        onSelectionChange={handleSelectChange}
+                        type={type}
+                        category={category}
+                        onPageChange={handlePageChange}
+                        currentPage={filter._page}
+                        totalRow={totalRow}
+                    />
+                </div>
+            </Container>
 
             {/* Footer */}
             <Footer />
-        </div>
+        </Wrapper>
     );
 }
 

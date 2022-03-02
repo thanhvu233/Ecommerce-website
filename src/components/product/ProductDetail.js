@@ -1,5 +1,6 @@
 import { Button, InputNumber, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
+import Magnifier from 'react-magnifier';
 import { useHistory, useLocation } from 'react-router-dom';
 // import required modules
 import { Navigation, Pagination } from 'swiper';
@@ -9,9 +10,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Container } from './../common';
 import styles from './ProductDetail.module.scss';
 import './ProductDetail.scss';
-import Magnifier from 'react-magnifier';
 
 export function ProductDetail({ product, onGetOrder }) {
     let options = [];
@@ -91,7 +92,7 @@ export function ProductDetail({ product, onGetOrder }) {
     }, [product]);
 
     return (
-        <div className={styles.container}>
+        <Container>
             <div className={styles.productDetail}>
                 <div className={styles.imgList}>
                     <div className={`${styles.mainImg} mainImg`}>
@@ -170,6 +171,6 @@ export function ProductDetail({ product, onGetOrder }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }
