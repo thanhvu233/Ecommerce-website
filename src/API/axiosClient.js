@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'https://thanh-server.herokuapp.com',
+    baseURL: 'https://ecommerce-json-server.vercel.app',
     headers: {
         'Content-Type': 'application/json',
     },
