@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'https://ecommerce-json-server.vercel.app',
+    baseURL: 'http://127.0.0.1:3001/api/v1',
     headers: {
         'Content-Type': 'application/json',
     },

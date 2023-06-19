@@ -1,6 +1,5 @@
 import { BackTop } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header, Wrapper } from '../components/common';
@@ -14,18 +13,14 @@ import {
 } from '../redux/slices/productSlice';
 import LoadingPage from './LoadingPage';
 import equal from 'fast-deep-equal/react';
+import productApi from '../API/productApi';
 
 function HomePage() {
-    const [item, setItem] = useState({});
+    const [item, setItem] = useState();
     const [comments, setComments] = useState([]);
     const [orderQuantity, setOrderQuantity] = useState(0);
-
-    const dispatch = useDispatch();
-    const productList = useSelector(selectProductList);
-    const loading = useSelector(selectProductLoading);
-
-  const featureList = useMemo(() => productList.slice(0, 4), [productList]);
-  const latestList = useMemo(() => productList.slice(8, 16), [productList]);
+    const [featureProductList, setFeatureProductList] = useState([]);
+    const [latestProductList, setLatestProductList] = useState([]);
 
     const style = {
         width: 50,
@@ -40,15 +35,17 @@ function HomePage() {
     };
 
     useEffect(async () => {
-        dispatch(
-            fetchProductList({ _page: 1, _limit: 16, category: 'shirt', type_like: 'men|women' })
-        );
+        const featureProducts = await productApi.getFeatureProducts();
+        setFeatureProductList(featureProducts.data.data.products);
+        
+        const latestProducts = await productApi.getLatestProducts();
+        setLatestProductList(latestProducts.data.data.products);
 
-        const product = await fetchProductById('2e5b5a37-6e52-4263-87d4-c8c84aab8cb8');
-        setItem(product[0]);
+        const product = await productApi.getSignatureProduct();
+        setItem(product.data.data);
 
-        const comment = await fetchComment();
-        setComments(comment);
+        const comments = await fetchComment();
+        setComments(comments.data);
 
         if (localStorage.getItem('quantity')) {
             await setOrderQuantity(localStorage.getItem('quantity'));
@@ -58,9 +55,9 @@ function HomePage() {
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
-    }, [dispatch]);
-
-    if (loading) {
+    }, []);
+    
+    if (latestProductList.length === 0 || featureProductList.length === 0 || comments.length === 0 || !item) {
         return <LoadingPage />;
     } else {
         return (
@@ -83,11 +80,11 @@ function HomePage() {
                 {/* End Example Products Section */}
 
                 {/* Begin Feature Products Section */}
-                <FeatureProduct list={featureList} title='Featured Products' />
+                <FeatureProduct list={featureProductList} title='Featured Products' />
                 {/* End Feature Products Section */}
 
                 {/* Begin Latest Products Section */}
-                <FeatureProduct list={latestList} title='Latest Products' />
+                <FeatureProduct list={latestProductList} title='Latest Products' />
                 {/* End Latest Products Section */}
 
                 {/* Begin Unique Product Section */}

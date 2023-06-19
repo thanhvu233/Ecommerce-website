@@ -14,6 +14,21 @@ const productApi = {
 
         return axiosClient.get(url);
     },
+    getFeatureProducts() {
+        const url = '/products/feature-products';
+
+        return axiosClient.get(url);
+    },
+    getLatestProducts() {
+        const url = '/products/latest-products';
+
+        return axiosClient.get(url);
+    },
+    getSignatureProduct() {
+        const url = '/products/signature-product';
+
+        return axiosClient.get(url);
+    }
 };
 
 export default productApi;
