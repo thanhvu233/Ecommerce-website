@@ -1,5 +1,5 @@
 import { BackTop } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
@@ -13,6 +13,7 @@ import {
     selectProductLoading
 } from '../redux/slices/productSlice';
 import LoadingPage from './LoadingPage';
+import equal from 'fast-deep-equal/react';
 
 function HomePage() {
     const [item, setItem] = useState({});
@@ -23,8 +24,8 @@ function HomePage() {
     const productList = useSelector(selectProductList);
     const loading = useSelector(selectProductLoading);
 
-    const featureList = productList.slice(0, 4);
-    const latestList = productList.slice(8, 16);
+  const featureList = useMemo(() => productList.slice(0, 4), [productList]);
+  const latestList = useMemo(() => productList.slice(8, 16), [productList]);
 
     const style = {
         width: 50,

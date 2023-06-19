@@ -21,6 +21,8 @@ function ProductPage() {
     const orderFilter = useSelector(selectOrderFilter);
     // const loading = useSelector(selectProductLoading);
 
+    console.log("herre")
+
     const dispatch = useDispatch();
 
     const { id } = useParams();

@@ -1,5 +1,5 @@
 import { Button, InputNumber, Radio } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Magnifier from 'react-magnifier';
 import { useHistory, useLocation } from 'react-router-dom';
 // import required modules
@@ -15,12 +15,16 @@ import styles from './ProductDetail.module.scss';
 import './ProductDetail.scss';
 
 export function ProductDetail({ product, onGetOrder }) {
-    let options = [];
-    if (product) {
-        options = product.sizes.map((size) => {
-            return { label: `${size}`, value: `${size}` };
-        });
-    }
+    const options = useMemo(() => {
+        if (product) {
+            return product.sizes.map((size) => {
+                return { label: `${size}`, value: `${size}` };
+            });
+        }
+
+        return [];
+    }, [product])
+    
 
     const [srcImg, setSrcImg] = useState(product.images[0]);
     const [size, setSize] = useState();
