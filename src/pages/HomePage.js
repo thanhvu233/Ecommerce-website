@@ -36,16 +36,16 @@ function HomePage() {
 
     useEffect(async () => {
         const featureProducts = await productApi.getFeatureProducts();
-        setFeatureProductList(featureProducts.data.data.products);
+        setFeatureProductList(featureProducts.data.products);
         
         const latestProducts = await productApi.getLatestProducts();
-        setLatestProductList(latestProducts.data.data.products);
+        setLatestProductList(latestProducts.data.products);
 
         const product = await productApi.getSignatureProduct();
-        setItem(product.data.data);
+        setItem(product.data);
 
         const comments = await fetchComment();
-        setComments(comments.data);
+        setComments(comments);
 
         if (localStorage.getItem('quantity')) {
             await setOrderQuantity(localStorage.getItem('quantity'));
