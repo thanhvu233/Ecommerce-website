@@ -36,8 +36,8 @@ function ProductListPage() {
             setFilter({
                 ...filter,
                 _page: 1,
-                price_gte: minValue,
-                price_lte: maxValue,
+                "price[gte]": minValue,
+                "price[lte]": maxValue,
             })
         );
     };
@@ -58,15 +58,15 @@ function ProductListPage() {
             setFilter({
                 ...filter,
                 _page: 1,
-                price_gte: undefined,
-                price_lte: undefined,
+                "price[gte]": undefined,
+                "price[lte]": undefined,
                 rating: undefined,
             })
         );
     };
 
     const handleSelectChange = (field, order) => {
-        dispatch(setFilter({ ...filter, _sort: field, _order: order }));
+        dispatch(setFilter({ ...filter, sort: `${order === "desc" ? "-" : ""}${field}`}));
     };
 
     const handlePageChange = (page) => {
@@ -89,8 +89,8 @@ function ProductListPage() {
                 _page: 1,
                 category: category || undefined,
                 type: type,
-                price_gte: undefined,
-                price_lte: undefined,
+                "price[gte]": undefined,
+                "price[lte]": undefined,
                 rating: undefined,
             })
         );
