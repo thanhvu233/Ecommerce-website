@@ -17,21 +17,6 @@ export function ProductList({
 }) {
     const [selectValue, setSelectValue] = useState('');
 
-    // Count totalPage;
-    let totalItem = 0;
-    // /men, /women, /shoes
-    if (!category && type != 'kids') {
-        totalItem = 16;
-    }
-    // /kids
-    else if (!category && type == 'kids') {
-        totalItem = 8;
-    }
-    // Other cases
-    else {
-        totalItem = 8;
-    }
-
     const handleSelectChange = (value) => {
         // Split field and _order from value
         const [field, order] = value.split('.');
