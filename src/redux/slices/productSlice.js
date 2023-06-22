@@ -35,7 +35,7 @@ const productSlice = createSlice({
         },
         [fetchProductList.fulfilled]: (state, action) => {
             state.loading = false;
-            state.list = action.payload.data;
+            state.list = action.payload.data.products;
             state.totalRow = action.payload.totalRow;
         },
         [fetchProductList.rejected]: (state) => {
