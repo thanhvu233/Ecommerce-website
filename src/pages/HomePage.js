@@ -105,7 +105,7 @@ function HomePage() {
                 {/* End Footer */}
                 <BackTop>
                     <div style={style}>
-                        <i class='las la-angle-up'></i>
+                        <i className='las la-angle-up'></i>
                     </div>
                 </BackTop>
             </Wrapper>
