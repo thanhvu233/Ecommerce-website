@@ -8,10 +8,12 @@ import {
     fetchProductList,
     selectProductFilter,
     selectProductList,
+    selectProductLoading,
     selectProductTotalRow,
     setFilter,
 } from '../redux/slices/productSlice';
 import styles from './ProductListPage.module.scss';
+import LoadingPage from './LoadingPage';
 
 function ProductListPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
@@ -23,7 +25,7 @@ function ProductListPage() {
     const filter = useSelector(selectProductFilter);
     const list = useSelector(selectProductList);
     const totalRow = useSelector(selectProductTotalRow);
-    // const loading = useSelector(selectProductLoading);
+    const loading = useSelector(selectProductLoading);
 
     let [type, category] = getParams(pathname);
 
@@ -105,40 +107,43 @@ function ProductListPage() {
         window.scrollTo(0, 0);
     }, [category, type]);
 
-    // if (loading) {
-    //     return <LoadingPage />;
-    // }
-
     return (
         <Wrapper>
             {/* Header */}
             <Header quantity={orderQuantity} />
 
-            {/* Breadcrumb */}
-            <BreadcrumbSection type={type} category={category} />
+            {loading ? (
+                <LoadingPage />
+            ) : (
+                <>
+                {/* Breadcrumb */}
+                <BreadcrumbSection type={type} category={category} />
 
-            <Container>
-                <div className={styles.main}>
-                    {/* Sidebar */}
-                    <Sidebar
-                        onChangePrice={handleChangePrice}
-                        onChangeRating={handleChangeRating}
-                        onClear={handleClear}
-                        type={type}
-                        category={category}
-                    />
-                    {/* ProductList */}
-                    <ProductList
-                        list={list}
-                        onSelectionChange={handleSelectChange}
-                        type={type}
-                        category={category}
-                        onPageChange={handlePageChange}
-                        currentPage={filter._page}
-                        totalRow={totalRow}
-                    />
-                </div>
-            </Container>
+                <Container>
+                    <div className={styles.main}>
+                        {/* Sidebar */}
+                        <Sidebar
+                            onChangePrice={handleChangePrice}
+                            onChangeRating={handleChangeRating}
+                            onClear={handleClear}
+                            type={type}
+                            category={category}
+                        />
+                        {/* ProductList */}
+                        <ProductList
+                            list={list}
+                            onSelectionChange={handleSelectChange}
+                            type={type}
+                            category={category}
+                            onPageChange={handlePageChange}
+                            currentPage={filter._page}
+                            totalRow={totalRow}
+                        />
+                    </div>
+                </Container>
+
+                </>
+            )}
 
             {/* Footer */}
             <Footer />
