@@ -11,7 +11,8 @@ import { ProductDetail, RelatedProduct } from './../components/product/';
 import { fetchProductById } from './../helpers/fetchProductById';
 import {
     fetchProductList,
-    selectProductList
+    selectProductList,
+    selectProductLoading
 } from './../redux/slices/productSlice';
 import LoadingPage from './LoadingPage';
 
@@ -20,6 +21,7 @@ function ProductPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
     const productList = useSelector(selectProductList);
     const orderFilter = useSelector(selectOrderFilter);
+    const loading = useSelector(selectProductLoading);
 
     const dispatch = useDispatch();
 
@@ -55,8 +57,6 @@ function ProductPage() {
                     },
                 ],
             };
-
-            console.log('newOrder', newOrder);
 
             await addOrder(newOrder);
 
@@ -159,7 +159,7 @@ function ProductPage() {
         <Wrapper>
             <Header quantity={orderQuantity} />
             {
-                (!product || !productList) ? 
+                (!product || !productList || loading) ? 
                 (
                     <LoadingPage />
                 ) : 
