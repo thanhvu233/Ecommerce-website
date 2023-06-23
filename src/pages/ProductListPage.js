@@ -112,24 +112,23 @@ function ProductListPage() {
             {/* Header */}
             <Header quantity={orderQuantity} />
 
-            {loading ? (
-                <LoadingPage />
-            ) : (
-                <>
-                {/* Breadcrumb */}
-                <BreadcrumbSection type={type} category={category} />
+            {/* Breadcrumb */}
+            <BreadcrumbSection type={type} category={category} />
 
-                <Container>
-                    <div className={styles.main}>
-                        {/* Sidebar */}
-                        <Sidebar
-                            onChangePrice={handleChangePrice}
-                            onChangeRating={handleChangeRating}
-                            onClear={handleClear}
-                            type={type}
-                            category={category}
-                        />
-                        {/* ProductList */}
+            <Container>
+                <div className={styles.main}>
+                    {/* Sidebar */}
+                    <Sidebar
+                        onChangePrice={handleChangePrice}
+                        onChangeRating={handleChangeRating}
+                        onClear={handleClear}
+                        type={type}
+                        category={category}
+                    />
+
+                    {loading ? (
+                        <LoadingPage />
+                    ) : (
                         <ProductList
                             list={list}
                             onSelectionChange={handleSelectChange}
@@ -139,11 +138,9 @@ function ProductListPage() {
                             currentPage={filter._page}
                             totalRow={totalRow}
                         />
-                    </div>
-                </Container>
-
-                </>
-            )}
+                    )}
+                </div>
+            </Container>
 
             {/* Footer */}
             <Footer />
