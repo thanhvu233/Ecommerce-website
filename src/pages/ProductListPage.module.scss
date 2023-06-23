@@ -6,6 +6,10 @@
     gap: 16px;
 }
 
+.list {
+    flex-grow: 1;
+}
+
 .pagination {
     display: flex;
     justify-content: center;

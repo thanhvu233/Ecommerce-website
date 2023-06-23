@@ -14,6 +14,7 @@ import {
 } from '../redux/slices/productSlice';
 import styles from './ProductListPage.module.scss';
 import LoadingPage from './LoadingPage';
+import { SortingFilter } from '../components/productList/SortingFilter';
 
 function ProductListPage() {
     const [orderQuantity, setOrderQuantity] = useState(0);
@@ -126,19 +127,24 @@ function ProductListPage() {
                         category={category}
                     />
 
-                    {loading ? (
-                        <LoadingPage />
-                    ) : (
-                        <ProductList
-                            list={list}
+                    <div className={styles.list}>
+                        <SortingFilter 
                             onSelectionChange={handleSelectChange}
                             type={type}
                             category={category}
-                            onPageChange={handlePageChange}
-                            currentPage={filter._page}
-                            totalRow={totalRow}
                         />
-                    )}
+
+                        {loading ? (
+                            <LoadingPage />
+                        ) : (
+                            <ProductList
+                                list={list}
+                                onPageChange={handlePageChange}
+                                currentPage={filter._page}
+                                totalRow={totalRow}
+                            />
+                        )}
+                    </div>
                 </div>
             </Container>
 

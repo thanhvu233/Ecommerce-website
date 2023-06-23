@@ -4,21 +4,6 @@
     flex-grow: 1;
 }
 
-.dropdown {
-    display: flex;
-    justify-content: flex-end;
-
-    margin-top: 32px;
-
-    & .text {
-        margin-right: 16px;
-        padding-top: 8px;
-
-        font-size: 16px;
-        font-weight: 500;
-    }
-}
-
 .productList {
     margin-top: 16px;
 }
