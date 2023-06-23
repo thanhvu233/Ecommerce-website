@@ -13,15 +13,13 @@ import {
     fetchProductList,
     selectProductList
 } from './../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
 
 function ProductPage() {
     const [product, setProduct] = useState();
     const [orderQuantity, setOrderQuantity] = useState(0);
     const productList = useSelector(selectProductList);
     const orderFilter = useSelector(selectOrderFilter);
-    // const loading = useSelector(selectProductLoading);
-
-    console.log("herre")
 
     const dispatch = useDispatch();
 
@@ -135,17 +133,18 @@ function ProductPage() {
     };
 
     useEffect(async () => {
-        const product = await fetchProductById(id);
+        const {products} = await fetchProductById(id);
 
-        setProduct(product[0]);
+
+        setProduct(products[0]);
 
         dispatch(
             fetchProductList({
                 _page: 1,
                 _limit: 4,
-                category: product[0].category,
-                type: product[0].type,
-                productId_ne: id,
+                category: products[0].category,
+                type: products[0].type,
+                "productId[ne]": id,
             })
         );
 
@@ -156,32 +155,21 @@ function ProductPage() {
         }
     }, [id, orderQuantity]);
 
-    // Tạo 1 object ban đầu và ném xuống component để nó render nháp
-    // Nếu không làm như thế thì component sẽ render trước cả khi có data
-    const initialValues = {
-        productId: '',
-        productName: '',
-        price: 0,
-        description: '',
-        images: [],
-        sizes: [],
-        rating: 0,
-        category: '',
-        type: '',
-        ...product,
-    };
-
-    // if (loading) {
-    //     return <LoadingPage />;
-    // }
-
     return (
         <Wrapper>
             <Header quantity={orderQuantity} />
-            {Boolean(product) && (
-                <ProductDetail product={initialValues} onGetOrder={handleGetOrder} />
-            )}
-            <RelatedProduct list={productList} item={initialValues} />
+            {
+                (!product || !productList) ? 
+                (
+                    <LoadingPage />
+                ) : 
+                (
+                    <>
+                        <ProductDetail product={product} onGetOrder={handleGetOrder} />
+                        <RelatedProduct list={productList} item={product} />
+                    </>
+                )
+            }
             <Footer />
         </Wrapper>
     );
