@@ -57,60 +57,62 @@ function HomePage() {
         window.scrollTo(0, 0);
     }, []);
     
-    if (latestProductList.length === 0 || featureProductList.length === 0 || comments.length === 0 || !item) {
-        return <LoadingPage />;
-    } else {
-        return (
-            <Wrapper>
-                {/* Begin Header */}
-                <Header quantity={orderQuantity} />
-                {/* End Header */}
+    return (
+        <Wrapper>
+            {/* Begin Header */}
+            <Header quantity={orderQuantity} />
+            {/* End Header */}
 
-                {/* Begin Hero Section */}
-                <Hero
-                    imgPosition='right'
-                    title='Impress The World With Your Outfits'
-                    desc='Style is something each of us already has, all we need to do is find it.'
-                    image={heroImg}
-                />
-                {/* End Hero Section */}
+            {latestProductList.length === 0 || featureProductList.length === 0 || comments.length === 0 || !item ? (
+                <LoadingPage />
+            ) : (
+                <>
+                    {/* Begin Hero Section */}
+                    <Hero
+                        imgPosition='right'
+                        title='Impress The World With Your Outfits'
+                        desc='Style is something each of us already has, all we need to do is find it.'
+                        image={heroImg}
+                    />
+                    {/* End Hero Section */}
 
-                {/* Begin Example Products Section */}
-                <ExampleProduct />
-                {/* End Example Products Section */}
+                    {/* Begin Example Products Section */}
+                    <ExampleProduct />
+                    {/* End Example Products Section */}
 
-                {/* Begin Feature Products Section */}
-                <FeatureProduct list={featureProductList} title='Featured Products' />
-                {/* End Feature Products Section */}
+                    {/* Begin Feature Products Section */}
+                    <FeatureProduct list={featureProductList} title='Featured Products' />
+                    {/* End Feature Products Section */}
 
-                {/* Begin Latest Products Section */}
-                <FeatureProduct list={latestProductList} title='Latest Products' />
-                {/* End Latest Products Section */}
+                    {/* Begin Latest Products Section */}
+                    <FeatureProduct list={latestProductList} title='Latest Products' />
+                    {/* End Latest Products Section */}
 
-                {/* Begin Unique Product Section */}
-                <Hero
-                    imgPosition='left'
-                    title={item.productName}
-                    desc={item.description}
-                    image={specialItem}
-                />
-                {/* End Unique Prodcut Section */}
+                    {/* Begin Unique Product Section */}
+                    <Hero
+                        imgPosition='left'
+                        title={item.productName}
+                        desc={item.description}
+                        image={specialItem}
+                    />
+                    {/* End Unique Prodcut Section */}
 
-                {/* Begin Comments Section */}
-                <Comment comments={comments} />
-                {/* End Comments Section */}
+                    {/* Begin Comments Section */}
+                    <Comment comments={comments} />
+                    {/* End Comments Section */}
+                </>
+            )}
 
-                {/* Begin Footer */}
-                <Footer />
-                {/* End Footer */}
-                <BackTop>
-                    <div style={style}>
-                        <i className='las la-angle-up'></i>
-                    </div>
-                </BackTop>
-            </Wrapper>
-        );
-    }
+            {/* Begin Footer */}
+            <Footer />
+            {/* End Footer */}
+            <BackTop>
+                <div style={style}>
+                    <i className='las la-angle-up'></i>
+                </div>
+            </BackTop>
+        </Wrapper>
+    );
 }
 
 export default HomePage;
