@@ -11,6 +11,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductPage from './pages/ProductPage';
 import RegisterEditPage from './pages/RegisterEditPage';
+import { ChangePasswordPage } from './pages/ChangePasswordPage';
 
 function App() {
     return (
@@ -36,6 +37,9 @@ function App() {
                 </Route>
                 <PrivateRoute path='/user/edit-profile'>
                     <RegisterEditPage />
+                </PrivateRoute>
+                <PrivateRoute path='/user/change-password'>
+                    <ChangePasswordPage />
                 </PrivateRoute>
                 <PrivateRoute path='/cart'>
                     <CartPage />

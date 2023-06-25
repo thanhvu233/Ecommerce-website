@@ -128,6 +128,7 @@ export function Header({ quantity }) {
                         </Link>
                         <div className={styles.dropdown}>
                             <Link to={`/user/edit-profile`}>Edit Profile</Link>
+                            <Link to={`/user/change-password`}>Change Password</Link>
                             <Button
                                 type='text'
                                 block

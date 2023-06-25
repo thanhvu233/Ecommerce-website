@@ -52,6 +52,17 @@ const userApi = {
                 "Authorization" : `Bearer ${token}`
             }
         });
+    },
+    updateUserPassword(data) {
+        const url = `/users/updateMyPassword`;
+
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.patch(url, data, {
+            headers: {
+                "Authorization" : `Bearer ${token}`
+            }
+        });
     }
 };
 
