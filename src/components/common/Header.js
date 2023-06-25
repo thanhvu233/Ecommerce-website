@@ -127,7 +127,7 @@ export function Header({ quantity }) {
                             <i className={`${styles.icon} las la-user`} />
                         </Link>
                         <div className={styles.dropdown}>
-                            <Link to={`/user/edit-profile`}>Edit Account</Link>
+                            <Link to={`/user/edit-profile`}>Edit Profile</Link>
                             <Button
                                 type='text'
                                 block

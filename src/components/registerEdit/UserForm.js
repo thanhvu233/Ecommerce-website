@@ -50,7 +50,7 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting, errors },
+        formState: { isSubmitting, errors, isDirty },
     } = useForm({
         defaultValues: initialValues,
         resolver: yupResolver(schema),
@@ -72,7 +72,7 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
             <div className={styles.userForm}>
                 {/* Header */}
                 <div className={styles.header}>
-                    {isEdit ? 'Edit Account' : 'Create New Account'}
+                    {isEdit ? 'Edit Profile' : 'Create New Account'}
                 </div>
 
                 {/* Form */}
@@ -153,59 +153,57 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
                                         type='text'
                                         className='inputField'
                                         placeholder='Username...'
-                                        readOnly={isEdit ? true : false}
+                                        readOnly={!!isEdit}
+                                        disabled={!!isEdit}
                                     />
                                 )}
                             />
                             <p className={styles.errorMsg}>{errors.username?.message}</p>
                         </div>
-                        <div className={styles.password}>
-                            <label className={styles.label}>Password</label>
-                            <Controller
-                                name='password'
-                                control={control}
-                                render={({ field }) => (
-                                    <Input
-                                        {...field}
-                                        type='password'
-                                        className='inputField'
-                                        placeholder='Password...'
+                        {!isEdit && (
+                            <>
+                                <div className={styles.password}>
+                                    <label className={styles.label}>Password</label>
+                                    <Controller
+                                        name='password'
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Input
+                                                {...field}
+                                                type='password'
+                                                className='inputField'
+                                                placeholder='Password...'
+                                            />
+                                        )}
                                     />
-                                )}
-                            />
-                            <p className={styles.errorMsg}>{errors.password?.message}</p>
-                        </div>
-                        <div className={styles.password}>
-                            <label className={styles.label}>Password confirmation</label>
-                            <Controller
-                                name='passwordConfirm'
-                                control={control}
-                                render={({ field }) => (
-                                    <Input
-                                        {...field}
-                                        type='password'
-                                        className='inputField'
-                                        placeholder='Password confirmation...'
+                                    <p className={styles.errorMsg}>{errors.password?.message}</p>
+                                </div>
+                                <div className={styles.password}>
+                                    <label className={styles.label}>Password confirmation</label>
+                                    <Controller
+                                        name='passwordConfirm'
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Input
+                                                {...field}
+                                                type='password'
+                                                className='inputField'
+                                                placeholder='Password confirmation...'
+                                            />
+                                        )}
                                     />
-                                )}
-                            />
-                            <p className={styles.errorMsg}>{errors.passwordConfirm?.message}</p>
-                        </div>
+                                    <p className={styles.errorMsg}>{errors.passwordConfirm?.message}</p>
+                                </div>
+                            </>
+                        )}
+
 
                         {/* Submit Button */}
                         <div className={`${styles.submitBtn} submitBtn`}>
-                            <Button htmlType='submit' size='large' loading={isSubmitting}>
+                            <Button htmlType='submit' size='large' loading={isSubmitting} disabled={!isDirty}>
                                 {isEdit ? 'Enter' : 'Create'}
                             </Button>
                         </div>
-                        {error && (
-                            <Alert
-                                message={error}
-                                type='error'
-                                showIcon
-                                className={styles.formErr}
-                            />
-                        )}
                     </form>
                 </div>
             </div>

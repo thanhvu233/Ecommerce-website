@@ -26,20 +26,27 @@ function RegisterEditPage() {
             try {
                 const newInfo = {
                     ...formValues,
+                    password: undefined,
+                    passwordConfirm: undefined,
                 };
 
-                await userApi.update(newInfo);
+                await userApi.updateUserProfile(newInfo);
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'Update info successfully',
+                    title: 'Edit profile successfully',
                     showConfirmButton: false,
                     timer: 2000,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                 });
             } catch (error) {
-                console.log('Can&apos;t update info by id', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: error.message,
+                    showConfirmButton: false,
+                    timer: 5000,
+                });
             }
         } else {
             try {
@@ -67,7 +74,12 @@ function RegisterEditPage() {
 
 
             } catch (error) {
-                console.log('Can&apos;t create account', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: error.message,
+                    showConfirmButton: false,
+                    timer: 5000,
+                });
             }
         }
     };
@@ -102,20 +114,18 @@ function RegisterEditPage() {
         ...currentUser,
     }), [currentUser]);
 
-    if (loading && isEdit) {
-        return <LoadingPage />;
-    }
-
     return (
         <Wrapper>
             <Header quantity={orderQuantity} />
             {/* Là trang ADD hoặc phải có currentUser thì mới render form */}
-            {(!isEdit || Boolean(currentUser)) && (
+            {(!isEdit || currentUser) ? (
                 <UserForm
                     isEdit={isEdit}
                     initialValues={initialValues}
                     onSubmit={handleFormSubmit}
                 />
+            ) : (
+                <LoadingPage />
             )}
             <Footer />
         </Wrapper>

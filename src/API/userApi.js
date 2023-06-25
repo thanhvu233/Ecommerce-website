@@ -42,6 +42,17 @@ const userApi = {
             }
         });
     },
+    updateUserProfile(data) {
+        const url = `/users/updateMe`;
+
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.patch(url, data, {
+            headers: {
+                "Authorization" : `Bearer ${token}`
+            }
+        });
+    }
 };
 
 export default userApi;
