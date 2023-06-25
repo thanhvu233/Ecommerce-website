@@ -1,4 +1,3 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +7,6 @@ import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 import './Header.scss';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 export function Header({ quantity }) {
     const [isLogin, setIsLogin] = useState(false);
@@ -73,13 +71,13 @@ export function Header({ quantity }) {
         // If logined
         const accessToken = localStorage.getItem('access_token');
 
-        if (Boolean(accessToken)) {
+        if (accessToken) {
             setIsLogin(true);
             setUserId(accessToken);
         } else {
             setIsLogin(false);
         }
-    }, [quantity, isLogin]);
+    }, [quantity]);
 
     return (
         <div className={styles.header}>
@@ -129,7 +127,7 @@ export function Header({ quantity }) {
                             <i className={`${styles.icon} las la-user`} />
                         </Link>
                         <div className={styles.dropdown}>
-                            <Link to={`/user/${userId}`}>Edit Account</Link>
+                            <Link to={`/user/edit-profile`}>Edit Account</Link>
                             <Button
                                 type='text'
                                 block

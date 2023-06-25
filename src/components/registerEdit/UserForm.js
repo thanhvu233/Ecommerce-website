@@ -6,36 +6,47 @@ import * as yup from 'yup';
 import { Container } from './../common';
 import styles from './UserForm.module.scss';
 
-const schema = yup
-    .object({
-        name: yup.string().required('Please enter a name'),
-        address: yup.string().required('Please enter an address'),
-        phone: yup
-            .string()
-            .required('Please enter a phone')
-            .min(10, 'Phone must have at least 10 digits'),
-        email: yup
-            .string()
-            .email('Please enter correct email format')
-            .required('Please enter an email'),
-        username: yup.string().required('Please enter an username'),
-        password: yup
-            .string()
-            .required('Please enter a password')
-            .min(8, 'Password must be at least 8 characters'),
-        passwordConfirm: yup
-            .string()
-            .required('Please enter password confirmation')
-            .min(8, 'Password confirmation must match password')
-            .test(
-                'password-confirmation',
-                'Password confirmation must match password',
-                (value, context) => value === context.parent.password,
-            )
-    })
-    .required();
-
 export function UserForm({ isEdit, initialValues, onSubmit }) {
+    const schema = yup
+        .object({
+            name: yup.string().required('Please enter a name'),
+            address: yup.string().required('Please enter an address'),
+            phone: yup
+                .string()
+                .required('Please enter a phone')
+                .min(10, 'Phone must have at least 10 digits'),
+            email: yup
+                .string()
+                .email('Please enter correct email format')
+                .required('Please enter an email'),
+            username: yup.string().required('Please enter an username'),
+            password: yup
+                .string()
+                .test(
+                    'password-required',
+                    'Please enter a password',
+                    (value) => value || isEdit,
+                )
+                .test(
+                    'password-length',
+                    'Password must be at least 8 characters',
+                    (value) => (value && value.length > 7) || isEdit,
+                ),
+            passwordConfirm: yup
+                .string()
+                .test(
+                    'password-confirm-required',
+                    'Please enter password confirmation',
+                    (value) => value || isEdit,
+                )
+                .test(
+                    'password-confirmation',
+                    'Password confirmation must match password',
+                    (value, context) => (value && context.parent.password && value === context.parent.password) || isEdit,
+                )
+        })
+        .required();
+
     const {
         control,
         handleSubmit,

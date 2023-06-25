@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import userApi from '../API/userApi';
 import { Footer, Header, Wrapper } from '../components/common';
 import { UserForm } from '../components/registerEdit';
-import { fetchUserById } from '../helpers/fetchUserById';
 import LoadingPage from './LoadingPage';
 
 function RegisterEditPage() {
@@ -14,16 +13,18 @@ function RegisterEditPage() {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
 
-    const { userId } = useParams();
     const history = useHistory();
 
-    const isEdit = Boolean(userId);
+    const isEdit = useMemo(() => {
+        const token = window.localStorage.getItem("access_token");
+
+        return !!token;
+    }, [])
 
     const handleFormSubmit = async (formValues) => {
         if (isEdit) {
             try {
                 const newInfo = {
-                    id: userId,
                     ...formValues,
                 };
 
@@ -72,32 +73,34 @@ function RegisterEditPage() {
     };
 
     useEffect(async () => {
-        if (userId) {
+        if (isEdit) {
             // Gọi API lấy data của user đổ lên form
-            const data = await fetchUserById(userId);
-
-            setCurrentUser(data[0]);
+            const { data } = await userApi.getCurrentUser();
+    
+            setCurrentUser(data);
             setLoading(false);
+    
+            if (localStorage.getItem('quantity')) {
+                setOrderQuantity(localStorage.getItem('quantity'));
+            } else {
+                setOrderQuantity(0);
+            }
+    
+            // Scroll to top when navigate from other page
+            window.scrollTo(0, 0);
         }
-        if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            setOrderQuantity(0);
-        }
+    }, [isEdit]);
 
-        // Scroll to top when navigate from other page
-        window.scrollTo(0, 0);
-    }, [userId]);
-
-    const initialValues = {
+    const initialValues = useMemo(() => ({
         name: '',
         address: '',
         phone: '',
         email: '',
         username: '',
         password: '',
+        passwordConfirm: '',
         ...currentUser,
-    };
+    }), [currentUser]);
 
     if (loading && isEdit) {
         return <LoadingPage />;
