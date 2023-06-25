@@ -34,7 +34,13 @@ const userApi = {
     getCurrentUser() {
         const url = `/users/me`;
 
-        return axiosClient.get(url);
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.get(url, {
+            headers: {
+                "Authorization" : `Bearer ${token}`
+            }
+        });
     },
 };
 

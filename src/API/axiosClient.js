@@ -7,10 +7,6 @@ const axiosClient = axios.create({
     },
 });
 
-const AUTH_TOKEN = `Bearer ${window.localStorage.getItem('access_token')}`; 
-
-axiosClient.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-
 // Add a response interceptor
 axiosClient.interceptors.response.use(
     function (response) {
