@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/common/PrivateRoute';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import LoadingPage from './pages/LoadingPage';
@@ -34,9 +34,9 @@ function App() {
                 <Route path='/register'>
                     <RegisterEditPage />
                 </Route>
-                <Route path='/user/:userId'>
+                <PrivateRoute path='/user/edit-profile'>
                     <RegisterEditPage />
-                </Route>
+                </PrivateRoute>
                 <PrivateRoute path='/cart'>
                     <CartPage />
                 </PrivateRoute>
