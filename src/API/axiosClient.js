@@ -12,7 +12,11 @@ axiosClient.interceptors.response.use(
     function (response) {
         // console.log('x-total-count', response.headers['x-total-count']);
         // Lấy ra tổng số sản phầm từ trường x-total-count
-        return { data: response.data.data, totalRow: response.data.totalRow };
+        if (response.data.totalRow) {
+            return { data: response.data.data, totalRow: response.data.totalRow };
+        }
+
+        return { data: response.data.data };
     },
     function (error) {
         return Promise.reject(error);
