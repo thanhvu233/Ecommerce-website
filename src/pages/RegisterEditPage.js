@@ -11,7 +11,6 @@ function RegisterEditPage() {
     // Phải set initial value cho currentUser
     // là null, nếu không sẽ không đổ được data lên form
     const [currentUser, setCurrentUser] = useState();
-    const [loading, setLoading] = useState(true);
 
     const history = useHistory();
 
@@ -90,7 +89,6 @@ function RegisterEditPage() {
             const { data } = await userApi.getCurrentUser();
     
             setCurrentUser(data);
-            setLoading(false);
     
             if (localStorage.getItem('quantity')) {
                 setOrderQuantity(localStorage.getItem('quantity'));
