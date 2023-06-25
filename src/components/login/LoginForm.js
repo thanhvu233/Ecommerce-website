@@ -43,7 +43,7 @@ export function LoginForm({ initialValues, onSubmit }) {
                     control={control}
                     render={({ field }) => <Input {...field} type='text' className='inputField' placeholder='Username...' />}
                 />
-                <p className={styles.errorMsg}>{errors.username?.message}</p>
+                <div className={styles.errorMsg}>{errors.username?.message}</div>
             </div>
 
             <div className={styles.password}>
@@ -55,7 +55,7 @@ export function LoginForm({ initialValues, onSubmit }) {
                         <Input {...field} type='password' className='inputField' placeholder='Password...' />
                     )}
                 />
-                <p className={styles.errorMsg}>{errors.password?.message}</p>
+                <div className={styles.errorMsg}>{errors.password?.message}</div>
             </div>
 
             <div className={`${styles.submitBtn} submitBtn`}>
@@ -63,7 +63,6 @@ export function LoginForm({ initialValues, onSubmit }) {
                     Enter
                 </Button>
             </div>
-            {error && <Alert message={error} type='error' showIcon className={styles.formErr} />}
         </form>
     );
 }
