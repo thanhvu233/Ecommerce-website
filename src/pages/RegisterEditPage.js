@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { v4 as uuid } from 'uuid';
 import userApi from '../API/userApi';
 import { Footer, Header, Wrapper } from '../components/common';
 import { UserForm } from '../components/registerEdit';
@@ -35,6 +34,8 @@ function RegisterEditPage() {
                     title: 'Update info successfully',
                     showConfirmButton: false,
                     timer: 2000,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
                 });
             } catch (error) {
                 console.log('Can&apos;t update info by id', error);
@@ -42,23 +43,28 @@ function RegisterEditPage() {
         } else {
             try {
                 const newUser = {
-                    id: uuid(),
                     ...formValues,
                 };
 
-                await userApi.add(newUser);
+                const data = await userApi.signUp(newUser);
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Create account successfully',
-                    showConfirmButton: false,
-                    timer: 2000,
-                });
+                if (data.data.userId) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Create account successfully',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    });
 
-                setTimeout(() => {
-                    localStorage.setItem('path', '/register');
-                    history.push('/login');
-                }, 2000);
+                    setTimeout(() => {
+                        localStorage.setItem('path', '/register');
+                        history.push('/login');
+                    }, 2000);
+                }
+
+
             } catch (error) {
                 console.log('Can&apos;t create account', error);
             }

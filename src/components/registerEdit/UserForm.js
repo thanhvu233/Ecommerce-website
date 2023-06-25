@@ -23,6 +23,15 @@ const schema = yup
             .string()
             .required('Please enter a password')
             .min(8, 'Password must be at least 8 characters'),
+        passwordConfirm: yup
+            .string()
+            .required('Please enter password confirmation')
+            .min(8, 'Password confirmation must match password')
+            .test(
+                'password-confirmation',
+                'Password confirmation must match password',
+                (value, context) => value === context.parent.password,
+            )
     })
     .required();
 
@@ -155,10 +164,26 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
                             />
                             <p className={styles.errorMsg}>{errors.password?.message}</p>
                         </div>
+                        <div className={styles.password}>
+                            <label className={styles.label}>Password confirmation</label>
+                            <Controller
+                                name='passwordConfirm'
+                                control={control}
+                                render={({ field }) => (
+                                    <Input
+                                        {...field}
+                                        type='password'
+                                        className='inputField'
+                                        placeholder='Password confirmation...'
+                                    />
+                                )}
+                            />
+                            <p className={styles.errorMsg}>{errors.passwordConfirm?.message}</p>
+                        </div>
 
                         {/* Submit Button */}
                         <div className={`${styles.submitBtn} submitBtn`}>
-                            <Button htmlType='submit' size='large'>
+                            <Button htmlType='submit' size='large' loading={isSubmitting}>
                                 {isEdit ? 'Enter' : 'Create'}
                             </Button>
                         </div>
