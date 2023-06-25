@@ -25,7 +25,17 @@ const userApi = {
         const url = '/users/signup';
 
         return axiosClient.post(url, data);
-    }
+    },
+    login(data) {
+        const url = '/users/login';
+
+        return axiosClient.post(url, data);
+    },
+    getCurrentUser() {
+        const url = `/users/me`;
+
+        return axiosClient.get(url);
+    },
 };
 
 export default userApi;

@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from './../../API/userApi';
 
-export const fetchUserByAcc = createAsyncThunk('auth/getByAcc', async (account) => {
+export const login = createAsyncThunk('auth/login', async (account) => {
     try {
-        const res = userApi.getByAccount(account);
+        const res = userApi.login(account);
 
         return res;
     } catch (error) {
@@ -31,16 +31,16 @@ const authSlice = createSlice({
         },
     },
     extraReducers: {
-        [fetchUserByAcc.pending]: (state) => {
+        [login.pending]: (state) => {
             state.isLogined = false;
             state.isLogging = true;
         },
-        [fetchUserByAcc.fulfilled]: (state, action) => {
+        [login.fulfilled]: (state, action) => {
             state.isLogined = true;
             state.isLogging = false;
             state.currentUser = action.payload.data;
         },
-        [fetchUserByAcc.rejected]: (state) => {
+        [login.rejected]: (state) => {
             state.isLogined = false;
             state.isLogging = false;
         },

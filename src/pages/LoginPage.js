@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Main } from '../components/login';
-import { fetchUserByAcc } from '../redux/slices/authSlice';
-import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
+import { selectOrderFilter } from '../redux/slices/orderSlice';
 import { Wrapper } from './../components/common';
 import { Header } from './../components/common/Header';
+import { login } from '../redux/slices/authSlice';
 
 function LoginPage() {
     const history = useHistory();
@@ -23,47 +23,46 @@ function LoginPage() {
     const path = localStorage.getItem('path');
 
     const handleFormSubmit = async (formValues) => {
-        // Gọi API để kiểm tra account
-        const userResult = await dispatch(fetchUserByAcc(formValues));
+        try {
+            // Gọi API để kiểm tra account
+            const userResult = await dispatch(login(formValues));
 
-        const { data: userAcc } = unwrapResult(userResult);
+            const { data } = unwrapResult(userResult);
 
-        console.log('userAcc', userAcc);
-
-        if (userAcc.length == 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'User doesn&apos;t exist',
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        } else {
             // Gọi API để lấy unfinished order
-            const actionResult = await dispatch(
-                fetchOrderList({
-                    ...orderFilter,
-                    isCheckout: false,
-                    userId: userAcc[0].id,
-                })
-            );
+            // const actionResult = await dispatch(
+            //     fetchOrderList({
+            //         ...orderFilter,
+            //         isCheckout: false,
+            //         userId: data.id,
+            //     })
+            // );
 
-            let { data: result } = unwrapResult(actionResult);
+            // let { data: result } = unwrapResult(actionResult);
             let quantity = 0;
 
             // Lấy ra số lượng product chưa thanh toán trong cart
             // nếu còn đơn chưa thanh toán
-            if (result.length != 0) {
-                quantity = result[0].products.length;
-            }
+            // if (result.length != 0) {
+            //     quantity = result[0].products.length;
+            // }
 
             localStorage.setItem('quantity', quantity);
-            localStorage.setItem('access_token', userAcc[0].id);
+            localStorage.setItem('access_token', data.token);
 
             if (path == '/register') {
                 history.push('/');
             } else {
                 history.push(`${path}`);
             }
+        } catch (error) {
+            console.log("error", error)
+            Swal.fire({
+                icon: 'error',
+                title: error.message,
+                showConfirmButton: false,
+                timer: 2000,
+            });
         }
     };
 
