@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './RelatedProduct.module.scss';
 import { Link } from 'react-router-dom';
-import { Card, Col, Rate, Row } from 'antd';
+import { Card, Col, Rate, Row, Tooltip } from 'antd';
 import truncate from '../../helpers/truncate';
 import { Container } from './../common';
 
@@ -37,15 +37,17 @@ export function RelatedProduct({ list, item }) {
                                             }
                                         >
                                             <div className={styles.detail}>
-                                                <div className={styles.name}>
-                                                    {truncate(product.productName, 44)}
-                                                </div>
-                                                <div className={styles.rating}>
-                                                    <Rate disabled defaultValue={product.rating} />
-                                                </div>
-                                                <h4 className={styles.price}>
-                                                    ${product.price}.00
-                                                </h4>
+                                                <Tooltip title={product.productName} placement="bottom">
+                                                    <div className={styles.name}>
+                                                        {truncate(product.productName, 44)}
+                                                    </div>
+                                                    <div className={styles.rating}>
+                                                        <Rate disabled defaultValue={product.rating} />
+                                                    </div>
+                                                    <h4 className={styles.price}>
+                                                        ${product.price}.00
+                                                    </h4>
+                                                </Tooltip>
                                             </div>
                                         </Card>
                                     </Col>
