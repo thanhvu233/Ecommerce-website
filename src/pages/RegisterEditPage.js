@@ -5,9 +5,11 @@ import userApi from '../API/userApi';
 import { Footer, Header, Wrapper } from '../components/common';
 import { UserForm } from '../components/registerEdit';
 import LoadingPage from './LoadingPage';
+import orderedItemApi from '../API/orderedItemApi';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import { useDispatch } from 'react-redux';
 
 function RegisterEditPage() {
-    const [orderQuantity, setOrderQuantity] = useState(0);
     // Phải set initial value cho currentUser
     // là null, nếu không sẽ không đổ được data lên form
     const [currentUser, setCurrentUser] = useState();
@@ -19,6 +21,8 @@ function RegisterEditPage() {
 
         return !!token;
     }, [])
+
+    const dispatch = useDispatch();
 
     const handleFormSubmit = async (formValues) => {
         if (isEdit) {
@@ -89,17 +93,17 @@ function RegisterEditPage() {
             const { data } = await userApi.getCurrentUser();
     
             setCurrentUser(data);
-    
-            if (localStorage.getItem('quantity')) {
-                setOrderQuantity(localStorage.getItem('quantity'));
-            } else {
-                setOrderQuantity(0);
-            }
-    
+
             // Scroll to top when navigate from other page
             window.scrollTo(0, 0);
         }
     }, [isEdit]);
+
+    useEffect(async () => {
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+    });
 
     const initialValues = useMemo(() => ({
         name: '',
@@ -114,7 +118,7 @@ function RegisterEditPage() {
 
     return (
         <Wrapper>
-            <Header quantity={orderQuantity} />
+            <Header />
             {/* Là trang ADD hoặc phải có currentUser thì mới render form */}
             {(!isEdit || currentUser) ? (
                 <UserForm

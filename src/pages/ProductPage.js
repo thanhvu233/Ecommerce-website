@@ -13,10 +13,10 @@ import LoadingPage from './LoadingPage';
 import orderApi from '../API/orderApi';
 import orderedItemApi from '../API/orderedItemApi';
 import Swal from 'sweetalert2';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
 
 function ProductPage() {
     const [product, setProduct] = useState();
-    const [orderQuantity, setOrderQuantity] = useState(0);
     const [loadingAddToCart, setLoadingAddToCart] = useState(false);
 
     const productList = useSelector(selectProductList);
@@ -44,6 +44,12 @@ function ProductPage() {
         );
     }, [id]);
 
+    useEffect(async () => {
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+    }, [id, loadingAddToCart]);
+
     const handleGetOrder = async (item) => {
         try {
             setLoadingAddToCart(true);
@@ -66,12 +72,8 @@ function ProductPage() {
                         size: item.size,
                         subTotal: item.subTotal
                     }
-                    const { data: orderedItem } = await orderedItemApi.createOne(newOrderedItem);
-
-                    if (orderedItem) {
-                        localStorage.setItem('quantity', 1);
-                        setOrderQuantity(1);
-                    }
+                    
+                    await orderedItemApi.createOne(newOrderedItem);
                 }
             }
             else {
@@ -95,14 +97,9 @@ function ProductPage() {
                         total: currentTotal + item.subTotal,
                     }
 
-                    const updateOrderItemResult = await orderedItemApi.updateOne(updatedOrderedItem);
+                    await orderedItemApi.updateOne(updatedOrderedItem);
 
-                    const updateOrderResult = await orderApi.update(updatedOrder);
-
-                    if (updateOrderItemResult.data && updateOrderResult.data) {
-                        localStorage.setItem('quantity', 1);
-                        setOrderQuantity(1);
-                    }
+                    await orderApi.update(updatedOrder);
                 }
                 // UNFINISHED ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
                 else {
@@ -121,13 +118,7 @@ function ProductPage() {
                             total: item.subTotal + currentTotal
                         }
 
-                        const updateOrderResult = await orderApi.update(updatedOrder);
-
-                        if (updateOrderResult) {
-                            const quantity = localStorage.getItem('quantity');
-                            localStorage.setItem('quantity', quantity + 1);
-                            setOrderQuantity((prevState) => prevState + 1);
-                        }
+                        await orderApi.update(updatedOrder);
                     }
                 }
             }
@@ -148,7 +139,7 @@ function ProductPage() {
 
     return (
         <Wrapper>
-            <Header quantity={orderQuantity} />
+            <Header />
             {
                 (!product || loadingGetProducts) ?
                     (

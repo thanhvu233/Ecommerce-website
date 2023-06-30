@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Footer, Header, Wrapper } from '../components/common';
 import { ChangePasswordForm } from '../components/changePassword';
+import orderedItemApi from '../API/orderedItemApi';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import { useDispatch } from 'react-redux';
 
 export const ChangePasswordPage = () => {
-    const [orderQuantity, setOrderQuantity] = useState(0);
+    const dispatch = useDispatch();
 
     useEffect(async () => {
-        if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            setOrderQuantity(0);
-        }
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
@@ -18,7 +19,7 @@ export const ChangePasswordPage = () => {
 
     return (
         <Wrapper>
-            <Header quantity={orderQuantity} />
+            <Header />
             <ChangePasswordForm />
             <Footer />
         </Wrapper>

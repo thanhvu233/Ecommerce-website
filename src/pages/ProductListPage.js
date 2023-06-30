@@ -15,10 +15,10 @@ import {
 import styles from './ProductListPage.module.scss';
 import LoadingPage from './LoadingPage';
 import { SortingFilter } from '../components/productList/SortingFilter';
+import orderedItemApi from '../API/orderedItemApi';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
 
 function ProductListPage() {
-    const [orderQuantity, setOrderQuantity] = useState(0);
-
     // Get params from URL
     const { pathname } = useLocation();
 
@@ -77,8 +77,12 @@ function ProductListPage() {
     };
 
     // Sort, filter, pagination render
-    useEffect(() => {
+    useEffect(async() => {
         dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
+
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
@@ -98,12 +102,6 @@ function ProductListPage() {
             })
         );
 
-        if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            setOrderQuantity(0);
-        }
-
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, [category, type]);
@@ -111,7 +109,7 @@ function ProductListPage() {
     return (
         <Wrapper>
             {/* Header */}
-            <Header quantity={orderQuantity} />
+            <Header />
 
             {/* Breadcrumb */}
             <BreadcrumbSection type={type} category={category} />

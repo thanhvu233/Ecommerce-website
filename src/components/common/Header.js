@@ -1,14 +1,15 @@
 import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
 import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 import './Header.scss';
 import Swal from 'sweetalert2';
+import { selectTotalUnpaidItem } from '../../redux/slices/orderedItemSlice';
 
-export function Header({ quantity }) {
+export function Header() {
     const [isLogin, setIsLogin] = useState(false);
     const [userId, setUserId] = useState('');
 
@@ -16,6 +17,7 @@ export function Header({ quantity }) {
     const history = useHistory();
 
     const dispatch = useDispatch();
+    const totalUnpaidItem = useSelector(selectTotalUnpaidItem);
 
     const handleLogout = async () => {
         // Set access_token = empty
@@ -51,7 +53,7 @@ export function Header({ quantity }) {
             localStorage.setItem('path', pathname);
             history.push('/login');
         } else {
-            if (quantity != 0) {
+            if (totalUnpaidItem !== 0) {
                 history.push('/cart');
             } else {
                 // Hiện thông báo update thành công
@@ -59,7 +61,7 @@ export function Header({ quantity }) {
                     icon: 'error',
                     title: 'There aren&apos;t any items in cart',
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 5000,
                 });
             }
         }
@@ -75,7 +77,7 @@ export function Header({ quantity }) {
         } else {
             setIsLogin(false);
         }
-    }, [quantity]);
+    }, []);
 
     return (
         <div className={styles.header}>
@@ -137,7 +139,7 @@ export function Header({ quantity }) {
                             </Button>
                         </div>
                     </div>
-                    <Badge count={quantity} size='small' offset={[-1, 4]}>
+                    <Badge count={totalUnpaidItem} size='small' offset={[-1, 4]}>
                         <div onClick={handleClickCart} className={styles.cartIcon}>
                             <i className={`${styles.icon} las la-shopping-cart`} />
                         </div>
@@ -161,12 +163,9 @@ export function Header({ quantity }) {
                             </Button>
                         </div>
                     </div>
-
-                    <Badge count={quantity} size='small' offset={[-1, 4]}>
-                        <div onClick={handleClickCart} className={styles.cartIcon}>
-                            <i className={`${styles.icon} las la-shopping-cart`} />
-                        </div>
-                    </Badge>
+                    <div onClick={handleClickCart} className={styles.cartIcon}>
+                        <i className={`${styles.icon} las la-shopping-cart`} />
+                    </div>
                 </div>
             )}
         </div>

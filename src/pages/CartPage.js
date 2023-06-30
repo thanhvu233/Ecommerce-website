@@ -13,9 +13,10 @@ import {
     selectOrderProgressed
 } from '../redux/slices/orderSlice';
 import LoadingPage from './LoadingPage';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import orderedItemApi from '../API/orderedItemApi';
 
 function CartPage() {
-    const [orderQuantity, setOrderQuantity] = useState(0);
     const [user, setUser] = useState({});
     const [orderList, setOrderList] = useState([]);
     const [orderId, setOrderId] = useState();
@@ -40,11 +41,9 @@ function CartPage() {
                 products: newOrderList,
             });
 
-            localStorage.setItem('quantity', newOrderList.length);
-
             // Re-render component
             setOrderList(newOrderList);
-            setOrderQuantity(newOrderList.length);
+            dispatch(setTotalUnpaidItems(newOrderList.length));
         } catch (error) {
             console.log('Cant remove item from cart', error);
         }
@@ -146,12 +145,6 @@ function CartPage() {
         setOrderList(result.data[0].products);
         setOrderId(result.data[0].id);
 
-        if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            setOrderQuantity(0);
-        }
-
         const user = await fetchUserById(localStorage.getItem('access_token'));
 
         setUser(user[0]);
@@ -160,13 +153,19 @@ function CartPage() {
         window.scrollTo(0, 0);
     }, [dispatch]);
 
+    useEffect(async () => {
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+    });
+
     if (loading) {
         return <LoadingPage />;
     }
 
     return (
         <Wrapper>
-            <Header quantity={orderQuantity} />
+            <Header />
             <CartTable
                 list={orderList}
                 onRemove={handleRemove}

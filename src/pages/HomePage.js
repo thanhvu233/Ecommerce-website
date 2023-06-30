@@ -1,26 +1,23 @@
 import { BackTop } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import heroImg from '../assets/images/heroimg.png';
 import specialItem from '../assets/images/sneaker.png';
 import { Footer, Header, Wrapper } from '../components/common';
 import { Comment, ExampleProduct, FeatureProduct, Hero } from '../components/home';
 import { fetchComment } from '../helpers/fetchComment';
-import { fetchProductById } from '../helpers/fetchProductById';
-import {
-    fetchProductList,
-    selectProductList,
-    selectProductLoading
-} from '../redux/slices/productSlice';
 import LoadingPage from './LoadingPage';
-import equal from 'fast-deep-equal/react';
 import productApi from '../API/productApi';
+import { useDispatch } from 'react-redux';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import orderedItemApi from './../API/orderedItemApi';
 
 function HomePage() {
     const [item, setItem] = useState();
     const [comments, setComments] = useState([]);
-    const [orderQuantity, setOrderQuantity] = useState(0);
     const [featureProductList, setFeatureProductList] = useState([]);
     const [latestProductList, setLatestProductList] = useState([]);
+
+    const dispatch = useDispatch();
 
     const style = {
         width: 50,
@@ -47,11 +44,9 @@ function HomePage() {
         const comments = await fetchComment();
         setComments(comments);
 
-        if (localStorage.getItem('quantity')) {
-            await setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            await setOrderQuantity(0);
-        }
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
@@ -60,7 +55,7 @@ function HomePage() {
     return (
         <Wrapper>
             {/* Begin Header */}
-            <Header quantity={orderQuantity} />
+            <Header />
             {/* End Header */}
 
             {latestProductList.length === 0 || featureProductList.length === 0 || comments.length === 0 || !item ? (
