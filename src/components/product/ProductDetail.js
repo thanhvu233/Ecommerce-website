@@ -14,7 +14,7 @@ import { Container } from './../common';
 import styles from './ProductDetail.module.scss';
 import './ProductDetail.scss';
 
-export function ProductDetail({ product, onGetOrder }) {
+export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
     const options = useMemo(() => {
         if (product) {
             return product.sizes.map((size) => {
@@ -61,12 +61,10 @@ export function ProductDetail({ product, onGetOrder }) {
         // b. LOGINED
         else {
             const item = {
-                productId: product.productId,
-                name: product.productName,
+                id: product._id,
                 amount: amount,
                 size: size,
                 subTotal: product.price * amount,
-                image: product.images[0],
             };
 
             // Get an order which isn't finished and has this currentProduct, of user from DB (Call API)
@@ -169,7 +167,7 @@ export function ProductDetail({ product, onGetOrder }) {
                         <p>{product.description}</p>
                     </div>
                     <div className={`${styles.button} buyBtn`} onClick={handleAddCart}>
-                        <Button shape='round' size='large'>
+                        <Button shape='round' size='large' loading={loadingAddToCart}>
                             Add To Cart
                         </Button>
                     </div>

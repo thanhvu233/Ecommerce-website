@@ -24,8 +24,6 @@ export function Header({ quantity }) {
         // Delete current user on redux store
         await dispatch(logout());
 
-        console.log('userId', userId);
-
         setIsLogin(false);
         setUserId('');
 

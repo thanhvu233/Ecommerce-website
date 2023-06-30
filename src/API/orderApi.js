@@ -18,15 +18,32 @@ const orderApi = {
 
         return axiosClient.post(url, data);
     },
-    update(data) {
-        const url = `/orders/${data.id}`;
+    update({id, ...data}) {
+        const url = `/orders/${id}`;
 
-        return axiosClient.patch(url, data);
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.patch(url, data, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
     },
     delete(id) {
         const url = `/orders/${id}`;
 
         return axiosClient.delete(url);
+    },
+    createOne(data) {
+        const url = '/orders';
+
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.post(url, data, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
     },
 };
 

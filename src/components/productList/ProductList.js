@@ -1,4 +1,4 @@
-import { Card, Col, Pagination, Row, Select } from 'antd';
+import { Card, Col, Pagination, Row, Select, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import truncate from '../../helpers/truncate';
@@ -38,12 +38,14 @@ export function ProductList({
                                             />
                                         }
                                     >
-                                        <div className={styles.detail}>
-                                            <div className={styles.name}>
-                                                {truncate(product.productName, 20)}
+                                        <Tooltip title={product.productName} placement="bottom" >
+                                            <div className={styles.detail}>
+                                                <div className={styles.name}>
+                                                    {truncate(product.productName, 20)}
+                                                </div>
+                                                <h4 className={styles.price}>${product.price}.00</h4>
                                             </div>
-                                            <h4 className={styles.price}>${product.price}.00</h4>
-                                        </div>
+                                        </Tooltip>
                                     </Card>
                                 </Col>
                             </Link>
