@@ -1,22 +1,22 @@
 @import '../../variables/variables.module';
 
 .purchaseBtn {
-    & button {
-        background-color: $third-color !important;
-        color: #fff !important;
-        border: none !important;
-    }
+  & button {
+    background-color: $third-color !important;
+    color: #fff !important;
+    border: none !important;
+  }
 
-    & button:hover {
-        opacity: 0.9;
-        background-color: $third-color;
-        color: #fff;
-        border: none;
-    }
+  & button:hover {
+    opacity: 0.9;
+    background-color: $third-color;
+    color: #fff;
+    border: none;
+  }
 
-    & button:active {
-        background-color: $third-color;
-        color: #fff;
-        border: none;
-    }
+  & button:active {
+    background-color: $third-color;
+    color: #fff;
+    border: none;
+  }
 }

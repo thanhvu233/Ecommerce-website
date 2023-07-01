@@ -1,37 +1,34 @@
 @import '../../variables/variables.module';
 
 .sidebar {
-    min-width: 232px;
-    & span {
-        font-size: 16px;
-    }
+  min-width: 232px;
+  & span {
+    font-size: 16px;
+  }
 }
 
-
 .price {
-    margin-top: 48px;
+  margin-top: 48px;
 
-    display: flex;
-    justify-content: flex-start;
-    // gap: 40px;
+  display: flex;
+  justify-content: flex-start;
+  // gap: 40px;
 
-    & .clearBtn {
-        flex-grow: 1;
-        margin-left: 20px;
-        display: none;
-    }
+  & .clearBtn {
+    flex-grow: 1;
+    margin-left: 20px;
+    display: none;
+  }
 
-    & .clearBtn span {
-        transform: translateY(-1px);
-    }
+  & .clearBtn span {
+    transform: translateY(-1px);
+  }
 
-    & .show {
-        display: block;
-    }
-
+  & .show {
+    display: block;
+  }
 }
 
 .rating {
-    margin-top: 24px;
-
+  margin-top: 24px;
 }

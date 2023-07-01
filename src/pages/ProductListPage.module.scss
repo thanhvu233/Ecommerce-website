@@ -1,17 +1,17 @@
 @import '../variables/variables.module';
 
 .main {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .list {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
 }

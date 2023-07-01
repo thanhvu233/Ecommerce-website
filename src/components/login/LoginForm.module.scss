@@ -1,27 +1,27 @@
 @import '../../variables/variables.module';
 
 .label {
-    font-size: 16px;
-    font-weight: 500;
+  font-size: 16px;
+  font-weight: 500;
 
-    display: inline-block;
-    margin-bottom: 4px;
+  display: inline-block;
+  margin-bottom: 4px;
 }
 
 .errorMsg {
-    color: red;
-    font-size: 13px;
+  color: red;
+  font-size: 13px;
 
-    margin-top: 4px;
-    min-height: 20px;
+  margin-top: 4px;
+  min-height: 20px;
 }
 
 .password {
-    margin-top: 4px;
+  margin-top: 4px;
 }
 
 .submitBtn {
-    margin-top: 24px;
-    display: flex;
-    justify-content: center;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
 }

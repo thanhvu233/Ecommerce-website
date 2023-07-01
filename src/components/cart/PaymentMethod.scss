@@ -1,40 +1,40 @@
 @import '../../variables/variables.module';
 
 .paymentOtps {
-    & .ant-radio-wrapper {
-        font-size: 16px;
+  & .ant-radio-wrapper {
+    font-size: 16px;
 
-        & span:nth-child(2) {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+    & span:nth-child(2) {
+      display: flex;
+      align-items: center;
+      gap: 12px;
 
-            & div:nth-child(2) {
-                transform: translateY(40%);
-            }
-        }
+      & div:nth-child(2) {
+        transform: translateY(40%);
+      }
     }
+  }
 
-    & span.ant-radio-inner {
-        width: 22px;
-        height: 22px;
-        border: 1px solid rgb(120, 120, 120);
-    }
+  & span.ant-radio-inner {
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgb(120, 120, 120);
+  }
 
-    & span.ant-radio-inner::after {
-        width: 24px;
-        height: 24px;
-        top: 30%;
-        left: 30%;
-    }
+  & span.ant-radio-inner::after {
+    width: 24px;
+    height: 24px;
+    top: 30%;
+    left: 30%;
+  }
 
-    & span.ant-radio + * {
-        padding-left: 12px;
-    }
+  & span.ant-radio + * {
+    padding-left: 12px;
+  }
 
-    & img {
-        object-fit: contain;
-        width: 32px;
-        transform: translateY(25%);
-    }
+  & img {
+    object-fit: contain;
+    width: 32px;
+    transform: translateY(25%);
+  }
 }

@@ -1,19 +1,18 @@
-
-import { Select } from "antd";
-import { Option } from "antd/lib/mentions";
-import { useEffect, useState } from "react";
-import styles from "./SortingFilter.module.scss";
+import { Select } from 'antd';
+import { Option } from 'antd/lib/mentions';
+import { useEffect, useState } from 'react';
+import styles from './SortingFilter.module.scss';
 
 export const SortingFilter = ({ type, category, onSelectionChange }) => {
-  const [selectValue, setSelectValue] = useState("");
+  const [selectValue, setSelectValue] = useState('');
 
   useEffect(() => {
-    setSelectValue("");
+    setSelectValue('');
   }, [type, category]);
 
   const handleSelectChange = (value) => {
     // Split field and _order from value
-    const [field, order] = value.split(".");
+    const [field, order] = value.split('.');
 
     onSelectionChange(field, order);
 
@@ -24,17 +23,17 @@ export const SortingFilter = ({ type, category, onSelectionChange }) => {
     <div className={styles.dropdown}>
       <span className={styles.text}>Sort by</span>
       <Select
-        defaultValue=""
+        defaultValue=''
         style={{ width: 200 }}
-        size="large"
+        size='large'
         onChange={handleSelectChange}
         value={selectValue}
       >
-        <Option value="">Default</Option>
-        <Option value="price.asc">Price ASC</Option>
-        <Option value="price.desc">Price DESC</Option>
-        <Option value="rating.asc">Rating ASC</Option>
-        <Option value="rating.desc">Rating DESC</Option>
+        <Option value=''>Default</Option>
+        <Option value='price.asc'>Price ASC</Option>
+        <Option value='price.desc'>Price DESC</Option>
+        <Option value='rating.asc'>Rating ASC</Option>
+        <Option value='rating.desc'>Rating DESC</Option>
       </Select>
     </div>
   );

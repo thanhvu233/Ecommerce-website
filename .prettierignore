@@ -1,0 +1,10 @@
+node_modules
+.firebase
+build
+public
+*.json
+*.md
+*.lock
+.gitignore
+.firebaserc
+src/assets

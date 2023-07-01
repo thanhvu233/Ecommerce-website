@@ -1,33 +1,33 @@
 @import '../../variables/variables.module';
 
 .comment {
-    min-height: 200px;
+  min-height: 200px;
 
-    margin-top: 120px;
+  margin-top: 120px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 
-    & .icon {
-        filter: invert(52%) sepia(65%) saturate(1595%) hue-rotate(348deg) brightness(97%)
-            contrast(91%);
+  & .icon {
+    filter: invert(52%) sepia(65%) saturate(1595%) hue-rotate(348deg)
+      brightness(97%) contrast(91%);
 
-        object-fit: contain;
-        width: 36px;
-        display: block;
-        margin: 0 auto;
-    }
+    object-fit: contain;
+    width: 36px;
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 .detail,
 .rating,
 .avatar {
-    margin-top: 16px;
-    text-align: center;
+  margin-top: 16px;
+  text-align: center;
 }
 
 .avatar h3 {
-    margin-top: 8px;
+  margin-top: 8px;
 }

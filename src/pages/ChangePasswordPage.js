@@ -6,22 +6,22 @@ import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
 import { useDispatch } from 'react-redux';
 
 export const ChangePasswordPage = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(async () => {
-        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+  useEffect(async () => {
+    const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
 
-        dispatch(setTotalUnpaidItems(unpaidItems.length));
+    dispatch(setTotalUnpaidItems(unpaidItems.length));
 
-        // Scroll to top when navigate from other page
-        window.scrollTo(0, 0);
-    }, []);
+    // Scroll to top when navigate from other page
+    window.scrollTo(0, 0);
+  }, []);
 
-    return (
-        <Wrapper>
-            <Header />
-            <ChangePasswordForm />
-            <Footer />
-        </Wrapper>
-    );
-}
+  return (
+    <Wrapper>
+      <Header />
+      <ChangePasswordForm />
+      <Footer />
+    </Wrapper>
+  );
+};

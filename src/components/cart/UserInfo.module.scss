@@ -1,41 +1,41 @@
 @import '../../variables/variables.module';
 
 .userInfo {
-    margin-top: 32px;
+  margin-top: 32px;
 }
 
 .header {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 
-    & p {
-        color: #ff3d00;
-        font-size: 20px;
-        font-weight: 500;
-    }
+  & p {
+    color: #ff3d00;
+    font-size: 20px;
+    font-weight: 500;
+  }
 }
 
 .locationImg {
-    & img {
-        object-fit: contain;
-        width: 24px;
-    }
+  & img {
+    object-fit: contain;
+    width: 24px;
+  }
 }
 
 .detail {
-    display: flex;
+  display: flex;
 }
 
 .name {
-    margin-right: 48px;
-    font-size: 18px;
-    font-weight: 700;
+  margin-right: 48px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .phone {
-    @extend .name;
+  @extend .name;
 }
 
 .address {
-    font-size: 18px;
+  font-size: 18px;
 }
