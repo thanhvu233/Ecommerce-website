@@ -1,8 +1,5 @@
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import orderApi from '../API/orderApi';
-
-const MySwal = withReactContent(Swal);
 
 export const updateOrder = async (data) => {
   try {

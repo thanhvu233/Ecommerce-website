@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Alert, Button, Input } from 'antd';
-import React, { useState } from 'react';
+import { Button, Input } from 'antd';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { Container } from './../common';
@@ -60,15 +60,11 @@ export function UserForm({ isEdit, initialValues, onSubmit }) {
     resolver: yupResolver(schema),
   });
 
-  const [error, setError] = useState('');
-
   const handleFormSubmit = async (formValues) => {
     try {
-      // Clear previous submission error
-      setError('');
       await onSubmit?.(formValues);
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     }
   };
   return (

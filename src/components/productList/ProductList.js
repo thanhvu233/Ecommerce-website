@@ -1,10 +1,8 @@
-import { Card, Col, Pagination, Row, Select, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Card, Col, Pagination, Row, Tooltip } from 'antd';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import truncate from '../../helpers/truncate';
 import styles from './ProductList.module.scss';
-
-const { Option } = Select;
 
 export function ProductList({ list, onPageChange, currentPage, totalRow }) {
   const handlePageChange = (page) => {

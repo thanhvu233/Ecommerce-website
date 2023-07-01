@@ -11,7 +11,6 @@ import { selectTotalUnpaidItem } from '../../redux/slices/orderedItemSlice';
 
 export function Header() {
   const [isLogin, setIsLogin] = useState(false);
-  const [userId, setUserId] = useState('');
 
   const { pathname } = useLocation();
   const history = useHistory();
@@ -25,7 +24,6 @@ export function Header() {
 
     if (accessToken) {
       setIsLogin(true);
-      setUserId(accessToken);
     } else {
       setIsLogin(false);
     }
@@ -39,7 +37,6 @@ export function Header() {
     await dispatch(logout());
 
     setIsLogin(false);
-    setUserId('');
 
     if (pathname == '/') {
       window.location.reload();

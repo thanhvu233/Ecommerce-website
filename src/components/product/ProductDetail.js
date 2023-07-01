@@ -58,7 +58,7 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
 
   const handleAddCart = () => {
     // a. NOT LOGINED
-    if (!Boolean(localStorage.getItem('access_token'))) {
+    if (!localStorage.getItem('access_token')) {
       // Store current URL on localStorage
       localStorage.setItem('path', pathname);
 

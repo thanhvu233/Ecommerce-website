@@ -5,7 +5,6 @@ import './App.css';
 import PrivateRoute from './components/common/PrivateRoute';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
-import LoadingPage from './pages/LoadingPage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProductListPage from './pages/ProductListPage';

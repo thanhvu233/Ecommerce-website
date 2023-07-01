@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.18.7",
     "axios": "^0.26.0",
+    "eslint-utils": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.0",
@@ -30,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "eslint": "eslint --report-unused-disable-directives --max-warnings 0 src --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
     "prettier": "2.8.8"
   }
 }
