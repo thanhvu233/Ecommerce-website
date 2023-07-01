@@ -18,7 +18,7 @@ const orderApi = {
 
         return axiosClient.post(url, data);
     },
-    update({id, ...data}) {
+    update({ id, ...data }) {
         const url = `/orders/${id}`;
 
         const token = localStorage.getItem('access_token');
@@ -32,7 +32,13 @@ const orderApi = {
     delete(id) {
         const url = `/orders/${id}`;
 
-        return axiosClient.delete(url);
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.delete(url, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
     },
     createOne(data) {
         const url = '/orders';

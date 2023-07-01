@@ -3,26 +3,33 @@ import React from 'react';
 import { Container } from './../common';
 import styles from './CartTable.module.scss';
 import './CartTable.scss';
+import { useSelector } from 'react-redux';
+import { selectUnpaidItemList } from '../../redux/slices/orderedItemSlice';
+import { useMemo } from 'react';
 
-export function CartTable({ list, onRemove, onAmountChange }) {
-    let subTotal = 0;
-    const transferFee = 2;
-    let total = 0;
+const TRANSPORT_FEE = 2;
 
-    if (list.length != 0) {
-        subTotal = list.reduce((sum, item) => {
-            return sum + item.subTotal;
-        }, 0);
+export function CartTable({ onRemove, onAmountChange }) {
+    const orderedItems = useSelector(selectUnpaidItemList);
 
-        total = subTotal + transferFee;
-    }
+    const total = useMemo(() => {
+        if (orderedItems.length !== 0) {
+            const subTotal = orderedItems.reduce((sum, item) => {
+                return sum + item.subTotal;
+            }, 0);
+
+            return subTotal + TRANSPORT_FEE;
+        }
+
+        return 0;
+    }, [orderedItems]);
 
     const handleRemove = (item) => {
         onRemove(item);
     };
 
-    const handleAmountChange = (product, e) => {
-        onAmountChange(product, e.target.value);
+    const handleAmountChange = (product, amount) => {
+        onAmountChange(product, amount);
     };
 
     return (
@@ -42,7 +49,7 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {list.map((item, idx) => (
+                            {orderedItems.map((item, idx) => (
                                 <tr key={idx}>
                                     <td className={styles.removeBtn}>
                                         <i
@@ -51,18 +58,16 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                                         ></i>
                                     </td>
                                     <td className={styles.product}>
-                                        <img src={item.image} alt='' className={styles.img} />
-                                        <div className={styles.name}>{item.name}</div>
+                                        <img src={item.product.images[0]} alt='' className={styles.img} />
+                                        <div className={styles.name}>{item.product.productName}</div>
                                     </td>
                                     <td className={styles.size}>{item.size}</td>
                                     <td className={`${styles.amountInput} quantityInput`}>
                                         <InputNumber
                                             min={1}
                                             max={100}
-                                            controls={false}
                                             value={item.amount}
-                                            onPressEnter={(e) => handleAmountChange(item, e)}
-                                            keyboard={false}
+                                            onChange={(value) => handleAmountChange(item.product, value)}
                                         />
                                     </td>
                                     <td className={styles.subtotal}>${item.subTotal}.00</td>
@@ -79,8 +84,8 @@ export function CartTable({ list, onRemove, onAmountChange }) {
                         <div>Total:</div>
                     </div>
                     <div className={styles.payment}>
-                        <div>${subTotal}.00</div>
-                        <div>${transferFee}.00</div>
+                        <div>${total - TRANSPORT_FEE > 0 ? total - TRANSPORT_FEE : "0"}.00</div>
+                        <div>${TRANSPORT_FEE}.00</div>
                         <div>${total}.00</div>
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -6,106 +5,104 @@ import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
 import { CartTable, PaymentMethod, PurchaseButton, UserInfo } from '../components/cart';
 import { Footer, Header, Wrapper } from '../components/common';
-import { fetchUserById } from '../helpers/fetchUserById';
-import {
-    fetchOrderList,
-    selectOrderFilter,
-    selectOrderProgressed
-} from '../redux/slices/orderSlice';
 import LoadingPage from './LoadingPage';
-import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import { selectUnpaidItemList, setTotalUnpaidItems, setUnpaidItems } from '../redux/slices/orderedItemSlice';
 import orderedItemApi from '../API/orderedItemApi';
+import userApi from '../API/userApi';
+import { LoadingOverlay } from '../components/common/LoadingOverlay';
 
 function CartPage() {
-    const [user, setUser] = useState({});
-    const [orderList, setOrderList] = useState([]);
+    const [user, setUser] = useState();
     const [orderId, setOrderId] = useState();
+    const [loadingAmountChange, setLoadingAmountChange] = useState(false);
+    const [loadingRemoveItem, setLoadingRemoveItem] = useState(false);
 
-    const orderFilter = useSelector(selectOrderFilter);
-    const loading = useSelector(selectOrderProgressed);
     const dispatch = useDispatch();
+    const orderedItems = useSelector(selectUnpaidItemList);
 
     const history = useHistory();
 
-    const removeItem = async (productId, size, orderId) => {
+    const removeItem = async (item) => {
         try {
-            const newOrderList = orderList.filter((item) => {
-                return (
-                    item.productId != productId ||
-                    (item.size != size && item.productId == productId)
-                );
-            });
+            setLoadingRemoveItem(true);
 
-            await orderApi.update({
-                id: orderId,
-                products: newOrderList,
-            });
+            const deleteOrderdItemResult = await orderedItemApi.deleteOne(item._id);
 
-            // Re-render component
-            setOrderList(newOrderList);
-            dispatch(setTotalUnpaidItems(newOrderList.length));
+            console.log("deleteOrderdItemResult", deleteOrderdItemResult)
+
+            if (deleteOrderdItemResult.data === undefined) {
+                const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+                if (unpaidItems.length === 0) {
+                    await orderApi.delete(item.order._id);
+                    history.push('/');
+                }
+
+                dispatch(setTotalUnpaidItems(unpaidItems.length));
+                dispatch(setUnpaidItems(unpaidItems));
+
+                setLoadingRemoveItem(false);
+            }
         } catch (error) {
             console.log('Cant remove item from cart', error);
+            Swal.fire({
+                icon: 'error',
+                title: error.message,
+                showConfirmButton: false,
+                timer: 5000,
+            });
         }
     };
 
     const handleRemove = (item) => {
         Swal.fire({
-            icon: 'info',
+            icon: 'question',
             title: 'Do you really want to remove this item?',
             confirmButtonText: 'Yes',
             showDenyButton: true,
             denyButtonText: 'No',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Goi API update data
-                removeItem(item.productId, item.size, orderId);
+                removeItem(item);
             }
         });
     };
 
     const handleAmountChange = async (product, value) => {
         try {
-            // Tìm product có id được chọn
-            const objTarget = orderList.find((item) => {
-                return item.productId == product.productId && item.size == product.size;
+            setLoadingAmountChange(true);
+            const selectedItem = orderedItems.find((item) => {
+                return item.product._id === product._id && item.product.size === product.size;
             });
 
-            // Update amount và subTotal
-            const newObj = {
-                ...objTarget,
+            const newOrderedItem = {
+                _id: selectedItem._id,
+                order: selectedItem.order._id,
+                product: product._id,
                 amount: value,
-                subTotal: (product.subTotal / product.amount) * value,
+                subTotal: (selectedItem.subTotal / selectedItem.amount) * value,
+                size: selectedItem.size,
+                paid: selectedItem.paid
             };
 
-            // Lấy ra các product khác
-            const newOrderList = orderList.filter((item) => {
-                return (
-                    item.productId != product.productId ||
-                    (item.productId == product.productId && item.size != product.size)
-                );
-            });
+            const updateOrderedItemResult = await orderedItemApi.updateOne(newOrderedItem);
 
-            // Thêm product mới sửa vào mảng products mới
-            newOrderList.push(newObj);
+            if (updateOrderedItemResult) {
+                const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
 
-            await orderApi.update({
-                id: orderId,
-                products: newOrderList,
-            });
+                dispatch(setTotalUnpaidItems(unpaidItems.length));
+                dispatch(setUnpaidItems(unpaidItems));
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Change quantity of items successfully',
-                showConfirmButton: false,
-                timer: 2000,
-            });
-
-            setTimeout(() => {
-                setOrderList(newOrderList);
-            }, 500);
+                setLoadingAmountChange(false);
+            }
         } catch (error) {
             console.log('Can@apos;t update quantity for item', error);
+            Swal.fire({
+                icon: 'error',
+                title: error.message,
+                showConfirmButton: false,
+                timer: 5000,
+            });
         }
     };
 
@@ -132,50 +129,43 @@ function CartPage() {
     };
 
     useEffect(async () => {
-        const actionResult = await dispatch(
-            fetchOrderList({
-                ...orderFilter,
-                isCheckout: false,
-                userId: localStorage.getItem('access_token'),
-            })
-        );
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
 
-        const result = unwrapResult(actionResult);
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+        dispatch(setUnpaidItems(unpaidItems));
 
-        setOrderList(result.data[0].products);
-        setOrderId(result.data[0].id);
+        setOrderId(unpaidItems[0].order._id);
 
-        const user = await fetchUserById(localStorage.getItem('access_token'));
+        const { data: currentUser } = await userApi.getCurrentUser();
 
-        setUser(user[0]);
+        setUser(currentUser);
 
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, [dispatch]);
 
-    useEffect(async () => {
-        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
-
-        dispatch(setTotalUnpaidItems(unpaidItems.length));
-    });
-
-    if (loading) {
-        return <LoadingPage />;
-    }
-
     return (
-        <Wrapper>
-            <Header />
-            <CartTable
-                list={orderList}
-                onRemove={handleRemove}
-                onAmountChange={handleAmountChange}
-            />
-            <UserInfo user={user} />
-            <PaymentMethod />
-            <PurchaseButton onPurchase={handlePurchase} />
-            <Footer />
-        </Wrapper>
+        <>
+            <Wrapper>
+                <Header />
+                {(!user || (orderedItems.length === 0 && !loadingRemoveItem)) ? (<LoadingPage />) : (
+                    <>
+                        <CartTable
+                            onRemove={handleRemove}
+                            onAmountChange={handleAmountChange}
+                        />
+                        <UserInfo user={user} />
+                        <PaymentMethod />
+                        <PurchaseButton onPurchase={handlePurchase} />
+                    </>
+                )}
+
+                <Footer />
+            </Wrapper>
+            {(loadingAmountChange || loadingRemoveItem) && (
+                <LoadingOverlay />
+            )}
+        </>
     );
 }
 

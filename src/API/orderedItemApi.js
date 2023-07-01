@@ -45,7 +45,18 @@ const orderedItemApi = {
                 "Authorization": `Bearer ${token}`
             }
         });
-    }
+    },
+    deleteOne(id) {
+        const url = `/order-items/${id}`;
+
+        const token = localStorage.getItem('access_token');
+
+        return axiosClient.delete(url, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+    },
 };
 
 export default orderedItemApi;

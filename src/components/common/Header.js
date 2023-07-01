@@ -163,9 +163,11 @@ export function Header() {
                             </Button>
                         </div>
                     </div>
-                    <div onClick={handleClickCart} className={styles.cartIcon}>
-                        <i className={`${styles.icon} las la-shopping-cart`} />
-                    </div>
+                    <Badge size='small' offset={[-1, 4]}>
+                        <div onClick={handleClickCart} className={styles.cartIcon}>
+                            <i className={`${styles.icon} las la-shopping-cart`} />
+                        </div>
+                    </Badge>
                 </div>
             )}
         </div>
