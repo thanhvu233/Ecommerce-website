@@ -22,6 +22,22 @@ function CartPage() {
 
     const history = useHistory();
 
+    useEffect(async () => {
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+        dispatch(setUnpaidItems(unpaidItems));
+
+        setOrderId(unpaidItems[0].order._id);
+
+        const { data: currentUser } = await userApi.getCurrentUser();
+
+        setUser(currentUser);
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
+    }, [dispatch]);
+
     const removeItem = async (item) => {
         try {
             setLoadingRemoveItem(true);
@@ -127,22 +143,6 @@ function CartPage() {
             history.push('/');
         }, 2000);
     };
-
-    useEffect(async () => {
-        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
-
-        dispatch(setTotalUnpaidItems(unpaidItems.length));
-        dispatch(setUnpaidItems(unpaidItems));
-
-        setOrderId(unpaidItems[0].order._id);
-
-        const { data: currentUser } = await userApi.getCurrentUser();
-
-        setUser(currentUser);
-
-        // Scroll to top when navigate from other page
-        window.scrollTo(0, 0);
-    }, [dispatch]);
 
     return (
         <>

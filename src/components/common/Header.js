@@ -19,6 +19,18 @@ export function Header() {
     const dispatch = useDispatch();
     const totalUnpaidItem = useSelector(selectTotalUnpaidItem);
 
+    useEffect(() => {
+        // If logined
+        const accessToken = localStorage.getItem('access_token');
+
+        if (accessToken) {
+            setIsLogin(true);
+            setUserId(accessToken);
+        } else {
+            setIsLogin(false);
+        }
+    }, []);
+
     const handleLogout = async () => {
         // Set access_token = empty
         localStorage.clear();
@@ -66,18 +78,6 @@ export function Header() {
             }
         }
     };
-
-    useEffect(() => {
-        // If logined
-        const accessToken = localStorage.getItem('access_token');
-
-        if (accessToken) {
-            setIsLogin(true);
-            setUserId(accessToken);
-        } else {
-            setIsLogin(false);
-        }
-    }, []);
 
     return (
         <div className={styles.header}>

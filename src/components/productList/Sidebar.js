@@ -9,6 +9,13 @@ export function Sidebar({ onChangePrice, onChangeRating, onClear, type, category
 
     const [isFilter, setIsFilter] = useState(false);
 
+    // Đường dẫn thay đổi thì set lại filter price và rating
+    useEffect(() => {
+        setPrice('');
+        setRating('');
+        setIsFilter(false);
+    }, [type, category]);
+
     const handleChangePrice = (e) => {
         onChangePrice(e);
 
@@ -30,13 +37,6 @@ export function Sidebar({ onChangePrice, onChangeRating, onClear, type, category
         setRating('');
         setIsFilter(false);
     };
-
-    // Đường dẫn thay đổi thì set lại filter price và rating
-    useEffect(() => {
-        setPrice('');
-        setRating('');
-        setIsFilter(false);
-    }, [type, category]);
 
     return (
         <div className={`${styles.sidebar} sidebar`}>

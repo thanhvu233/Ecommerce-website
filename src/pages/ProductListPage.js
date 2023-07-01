@@ -30,6 +30,37 @@ function ProductListPage() {
 
     let [type, category] = getParams(pathname);
 
+    // Sort, filter, pagination render
+    useEffect(async () => {
+        dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
+
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
+    }, [dispatch, filter]);
+
+    // Dang trang 2 mà thay doi duong dan thì reset ve trang 1
+    useEffect(() => {
+        dispatch(
+            setFilter({
+                ...filter,
+                _page: 1,
+                category: category || undefined,
+                type: type,
+                "price[gte]": undefined,
+                "price[lte]": undefined,
+                rating: undefined,
+            })
+        );
+
+        // Scroll to top when navigate from other page
+        window.scrollTo(0, 0);
+    }, [category, type]);
+
+
     const handleChangePrice = (e) => {
         // Split value from String price
         const [minValue, maxValue] = e.target.value.split('.');
@@ -69,42 +100,12 @@ function ProductListPage() {
     };
 
     const handleSelectChange = (field, order) => {
-        dispatch(setFilter({ ...filter, sort: `${order === "desc" ? "-" : ""}${field}`}));
+        dispatch(setFilter({ ...filter, sort: `${order === "desc" ? "-" : ""}${field}` }));
     };
 
     const handlePageChange = (page) => {
         dispatch(setFilter({ ...filter, _page: page }));
     };
-
-    // Sort, filter, pagination render
-    useEffect(async() => {
-        dispatch(fetchProductList({ ...filter, category: category || undefined, type: type }));
-
-        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
-
-        dispatch(setTotalUnpaidItems(unpaidItems.length));
-
-        // Scroll to top when navigate from other page
-        window.scrollTo(0, 0);
-    }, [dispatch, filter]);
-
-    // Dang trang 2 mà thay doi duong dan thì reset ve trang 1
-    useEffect(() => {
-        dispatch(
-            setFilter({
-                ...filter,
-                _page: 1,
-                category: category || undefined,
-                type: type,
-                "price[gte]": undefined,
-                "price[lte]": undefined,
-                rating: undefined,
-            })
-        );
-
-        // Scroll to top when navigate from other page
-        window.scrollTo(0, 0);
-    }, [category, type]);
 
     return (
         <Wrapper>
@@ -126,7 +127,7 @@ function ProductListPage() {
                     />
 
                     <div className={styles.list}>
-                        <SortingFilter 
+                        <SortingFilter
                             onSelectionChange={handleSelectChange}
                             type={type}
                             category={category}

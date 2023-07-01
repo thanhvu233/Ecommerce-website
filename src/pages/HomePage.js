@@ -19,18 +19,6 @@ function HomePage() {
 
     const dispatch = useDispatch();
 
-    const style = {
-        width: 50,
-        height: 50,
-        backgroundColor: '#157aea',
-        fontSize: 20,
-        borderRadius: 50,
-        textAlign: 'center',
-        color: '#fff',
-        paddingTop: 10,
-        transition: 'all 0.3 ease-in-out',
-    };
-
     useEffect(async () => {
         const featureProducts = await productApi.getFeatureProducts();
         setFeatureProductList(featureProducts.data.products);
@@ -51,6 +39,18 @@ function HomePage() {
         // Scroll to top when navigate from other page
         window.scrollTo(0, 0);
     }, []);
+
+    const style = {
+        width: 50,
+        height: 50,
+        backgroundColor: '#157aea',
+        fontSize: 20,
+        borderRadius: 50,
+        textAlign: 'center',
+        color: '#fff',
+        paddingTop: 10,
+        transition: 'all 0.3 ease-in-out',
+    };
     
     return (
         <Wrapper>

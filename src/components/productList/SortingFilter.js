@@ -7,6 +7,10 @@ import styles from "./SortingFilter.module.scss";
 export const SortingFilter = ({ type, category, onSelectionChange }) => {
   const [selectValue, setSelectValue] = useState("");
 
+  useEffect(() => {
+    setSelectValue("");
+  }, [type, category]);
+
   const handleSelectChange = (value) => {
     // Split field and _order from value
     const [field, order] = value.split(".");
@@ -15,10 +19,6 @@ export const SortingFilter = ({ type, category, onSelectionChange }) => {
 
     setSelectValue(value);
   };
-
-  useEffect(() => {
-    setSelectValue("");
-  }, [type, category]);
 
   return (
     <div className={styles.dropdown}>

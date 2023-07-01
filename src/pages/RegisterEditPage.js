@@ -24,6 +24,24 @@ function RegisterEditPage() {
 
     const dispatch = useDispatch();
 
+    useEffect(async () => {
+        if (isEdit) {
+            // Gọi API lấy data của user đổ lên form
+            const { data } = await userApi.getCurrentUser();
+
+            setCurrentUser(data);
+
+            // Scroll to top when navigate from other page
+            window.scrollTo(0, 0);
+        }
+    }, [isEdit]);
+
+    useEffect(async () => {
+        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+        dispatch(setTotalUnpaidItems(unpaidItems.length));
+    });
+
     const handleFormSubmit = async (formValues) => {
         if (isEdit) {
             try {
@@ -86,24 +104,6 @@ function RegisterEditPage() {
             }
         }
     };
-
-    useEffect(async () => {
-        if (isEdit) {
-            // Gọi API lấy data của user đổ lên form
-            const { data } = await userApi.getCurrentUser();
-    
-            setCurrentUser(data);
-
-            // Scroll to top when navigate from other page
-            window.scrollTo(0, 0);
-        }
-    }, [isEdit]);
-
-    useEffect(async () => {
-        const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
-
-        dispatch(setTotalUnpaidItems(unpaidItems.length));
-    });
 
     const initialValues = useMemo(() => ({
         name: '',

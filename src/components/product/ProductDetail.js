@@ -33,6 +33,18 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
     const history = useHistory();
     const { pathname } = useLocation();
 
+    useEffect(() => {
+        if (product.type == 'shoes') {
+            setSize('39');
+        } else {
+            setSize('S');
+        }
+    }, []);
+
+    useEffect(async () => {
+        await setSrcImg(product.images[0]);
+    }, [product]);
+
     const handleSelectImg = (e) => {
         setSrcImg(e.target.currentSrc);
     };
@@ -80,18 +92,6 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
             // -   Update badge on cart icon on Header
         }
     };
-
-    useEffect(() => {
-        if (product.type == 'shoes') {
-            setSize('39');
-        } else {
-            setSize('S');
-        }
-    }, []);
-
-    useEffect(async () => {
-        await setSrcImg(product.images[0]);
-    }, [product]);
 
     return (
         <Container>
