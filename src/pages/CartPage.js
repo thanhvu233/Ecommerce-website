@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
-import {
-  CartTable,
-  PaymentMethod,
-  PurchaseButton,
-  UserInfo,
-} from '../components/cart';
+import { CartTable, PaymentMethod, PurchaseButton } from '../components/cart';
 import { Footer, Header, Wrapper } from '../components/common';
 import LoadingPage from './LoadingPage';
 import {
@@ -17,11 +12,9 @@ import {
   setUnpaidItems,
 } from '../redux/slices/orderedItemSlice';
 import orderedItemApi from '../API/orderedItemApi';
-import userApi from '../API/userApi';
 import { LoadingOverlay } from '../components/common/LoadingOverlay';
 
 function CartPage() {
-  const [user, setUser] = useState();
   const [orderId, setOrderId] = useState();
   const [loadingAmountChange, setLoadingAmountChange] = useState(false);
   const [loadingRemoveItem, setLoadingRemoveItem] = useState(false);
@@ -38,10 +31,6 @@ function CartPage() {
     dispatch(setUnpaidItems(unpaidItems));
 
     setOrderId(unpaidItems[0].order._id);
-
-    const { data: currentUser } = await userApi.getCurrentUser();
-
-    setUser(currentUser);
 
     // Scroll to top when navigate from other page
     window.scrollTo(0, 0);
@@ -161,7 +150,7 @@ function CartPage() {
     <>
       <Wrapper>
         <Header />
-        {!user || (orderedItems.length === 0 && !loadingRemoveItem) ? (
+        {orderedItems.length === 0 && !loadingRemoveItem ? (
           <LoadingPage />
         ) : (
           <>
@@ -169,7 +158,6 @@ function CartPage() {
               onRemove={handleRemove}
               onAmountChange={handleAmountChange}
             />
-            <UserInfo user={user} />
             <PaymentMethod />
             <PurchaseButton onPurchase={handlePurchase} />
           </>
