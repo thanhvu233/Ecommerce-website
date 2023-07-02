@@ -1,17 +1,13 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Main } from '../components/login';
 import { Wrapper } from './../components/common';
 import { Header } from './../components/common/Header';
-import { login } from '../redux/slices/authSlice';
+import userApi from '../API/userApi';
 
 function LoginPage() {
   const history = useHistory();
-
-  const dispatch = useDispatch();
 
   const initialValues = {
     username: '',
@@ -23,9 +19,7 @@ function LoginPage() {
   const handleFormSubmit = async (formValues) => {
     try {
       // Gọi API để kiểm tra account
-      const userResult = await dispatch(login(formValues));
-
-      const { data } = unwrapResult(userResult);
+      const { data } = await userApi.login(formValues);
 
       localStorage.setItem('access_token', data.token);
 

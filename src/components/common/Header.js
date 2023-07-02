@@ -1,9 +1,8 @@
 import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo-white.png';
-import { logout } from '../../redux/slices/authSlice';
 import styles from './Header.module.scss';
 import './Header.scss';
 import Swal from 'sweetalert2';
@@ -15,7 +14,6 @@ export function Header() {
   const { pathname } = useLocation();
   const history = useHistory();
 
-  const dispatch = useDispatch();
   const totalUnpaidItem = useSelector(selectTotalUnpaidItem);
 
   useEffect(() => {
@@ -32,9 +30,6 @@ export function Header() {
   const handleLogout = async () => {
     // Set access_token = empty
     localStorage.clear();
-
-    // Delete current user on redux store
-    await dispatch(logout());
 
     setIsLogin(false);
 
