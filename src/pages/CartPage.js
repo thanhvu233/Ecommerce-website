@@ -13,11 +13,14 @@ import {
 } from '../redux/slices/orderedItemSlice';
 import orderedItemApi from '../API/orderedItemApi';
 import { LoadingOverlay } from '../components/common/LoadingOverlay';
+import checkoutApi from '../API/checkoutApi';
 
 function CartPage() {
   const [orderId, setOrderId] = useState();
   const [loadingAmountChange, setLoadingAmountChange] = useState(false);
   const [loadingRemoveItem, setLoadingRemoveItem] = useState(false);
+  const [loadingHandlePurchase, setLoadingHandlePurchase] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cod');
 
   const dispatch = useDispatch();
   const orderedItems = useSelector(selectUnpaidItemList);
@@ -125,32 +128,56 @@ function CartPage() {
   };
 
   const handlePurchase = async () => {
-    // set quantity in localStore = 0
-    localStorage.setItem('quantity', 0);
+    setLoadingHandlePurchase(true);
 
-    // Set isCheckout = true
-    await orderApi.update({
-      id: orderId,
-      isCheckout: true,
-    });
+    if (paymentMethod !== 'cod') {
+      const { data: session } = await checkoutApi.getCheckoutSession(orderId);
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Purchase Successfully',
-      showConfirmButton: false,
-      timer: 2000,
-    });
+      setLoadingHandlePurchase(false);
 
-    setTimeout(() => {
-      history.push('/');
-    }, 2000);
+      if (session) {
+        window.location.replace(session.url);
+      }
+    } else {
+      const { data: updateOrderedItemResult } = await orderedItemApi.update({
+        id: orderId,
+        status: 'checkout',
+      });
+
+      const { data: updateOrderResult } = await orderApi.update({
+        id: orderId,
+        paymentMethod: 'cod',
+        status: 'checkout',
+      });
+
+      if (updateOrderedItemResult && updateOrderResult) {
+        setLoadingHandlePurchase(false);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Checkout Successfully',
+          showConfirmButton: false,
+          timer: 2000,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        });
+
+        setTimeout(() => {
+          history.push('/');
+        }, 2000);
+      }
+    }
+  };
+
+  const handlePaymentMethodChange = (value) => {
+    setPaymentMethod(value);
   };
 
   return (
     <>
       <Wrapper>
         <Header />
-        {orderedItems.length === 0 && !loadingRemoveItem ? (
+        {!orderId || (orderedItems.length === 0 && !loadingRemoveItem) ? (
           <LoadingPage />
         ) : (
           <>
@@ -158,8 +185,14 @@ function CartPage() {
               onRemove={handleRemove}
               onAmountChange={handleAmountChange}
             />
-            <PaymentMethod />
-            <PurchaseButton onPurchase={handlePurchase} />
+            <PaymentMethod
+              paymentMethod={paymentMethod}
+              onPaymentMethodChange={handlePaymentMethodChange}
+            />
+            <PurchaseButton
+              onPurchase={handlePurchase}
+              loadingHandlePurchase={loadingHandlePurchase}
+            />
           </>
         )}
 

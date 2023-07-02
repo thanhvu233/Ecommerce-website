@@ -15,6 +15,9 @@ import productApi from '../API/productApi';
 import { useDispatch } from 'react-redux';
 import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
 import orderedItemApi from './../API/orderedItemApi';
+import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import orderApi from '../API/orderApi';
 
 function HomePage() {
   const [item, setItem] = useState();
@@ -22,7 +25,33 @@ function HomePage() {
   const [featureProductList, setFeatureProductList] = useState([]);
   const [latestProductList, setLatestProductList] = useState([]);
 
+  const { id } = useParams();
+
   const dispatch = useDispatch();
+
+  useEffect(async () => {
+    if (id) {
+      const { data: updateOrderedItemResult } = await orderedItemApi.update({
+        id,
+        status: 'checkout',
+      });
+
+      const { data: updateOrderResult } = await orderApi.update({
+        id,
+        paymentMethod: 'credit-card',
+        status: 'checkout',
+      });
+
+      if (updateOrderedItemResult && updateOrderResult) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Checkout Successfully',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+    }
+  }, [id]);
 
   useEffect(async () => {
     const featureProducts = await productApi.getFeatureProducts();

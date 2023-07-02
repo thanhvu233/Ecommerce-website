@@ -57,6 +57,17 @@ const orderedItemApi = {
       },
     });
   },
+  update(data) {
+    const url = `/order-items`;
+
+    const token = localStorage.getItem('access_token');
+
+    return axiosClient.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default orderedItemApi;

@@ -43,6 +43,9 @@ function App() {
         <PrivateRoute path='/cart'>
           <CartPage />
         </PrivateRoute>
+        <PrivateRoute path='/checkout-success/:id'>
+          <HomePage />
+        </PrivateRoute>
         <Route path='*'>
           <NotFoundPage />
         </Route>

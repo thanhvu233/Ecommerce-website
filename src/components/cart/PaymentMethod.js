@@ -1,14 +1,12 @@
 import { Radio, Space } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from './../common';
 import styles from './PaymentMethod.module.scss';
 import './PaymentMethod.scss';
 
-export function PaymentMethod() {
-  const [method, setMethod] = useState('cod');
-
+export function PaymentMethod({ paymentMethod, onPaymentMethodChange }) {
   const handleChangeMethod = (e) => {
-    setMethod(e.target.value);
+    onPaymentMethodChange(e.target.value);
   };
 
   return (
@@ -17,7 +15,7 @@ export function PaymentMethod() {
         <div className={styles.header}>Payment Method:</div>
         <Radio.Group
           onChange={handleChangeMethod}
-          value={method}
+          value={paymentMethod}
           className={`${styles.paymentOtps} paymentOtps`}
         >
           <Space direction='vertical'>
@@ -27,7 +25,7 @@ export function PaymentMethod() {
               </div>
               <div className={styles.method}>Cash on delivery</div>
             </Radio>
-            <Radio value='atm'>
+            <Radio value='credit-card'>
               <div className={styles.icon}>
                 <img src='https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/000000/external-credit-card-gas-station-xnimrodx-lineal-color-xnimrodx.png' />
               </div>
