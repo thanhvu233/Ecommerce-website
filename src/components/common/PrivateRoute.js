@@ -6,7 +6,7 @@ function PrivateRoute(props) {
   // If found: render <Route> tag
   // If not found: redirect to Login page
 
-  const isLogin = Boolean(localStorage.getItem('access_token'));
+  const isLogin = localStorage.getItem('access_token');
 
   return <>{isLogin ? <Route {...props} /> : <Redirect to='/login' />}</>;
 }

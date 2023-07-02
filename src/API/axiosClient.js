@@ -10,8 +10,6 @@ const axiosClient = axios.create({
 // Add a response interceptor
 axiosClient.interceptors.response.use(
   function (response) {
-    // console.log('x-total-count', response.headers['x-total-count']);
-    // Lấy ra tổng số sản phầm từ trường x-total-count
     if (response.data.totalRow) {
       return {
         data: response.data.data,

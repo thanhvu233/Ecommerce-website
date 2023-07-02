@@ -7,9 +7,7 @@ import styles from './Hero.module.scss';
 export function Hero({ imgPosition, title, desc, image }) {
   return (
     <div className={imgPosition == 'right' ? styles.hero : styles.hero2}>
-      {/* Hero Slogan */}
       <div className={styles.slogan}>
-        {/* Hero Description */}
         <div className={styles.desc}>
           {imgPosition == 'right' ? (
             <Fade left delay={100} duration={3000}>
@@ -26,7 +24,6 @@ export function Hero({ imgPosition, title, desc, image }) {
           </Fade>
         </div>
 
-        {/* Button */}
         {imgPosition == 'right' ? (
           <div className={styles.btn}>
             <Fade delay={1000}>
@@ -50,7 +47,6 @@ export function Hero({ imgPosition, title, desc, image }) {
         )}
       </div>
 
-      {/* Hero Image */}
       <div className={imgPosition == 'right' ? styles.image : styles.image2}>
         <Zoom delay={200} duration={3000}>
           <img src={image} alt='Hero Image' />

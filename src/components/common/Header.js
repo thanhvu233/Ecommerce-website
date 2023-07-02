@@ -52,12 +52,6 @@ export function Header() {
   };
 
   const handleClickCart = () => {
-    // Kiểm tra đã login hay chưa
-    // CHƯA: navagate to Login Page
-    // RỒI: Kiểm tra xem có order chưa thanh toán không
-    // CÓ: navigate to CartPage
-    // KHÔNG: hiện thông báo không có order
-
     if (!isLogin) {
       localStorage.setItem('path', pathname);
       history.push('/login');
@@ -65,10 +59,9 @@ export function Header() {
       if (totalUnpaidItem !== 0) {
         history.push('/cart');
       } else {
-        // Hiện thông báo update thành công
         Swal.fire({
           icon: 'error',
-          title: 'There aren&apos;t any items in cart',
+          title: 'There are no items in cart',
           showConfirmButton: false,
           timer: 5000,
         });
@@ -78,13 +71,11 @@ export function Header() {
 
   return (
     <div className={styles.header}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Link to='/'>
           <img src={logo} alt='logo' />
         </Link>
       </div>
-      {/* Menu */}
       <div>
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
@@ -116,7 +107,6 @@ export function Header() {
           </li>
         </ul>
       </div>
-      {/* Left bar */}
       {isLogin ? (
         <div className={`${styles.leftIcon} leftIcon`}>
           <div>

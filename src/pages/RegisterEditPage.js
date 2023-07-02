@@ -10,8 +10,6 @@ import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
 import { useDispatch } from 'react-redux';
 
 function RegisterEditPage() {
-  // Phải set initial value cho currentUser
-  // là null, nếu không sẽ không đổ được data lên form
   const [currentUser, setCurrentUser] = useState();
 
   const history = useHistory();
@@ -26,7 +24,6 @@ function RegisterEditPage() {
 
   useEffect(async () => {
     if (isEdit) {
-      // Gọi API lấy data của user đổ lên form
       const { data } = await userApi.getCurrentUser();
 
       setCurrentUser(data);
@@ -120,7 +117,6 @@ function RegisterEditPage() {
   return (
     <Wrapper>
       <Header />
-      {/* Là trang ADD hoặc phải có currentUser thì mới render form */}
       {!isEdit || currentUser ? (
         <UserForm
           isEdit={isEdit}

@@ -89,9 +89,7 @@ function HomePage() {
 
   return (
     <Wrapper>
-      {/* Begin Header */}
       <Header />
-      {/* End Header */}
 
       {latestProductList.length === 0 ||
       featureProductList.length === 0 ||
@@ -100,45 +98,26 @@ function HomePage() {
         <LoadingPage />
       ) : (
         <>
-          {/* Begin Hero Section */}
           <Hero
             imgPosition='right'
             title='Impress The World With Your Outfits'
             desc='Style is something each of us already has, all we need to do is find it.'
             image={heroImg}
           />
-          {/* End Hero Section */}
-
-          {/* Begin Example Products Section */}
           <ExampleProduct />
-          {/* End Example Products Section */}
-
-          {/* Begin Feature Products Section */}
           <FeatureProduct list={featureProductList} title='Featured Products' />
-          {/* End Feature Products Section */}
-
-          {/* Begin Latest Products Section */}
           <FeatureProduct list={latestProductList} title='Latest Products' />
-          {/* End Latest Products Section */}
-
-          {/* Begin Unique Product Section */}
           <Hero
             imgPosition='left'
             title={item.productName}
             desc={item.description}
             image={specialItem}
           />
-          {/* End Unique Prodcut Section */}
-
-          {/* Begin Comments Section */}
           <Comment comments={comments} />
-          {/* End Comments Section */}
         </>
       )}
 
-      {/* Begin Footer */}
       <Footer />
-      {/* End Footer */}
       <BackTop>
         <div style={style}>
           <i className='las la-angle-up'></i>

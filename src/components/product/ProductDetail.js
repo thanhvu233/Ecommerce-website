@@ -41,7 +41,7 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
   }, []);
 
   useEffect(async () => {
-    await setSrcImg(product.images[0]);
+    setSrcImg(product.images[0]);
   }, [product]);
 
   const handleSelectImg = (e) => {
@@ -78,7 +78,6 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
         subTotal: product.price * amount,
       };
 
-      // Get an order which isn't finished and has this currentProduct, of user from DB (Call API)
       onGetOrder(item);
 
       // 1. IF ALL ORDERS ARE FINISHED

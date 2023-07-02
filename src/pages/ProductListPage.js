@@ -123,15 +123,10 @@ function ProductListPage() {
 
   return (
     <Wrapper>
-      {/* Header */}
       <Header />
-
-      {/* Breadcrumb */}
       <BreadcrumbSection type={type} category={category} />
-
       <Container>
         <div className={styles.main}>
-          {/* Sidebar */}
           <Sidebar
             onChangePrice={handleChangePrice}
             onChangeRating={handleChangeRating}
@@ -139,14 +134,12 @@ function ProductListPage() {
             type={type}
             category={category}
           />
-
           <div className={styles.list}>
             <SortingFilter
               onSelectionChange={handleSelectChange}
               type={type}
               category={category}
             />
-
             {loading ? (
               <LoadingPage />
             ) : list.length > 0 ? (
@@ -162,8 +155,6 @@ function ProductListPage() {
           </div>
         </div>
       </Container>
-
-      {/* Footer */}
       <Footer />
     </Wrapper>
   );
