@@ -149,13 +149,15 @@ function ProductListPage() {
 
             {loading ? (
               <LoadingPage />
-            ) : (
+            ) : list.length > 0 ? (
               <ProductList
                 list={list}
                 onPageChange={handlePageChange}
                 currentPage={filter._page}
                 totalRow={totalRow}
               />
+            ) : (
+              <h3 className={styles.noResultText}>No results</h3>
             )}
           </div>
         </div>
