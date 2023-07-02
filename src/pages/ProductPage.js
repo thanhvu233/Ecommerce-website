@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Footer, Header, Wrapper } from '../components/common';
 import { ProductDetail, RelatedProduct } from './../components/product/';
-import { fetchProductById } from './../helpers/fetchProductById';
 import {
   fetchProductList,
   selectProductList,
@@ -14,6 +13,7 @@ import orderApi from '../API/orderApi';
 import orderedItemApi from '../API/orderedItemApi';
 import Swal from 'sweetalert2';
 import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import productApi from '../API/productApi';
 
 function ProductPage() {
   const [product, setProduct] = useState();
@@ -27,21 +27,21 @@ function ProductPage() {
   const { id } = useParams();
 
   useEffect(async () => {
-    const { products } = await fetchProductById(id);
+    const { data } = await productApi.getById(id);
 
-    window.scrollTo(0, 0);
-
-    setProduct(products[0]);
+    setProduct(data.products[0]);
 
     dispatch(
       fetchProductList({
         _page: 1,
         _limit: 4,
-        category: products[0].category,
-        type: products[0].type,
+        category: data.products[0].category,
+        type: data.products[0].type,
         'productId[ne]': id,
       })
     );
+
+    window.scrollTo(0, 0);
   }, [id]);
 
   useEffect(async () => {

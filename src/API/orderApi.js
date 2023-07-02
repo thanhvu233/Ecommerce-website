@@ -8,16 +8,6 @@ const orderApi = {
       params,
     });
   },
-  getById(id) {
-    const url = `/orders?orderId=${id}`;
-
-    return axiosClient.get(url);
-  },
-  add(data) {
-    const url = '/orders';
-
-    return axiosClient.post(url, data);
-  },
   update({ id, ...data }) {
     const url = `/orders/${id}`;
 

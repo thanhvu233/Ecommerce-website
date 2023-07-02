@@ -30,10 +30,10 @@ function RegisterEditPage() {
       const { data } = await userApi.getCurrentUser();
 
       setCurrentUser(data);
-
-      // Scroll to top when navigate from other page
-      window.scrollTo(0, 0);
     }
+
+    // Scroll to top when navigate from other page
+    window.scrollTo(0, 0);
   }, [isEdit]);
 
   useEffect(async () => {

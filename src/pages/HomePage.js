@@ -9,7 +9,6 @@ import {
   FeatureProduct,
   Hero,
 } from '../components/home';
-import { fetchComment } from '../helpers/fetchComment';
 import LoadingPage from './LoadingPage';
 import productApi from '../API/productApi';
 import { useDispatch } from 'react-redux';
@@ -18,6 +17,7 @@ import orderedItemApi from './../API/orderedItemApi';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
+import commentApi from '../API/commentApi';
 
 function HomePage() {
   const [item, setItem] = useState();
@@ -63,7 +63,8 @@ function HomePage() {
     const product = await productApi.getSignatureProduct();
     setItem(product.data);
 
-    const comments = await fetchComment();
+    const { data: comments } = await commentApi.getAll();
+
     setComments(comments);
 
     const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
