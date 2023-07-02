@@ -77,8 +77,9 @@ function ProductPage() {
         }
       } else {
         const orderedItem = orderedItems.find(
-          ({ size, product }) => size === item.size && product === item.id
+          ({ size, product }) => size === item.size && product._id === item.id
         );
+
         const currentTotal = orderedItems[0].order.total;
 
         // UNFINISHED ORDER CONTAINS THIS CURRENT PRODUCT
