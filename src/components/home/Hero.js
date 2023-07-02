@@ -30,7 +30,7 @@ export function Hero({ imgPosition, title, desc, image }) {
         {imgPosition == 'right' ? (
           <div className={styles.btn}>
             <Fade delay={1000}>
-              <Link to='./products/men'>
+              <Link to='/products/men'>
                 <Button type='primary' shape='round' size='large'>
                   Explore Now
                 </Button>
