@@ -48,3 +48,22 @@
 .card {
   width: 100%;
 }
+
+@media (max-width: 1025px) {
+  .featureProduct {
+    margin-top: 56px;
+    padding: 0 80px;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+
+    &::after {
+      left: 45%;
+    }
+  }
+
+  .row {
+    justify-content: space-around;
+  }
+}

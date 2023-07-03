@@ -31,3 +31,9 @@
 .avatar h3 {
   margin-top: 8px;
 }
+
+@media (max-width: 1025px) {
+  .comment {
+    margin-top: 56px;
+  }
+}

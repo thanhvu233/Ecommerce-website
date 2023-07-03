@@ -13,3 +13,9 @@
     width: 300px;
   }
 }
+
+@media (max-width: 1025px) {
+  .images {
+    justify-content: space-around;
+  }
+}
