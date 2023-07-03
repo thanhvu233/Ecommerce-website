@@ -19,3 +19,14 @@
     justify-content: space-around;
   }
 }
+
+@media (max-width: 769px) {
+  .images {
+    flex-direction: column;
+    margin-top: 56px;
+
+    & img {
+      width: 350px;
+    }
+  }
+}

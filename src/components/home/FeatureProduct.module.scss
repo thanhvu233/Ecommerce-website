@@ -67,3 +67,23 @@
     justify-content: space-around;
   }
 }
+
+@media (max-width: 769px) {
+  .featureProduct {
+    margin-top: 48px;
+    padding: 0;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+    font-size: 22px;
+
+    &::after {
+      left: 45%;
+    }
+  }
+
+  .row {
+    justify-content: space-around;
+  }
+}
