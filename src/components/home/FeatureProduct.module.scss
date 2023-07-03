@@ -87,3 +87,22 @@
     justify-content: space-around;
   }
 }
+
+@media (max-width: 577px) {
+  .featureProduct {
+    margin-top: 32px;
+  }
+
+  .heading {
+    margin-bottom: 36px;
+    font-size: 20px;
+
+    &::after {
+      left: 43%;
+    }
+  }
+
+  .row {
+    justify-content: space-around;
+  }
+}
