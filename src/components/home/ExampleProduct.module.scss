@@ -30,3 +30,11 @@
     }
   }
 }
+
+@media (max-width: 481px) {
+  .images {
+    & img {
+      width: 280px;
+    }
+  }
+}

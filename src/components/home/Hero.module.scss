@@ -158,3 +158,12 @@
     }
   }
 }
+
+@media (max-width: 481px) {
+  .image2 {
+    margin-top: -24px;
+    & img {
+      width: 280px;
+    }
+  }
+}

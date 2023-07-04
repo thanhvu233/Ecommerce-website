@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import orderApi from '../API/orderApi';
 import commentApi from '../API/commentApi';
+import styles from './HomePage.module.scss';
 
 function HomePage() {
   const [item, setItem] = useState();
@@ -118,7 +119,7 @@ function HomePage() {
       )}
 
       <Footer />
-      <BackTop>
+      <BackTop className={styles.backTop}>
         <div style={style}>
           <i className='las la-angle-up'></i>
         </div>

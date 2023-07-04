@@ -7,3 +7,47 @@
     box-shadow: none;
   }
 }
+
+@media (max-width: 769px) {
+  .show-drawer {
+    .ant-drawer-content-wrapper {
+      right: 250px;
+
+      transition: all 0.3s ease-in-out;
+    }
+
+    .ant-drawer-header {
+      padding-left: 16px;
+    }
+
+    .ant-drawer-body {
+      padding-left: 0;
+    }
+
+    .ant-menu-vertical .ant-menu-item:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+
+  .hide-drawer .ant-drawer-content-wrapper {
+    right: 0;
+
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+@media (max-width: 481px) {
+  .show-drawer {
+    .ant-drawer-content-wrapper {
+      right: 200px;
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .show-drawer {
+    .ant-drawer-content-wrapper {
+      right: 180px;
+    }
+  }
+}

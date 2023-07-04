@@ -222,8 +222,40 @@
   }
 }
 
+.toggleBtn {
+  display: none;
+}
+
 @media (max-width: 1025px) {
   .header {
     padding: 0 16px;
+  }
+}
+
+@media (max-width: 769px) {
+  .navbar {
+    display: none;
+  }
+
+  .leftIcon {
+    display: none;
+  }
+
+  .toggleBtn {
+    display: block;
+    border-color: $secondary-color;
+    background-color: $secondary-color;
+
+    &:hover {
+      opacity: 0.9;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .divider {
+    margin: 0;
   }
 }

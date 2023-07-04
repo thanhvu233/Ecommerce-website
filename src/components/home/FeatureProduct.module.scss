@@ -112,3 +112,17 @@
     justify-content: space-around;
   }
 }
+
+@media (max-width: 481px) {
+  .featureProduct {
+    margin-top: 24px;
+  }
+
+  .heading {
+    font-size: 18px;
+
+    &::after {
+      left: 38%;
+    }
+  }
+}
