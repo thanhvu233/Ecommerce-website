@@ -49,6 +49,12 @@
   width: 100%;
 }
 
+@media (max-width: 1441px) {
+  .row {
+    justify-content: space-around;
+  }
+}
+
 @media (max-width: 1025px) {
   .featureProduct {
     margin-top: 56px;

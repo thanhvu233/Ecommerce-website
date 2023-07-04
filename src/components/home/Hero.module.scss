@@ -86,6 +86,14 @@
   }
 }
 
+@media (max-width: 1441px) {
+  .image2 {
+    & img {
+      width: 450px;
+    }
+  }
+}
+
 @media (max-width: 1025px) {
   .hero {
     padding: 80px 16px 36px;

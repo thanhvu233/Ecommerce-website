@@ -15,7 +15,7 @@ export function FeatureProduct({ list, title }) {
         {/* Feature Product List */}
         <div className={styles.featureList}>
           <div>
-            <Row gutter={[0, 24]} className={styles.row}>
+            <Row gutter={[8, 24]} className={styles.row}>
               {list.map((product) => (
                 <Link
                   to={`/products/detail/${product.productId}`}
