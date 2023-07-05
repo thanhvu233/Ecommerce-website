@@ -13,7 +13,7 @@ export function ProductList({ list, onPageChange, currentPage, totalRow }) {
     <div className={styles.main}>
       <div className={styles.productList}>
         <div className={styles.row}>
-          <Row gutter={[18, 18]}>
+          <Row gutter={[18, 18]} justify='space-between'>
             {list.map((product) => (
               <Link
                 to={`/products/detail/${product.productId}`}
