@@ -20,7 +20,7 @@ export function RelatedProduct({ list, item }) {
 
         <div className={styles.productList}>
           <div className={styles.row}>
-            <Row gutter={[24, 48]}>
+            <Row gutter={[24, 48]} justify='space-between'>
               {list.map((product) => (
                 <Link
                   to={`/products/detail/${product.productId}`}
@@ -28,8 +28,8 @@ export function RelatedProduct({ list, item }) {
                 >
                   <Col span={6}>
                     <Card
+                      className={styles.cardItem}
                       hoverable
-                      style={{ width: 280 }}
                       cover={
                         <img
                           alt='product'
