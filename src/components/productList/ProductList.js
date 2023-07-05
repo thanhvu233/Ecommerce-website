@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import truncate from '../../helpers/truncate';
 import styles from './ProductList.module.scss';
+import './ProductList.scss';
 
 export function ProductList({ list, onPageChange, currentPage, totalRow }) {
   const handlePageChange = (page) => {
@@ -13,7 +14,11 @@ export function ProductList({ list, onPageChange, currentPage, totalRow }) {
     <div className={styles.main}>
       <div className={styles.productList}>
         <div className={styles.row}>
-          <Row gutter={[18, 18]} justify='space-between'>
+          <Row
+            gutter={[18, 18]}
+            justify='space-between'
+            className='product-list-row'
+          >
             {list.map((product) => (
               <Link
                 to={`/products/detail/${product.productId}`}

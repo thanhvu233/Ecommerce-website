@@ -43,7 +43,7 @@
   .clearBtn {
     position: absolute;
     right: 16px;
-    margin-top: 54px;
+    margin-top: 0;
   }
 
   .price h3,
@@ -51,7 +51,23 @@
     margin-bottom: 0;
   }
 
-  .priceRadioGroup {
+  .priceRadioGroup,
+  .ratingRadioGroup {
     flex-direction: row;
+  }
+}
+
+@media (max-width: 481px) {
+  .sidebar {
+    margin-top: -36px;
+  }
+
+  .priceRadioGroup,
+  .ratingRadioGroup {
+    flex-direction: column;
+  }
+
+  .clearBtn {
+    margin-top: 0;
   }
 }

@@ -17,6 +17,15 @@
 
 @media (max-width: 769px) {
   .dropdown {
-    margin-top: 28px;
+    margin-top: 12px;
+    margin-bottom: 28px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 481px) {
+  .dropdown {
+    margin-top: 4px;
+    margin-bottom: 24px;
   }
 }

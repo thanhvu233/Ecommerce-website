@@ -72,7 +72,7 @@ export function Sidebar({
       <div className={styles.rating}>
         <h3>Rating</h3>
         <Radio.Group onChange={handleChangeRating} value={rating}>
-          <Space direction='vertical' className={styles.priceRadioGroup}>
+          <Space direction='vertical' className={styles.ratingRadioGroup}>
             <Radio value={1}>
               <Rate disabled defaultValue={1} count={1} />
             </Radio>
