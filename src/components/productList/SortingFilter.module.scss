@@ -14,3 +14,9 @@
     font-weight: 500;
   }
 }
+
+@media (max-width: 769px) {
+  .dropdown {
+    margin-top: 28px;
+  }
+}

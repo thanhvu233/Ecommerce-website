@@ -32,3 +32,26 @@
 .rating {
   margin-top: 24px;
 }
+
+@media (max-width: 769px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+  }
+
+  .clearBtn {
+    position: absolute;
+    right: 16px;
+    margin-top: 54px;
+  }
+
+  .price h3,
+  .rating h3 {
+    margin-bottom: 0;
+  }
+
+  .priceRadioGroup {
+    flex-direction: row;
+  }
+}

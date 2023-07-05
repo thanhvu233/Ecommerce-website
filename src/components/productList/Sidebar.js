@@ -50,7 +50,7 @@ export function Sidebar({
         <div>
           <h3>Price</h3>
           <Radio.Group onChange={handleChangePrice} value={price}>
-            <Space direction='vertical'>
+            <Space direction='vertical' className={styles.priceRadioGroup}>
               <Radio value='30.60'>$30 - $60</Radio>
               <Radio value='60.90'>$60 - $90</Radio>
               <Radio value='90.120'>$90 - $120</Radio>
@@ -72,21 +72,21 @@ export function Sidebar({
       <div className={styles.rating}>
         <h3>Rating</h3>
         <Radio.Group onChange={handleChangeRating} value={rating}>
-          <Space direction='vertical'>
+          <Space direction='vertical' className={styles.priceRadioGroup}>
             <Radio value={1}>
-              <Rate disabled defaultValue={1} />
+              <Rate disabled defaultValue={1} count={1} />
             </Radio>
             <Radio value={2}>
-              <Rate disabled defaultValue={2} />
+              <Rate disabled defaultValue={2} count={2} />
             </Radio>
             <Radio value={3}>
-              <Rate disabled defaultValue={3} />
+              <Rate disabled defaultValue={3} count={3} />
             </Radio>
             <Radio value={4}>
-              <Rate disabled defaultValue={4} />
+              <Rate disabled defaultValue={4} count={4} />
             </Radio>
             <Radio value={5}>
-              <Rate disabled defaultValue={5} />
+              <Rate disabled defaultValue={5} count={5} />
             </Radio>
           </Space>
         </Radio.Group>
