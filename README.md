@@ -1,5 +1,4 @@
-1. Functional expect
-
+1. Functional expectation
 -   Login
 -   Register
 -   Add item to cart
@@ -9,22 +8,23 @@
 -   Sorting
 -   Pagination
 -   Edit profile
+-   Change password
+-   Checkout using Stripe
 
 2. Technologies
-
--   ReactJS
+-   ReactJS 17.0.2
 -   React-Hook-Form + Yup
 -   JSON-Server
 -   Redux Toolkit + Thunk
 -   react-reveal
 -   uuid
--   react-toastify
 -   React-router-dom v5.2.0
 -   Axios
 -   CSS Module + SASS
 -   Ant Design
 -   Swiper
 -   React-magnifier
+-   sweetalert2
 
 3. Routing
 
