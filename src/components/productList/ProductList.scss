@@ -1,5 +1,19 @@
+@media (max-width: 1441px) {
+  .product-list-row {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
 @media (max-width: 1025px) {
   .product-list-row {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media (max-width: 481px) {
+  .product-list-row {
+    grid-template-columns: repeat(1, auto);
     justify-content: center;
   }
 }
