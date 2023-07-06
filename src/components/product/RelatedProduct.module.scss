@@ -49,6 +49,10 @@
 }
 
 @media (max-width: 1441px) {
+  .relatedProduct {
+    padding-top: 36px;
+  }
+
   .cardItem {
     width: 260px;
   }
@@ -85,6 +89,10 @@
 }
 
 @media (max-width: 481px) {
+  .relatedProduct {
+    padding-top: 100px;
+  }
+
   .title {
     margin-top: -24px;
     align-items: baseline;

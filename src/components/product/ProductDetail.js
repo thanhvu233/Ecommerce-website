@@ -168,11 +168,11 @@ export function ProductDetail({ product, onGetOrder, loadingAddToCart }) {
             <div>PRODUCT DETAILS</div>
             <p>{product.description}</p>
           </div>
-          <div className={`${styles.button} buyBtn`} onClick={handleAddCart}>
+          <span className={`${styles.button} buyBtn`} onClick={handleAddCart}>
             <Button shape='round' size='large' loading={loadingAddToCart}>
               Add To Cart
             </Button>
-          </div>
+          </span>
         </div>
       </div>
     </Container>
