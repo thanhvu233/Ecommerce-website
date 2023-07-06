@@ -73,3 +73,15 @@
     margin-bottom: 24px;
   }
 }
+
+@media (max-width: 481px) {
+  .title {
+    margin-top: -24px;
+    align-items: baseline;
+    margin-bottom: 20px;
+  }
+
+  .relatedProductRow {
+    justify-content: center;
+  }
+}
