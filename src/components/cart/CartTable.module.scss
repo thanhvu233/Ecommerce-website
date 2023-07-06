@@ -152,3 +152,60 @@
     color: #ee2347;
   }
 }
+
+.smallCartTable {
+  display: none;
+}
+
+@media (max-width: 481px) {
+  .detail {
+    display: none;
+  }
+
+  .smallCartTable {
+    display: table;
+
+    .smallSizeText {
+      color: $secondary-color;
+      font-weight: 500;
+    }
+
+    .size,
+    .subtotal,
+    .amountInput {
+      text-align: left;
+    }
+
+    .name {
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .subtotal {
+      color: #ee2347;
+      font-weight: 500;
+    }
+
+    .product {
+      flex-direction: column;
+      align-items: flex-start;
+      & .img {
+        width: 106px;
+      }
+    }
+
+    .tableHeader {
+      th:nth-child(2) {
+        text-align: start;
+      }
+    }
+  }
+
+  .checkout {
+    gap: 24px;
+
+    &::before {
+      width: 200px;
+    }
+  }
+}

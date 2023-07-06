@@ -6,6 +6,7 @@ import './CartTable.scss';
 import { useSelector } from 'react-redux';
 import { selectUnpaidItemList } from '../../redux/slices/orderedItemSlice';
 import { useMemo } from 'react';
+import { SmallCartTable } from './SmallCartTable';
 
 const TRANSPORT_FEE = 2;
 
@@ -83,6 +84,14 @@ export function CartTable({ onRemove, onAmountChange }) {
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className={styles.smallCartTable}>
+          <SmallCartTable
+            orderedItems={orderedItems}
+            handleAmountChange={handleAmountChange}
+            handleRemove={handleRemove}
+          />
         </div>
 
         <div className={styles.checkout}>
