@@ -1,190 +1,161 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { Footer, Header, Wrapper } from '../components/common';
-import { addOrder } from '../helpers/addOrder';
-import { updateOrder } from '../helpers/updateOrder';
-import { fetchOrderList, selectOrderFilter } from '../redux/slices/orderSlice';
 import { ProductDetail, RelatedProduct } from './../components/product/';
-import { fetchProductById } from './../helpers/fetchProductById';
 import {
-    fetchProductList,
-    selectProductList
+  fetchProductList,
+  selectProductList,
+  selectProductLoading,
 } from './../redux/slices/productSlice';
+import LoadingPage from './LoadingPage';
+import orderApi from '../API/orderApi';
+import orderedItemApi from '../API/orderedItemApi';
+import Swal from 'sweetalert2';
+import { setTotalUnpaidItems } from '../redux/slices/orderedItemSlice';
+import productApi from '../API/productApi';
 
 function ProductPage() {
-    const [product, setProduct] = useState();
-    const [orderQuantity, setOrderQuantity] = useState(0);
-    const productList = useSelector(selectProductList);
-    const orderFilter = useSelector(selectOrderFilter);
-    // const loading = useSelector(selectProductLoading);
+  const [product, setProduct] = useState();
+  const [loadingAddToCart, setLoadingAddToCart] = useState(false);
 
-    console.log("herre")
+  const productList = useSelector(selectProductList);
+  const loadingGetProducts = useSelector(selectProductLoading);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const { id } = useParams();
+  const { id } = useParams();
+
+  useEffect(async () => {
+    const { data } = await productApi.getById(id);
+
+    setProduct(data.products[0]);
+
+    dispatch(
+      fetchProductList({
+        _page: 1,
+        _limit: 4,
+        category: data.products[0].category,
+        type: data.products[0].type,
+        'productId[ne]': id,
+      })
+    );
 
     window.scrollTo(0, 0);
+  }, [id]);
 
-    const handleGetOrder = async (item) => {
-        const actionResult = await dispatch(
-            fetchOrderList({
-                ...orderFilter,
-                isCheckout: false,
-                userId: localStorage.getItem('access_token'),
-            })
+  useEffect(async () => {
+    const { data: unpaidItems } = await orderedItemApi.getAllUnpaidItems();
+
+    dispatch(setTotalUnpaidItems(unpaidItems.length));
+  }, [id, loadingAddToCart]);
+
+  const handleGetOrder = async (item) => {
+    try {
+      setLoadingAddToCart(true);
+      const { data: orderedItems } = await orderedItemApi.getAllUnpaidItems();
+
+      // ALL ORDERS ARE FINISHED
+      if (orderedItems.length === 0) {
+        const newOrder = {
+          createdAt: new Date().toISOString(),
+          total: item.subTotal,
+        };
+
+        const { data: orderResult } = await orderApi.createOne(newOrder);
+
+        if (orderResult) {
+          const newOrderedItem = {
+            order: orderResult._id,
+            product: item.id,
+            amount: item.amount,
+            size: item.size,
+            subTotal: item.subTotal,
+          };
+
+          await orderedItemApi.createOne(newOrderedItem);
+        }
+      } else {
+        const orderedItem = orderedItems.find(
+          ({ size, product }) => size === item.size && product._id === item.id
         );
 
-        let { data: result } = unwrapResult(actionResult);
+        const currentTotal = orderedItems[0].order.total;
 
-        // ALL ORDERS ARE FINISHED
-        if (result.length == 0) {
-            const newOrder = {
-                id: uuidv4(),
-                userId: localStorage.getItem('access_token'),
-                isCheckout: false,
-                products: [
-                    {
-                        productId: `${item.productId}`,
-                        name: `${item.name}`,
-                        amount: item.amount,
-                        size: `${item.size}`,
-                        subTotal: item.subTotal,
-                        image: item.image,
-                    },
-                ],
+        // UNFINISHED ORDER CONTAINS THIS CURRENT PRODUCT
+        if (orderedItem) {
+          const newAmount = orderedItem.amount + item.amount;
+
+          const newSubTotal = orderedItem.subTotal + item.subTotal;
+
+          const updatedOrderedItem = {
+            _id: orderedItem._id,
+            amount: newAmount,
+            subTotal: newSubTotal,
+          };
+
+          const updatedOrder = {
+            id: orderedItem.order._id,
+            total: currentTotal + item.subTotal,
+          };
+
+          await orderedItemApi.updateOne(updatedOrderedItem);
+
+          await orderApi.update(updatedOrder);
+        }
+        // UNFINISHED ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
+        else {
+          const newOrderedItem = {
+            order: orderedItems[0].order._id,
+            product: item.id,
+            amount: item.amount,
+            size: item.size,
+            subTotal: item.subTotal,
+          };
+          const { data: createNewOrderedItemResult } =
+            await orderedItemApi.createOne(newOrderedItem);
+
+          if (createNewOrderedItemResult) {
+            const updatedOrder = {
+              id: orderedItems[0].order._id,
+              total: item.subTotal + currentTotal,
             };
 
-            console.log('newOrder', newOrder);
-
-            await addOrder(newOrder);
-
-            // Update số lượng product trong cart lên localStorage
-            localStorage.setItem('quantity', 1);
-
-            // Set lại state orderQuantity để re-render Header
-            setOrderQuantity(1);
-        } else {
-            // Tách object chứa product đã mua trước đó, ra khỏi mảng result
-            const productArr = result[0].products;
-
-            const objWanted = productArr.find((obj) => {
-                return obj.productId == item.productId && obj.size == item.size;
-            });
-
-            // Kiểm tra xem order có sản phẩm không
-            const isContain = Boolean(objWanted);
-
-            // UNFINISHED ORDER CONTAINS THIS CURRENT PRODUCT
-            if (isContain) {
-                // Tính amount mới
-                const newAmount = objWanted.amount + item.amount;
-
-                // Tính subtotal mới
-                const newSubTotal = objWanted.subTotal + item.subTotal;
-
-                // Tạo mảng products mới để update property products
-                let newProductList = productArr.filter((obj) => {
-                    return (
-                        obj.productId != item.productId ||
-                        (obj.productId == item.productId && obj.size != item.size)
-                    );
-                });
-
-                // Thêm product mới vào mảng products
-                newProductList.push({
-                    productId: objWanted.productId,
-                    name: objWanted.name,
-                    amount: newAmount,
-                    size: objWanted.size,
-                    subTotal: newSubTotal,
-                    image: objWanted.image,
-                });
-
-                updateOrder({
-                    id: result[0].id,
-                    products: newProductList,
-                });
-
-                // Update số lượng product trong cart lên localStorage
-                localStorage.setItem('quantity', newProductList.length);
-
-                // Set lại state orderQuantity để re-render Header
-                setOrderQuantity(newProductList.length);
-            }
-            // UNFINISHED ORDER DOESN'T CONTAIN THIS CURRENT PRODUCT
-            else if (!isContain) {
-                // Add this currentProduct to that order
-                let newProductList = [...productArr, item];
-
-                updateOrder({
-                    id: result[0].id,
-                    products: newProductList,
-                });
-
-                // Update số lượng product trong cart lên localStorage
-                localStorage.setItem('quantity', newProductList.length);
-
-                // Set lại state orderQuantity để re-render Header
-                setOrderQuantity(newProductList.length);
-            }
+            await orderApi.update(updatedOrder);
+          }
         }
-    };
+      }
 
-    useEffect(async () => {
-        const product = await fetchProductById(id);
+      setLoadingAddToCart(false);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: error.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  };
 
-        setProduct(product[0]);
-
-        dispatch(
-            fetchProductList({
-                _page: 1,
-                _limit: 4,
-                category: product[0].category,
-                type: product[0].type,
-                productId_ne: id,
-            })
-        );
-
-        if (localStorage.getItem('quantity')) {
-            setOrderQuantity(localStorage.getItem('quantity'));
-        } else {
-            setOrderQuantity(0);
-        }
-    }, [id, orderQuantity]);
-
-    // Tạo 1 object ban đầu và ném xuống component để nó render nháp
-    // Nếu không làm như thế thì component sẽ render trước cả khi có data
-    const initialValues = {
-        productId: '',
-        productName: '',
-        price: 0,
-        description: '',
-        images: [],
-        sizes: [],
-        rating: 0,
-        category: '',
-        type: '',
-        ...product,
-    };
-
-    // if (loading) {
-    //     return <LoadingPage />;
-    // }
-
-    return (
-        <Wrapper>
-            <Header quantity={orderQuantity} />
-            {Boolean(product) && (
-                <ProductDetail product={initialValues} onGetOrder={handleGetOrder} />
-            )}
-            <RelatedProduct list={productList} item={initialValues} />
-            <Footer />
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <Header />
+      {!product || loadingGetProducts ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <ProductDetail
+            product={product}
+            onGetOrder={handleGetOrder}
+            loadingAddToCart={loadingAddToCart}
+          />
+          <RelatedProduct list={productList} item={product} />
+        </>
+      )}
+      <Footer />
+    </Wrapper>
+  );
 }
 
 export default ProductPage;

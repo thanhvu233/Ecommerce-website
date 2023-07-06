@@ -1,50 +1,130 @@
 @import '../../variables/variables.module';
 
 .featureProduct {
-    margin-top: 120px;
+  margin-top: 120px;
 }
 
 .heading {
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
 
-    margin-bottom: 90px;
-    position: relative;
+  margin-bottom: 90px;
+  position: relative;
 
-    &::after {
-        content: '';
-        background-color: $third-color;
-        position: absolute;
-        left: 46.5%;
-        bottom: 0;
-        width: 74px;
-        height: 5px;
-        border-radius: 4px;
-        transform: translateY(10px);
-    }
+  &::after {
+    content: '';
+    background-color: $third-color;
+    position: absolute;
+    left: 46.5%;
+    bottom: 0;
+    width: 74px;
+    height: 5px;
+    border-radius: 4px;
+    transform: translateY(10px);
+  }
 }
 
 .row {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .name {
-    line-height: 1.4;
-    font-size: 18px;
+  line-height: 1.4;
+  font-size: 18px;
 }
 
 .rating {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .price {
-    font-size: 17px;
-    line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.4;
 
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .card {
-    width: 100%;
+  width: 100%;
+}
+
+@media (max-width: 1441px) {
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-around;
+  }
+
+  .heading {
+    margin-bottom: 64px;
+  }
+}
+
+@media (max-width: 1025px) {
+  .featureProduct {
+    margin-top: 56px;
+    padding: 0 80px;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+
+    &::after {
+      left: 45%;
+    }
+  }
+
+  .row {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 769px) {
+  .featureProduct {
+    margin-top: 48px;
+    padding: 0;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+    font-size: 22px;
+
+    &::after {
+      left: 45%;
+    }
+  }
+}
+
+@media (max-width: 577px) {
+  .featureProduct {
+    margin-top: 32px;
+  }
+
+  .heading {
+    margin-bottom: 36px;
+    font-size: 20px;
+
+    &::after {
+      left: 43%;
+    }
+  }
+
+  .row {
+    grid-template-columns: repeat(1, auto);
+  }
+}
+
+@media (max-width: 481px) {
+  .featureProduct {
+    margin-top: 24px;
+  }
+
+  .heading {
+    font-size: 18px;
+
+    &::after {
+      left: 38%;
+    }
+  }
 }

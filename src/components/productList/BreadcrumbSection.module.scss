@@ -1,22 +1,22 @@
 @import '../../variables/variables.module';
 
 .breadcrumb {
-    padding-top: 100px;
+  padding-top: 100px;
 
-    text-transform: capitalize;
+  text-transform: capitalize;
 
-    & a,
-    & span {
-        font-size: 15px;
-    }
+  & a,
+  & span {
+    font-size: 15px;
+  }
 }
 
 .heading {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    & h2 {
-        margin: 0 auto;
-        font-size: 32px;
-    }
+  & h2 {
+    margin: 0 auto;
+    font-size: 32px;
+  }
 }

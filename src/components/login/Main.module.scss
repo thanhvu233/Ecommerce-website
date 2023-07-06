@@ -1,44 +1,72 @@
 @import '../../variables/variables.module';
 
 .darkBackground {
-    background-color: $third-color;
+  background-color: $third-color;
 }
 
 .main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
 
-    padding-right: 240px;
-    padding-left: 180px;
-    padding-top: 72px;
+  padding-right: 240px;
+  padding-left: 180px;
+  padding-top: 72px;
 
-    background-color: $primary-color;
+  background-color: $primary-color;
 }
 
 .loginImg {
-    & img {
-        object-fit: contain;
-        height: 540px;
-    }
+  & img {
+    object-fit: contain;
+    height: 540px;
+  }
 }
 
 .loginForm {
-    width: 300px;
-    height: 400px;
-    background-color: #fff;
-    padding: 16px;
-    border-radius: 10px;
+  width: 300px;
+  height: 360px;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
 
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .header {
-    text-align: center;
-    font-weight: 500;
-    font-size: 32px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 32px;
 
-    margin-top: 8px;
-    margin-bottom: 16px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1025px) {
+  .main {
+    justify-content: space-around;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .loginImg {
+    & img {
+      height: 400px;
+    }
+  }
+}
+
+@media (max-width: 481px) {
+  .main {
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+  }
+
+  .loginImg {
+    & img {
+      height: 300px;
+    }
+  }
 }

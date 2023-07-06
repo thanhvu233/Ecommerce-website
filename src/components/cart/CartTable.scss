@@ -1,13 +1,13 @@
 .quantityInput {
-    & .ant-input-number {
-        width: 40px;
-        height: 40px;
-        padding-top: 4px;
-    }
+  & .ant-input-number {
+    width: 56px;
+    height: 40px;
+    padding-top: 4px;
+  }
 
-    & .ant-input-number:focus,
-    & .ant-input-number-focused {
-        border: 2px solid #40a9ff;
-        border-right-width: 2px !important;
-    }
+  & .ant-input-number:focus,
+  & .ant-input-number-focused {
+    border: 2px solid #40a9ff;
+    border-right-width: 2px !important;
+  }
 }

@@ -1,43 +1,39 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 body {
-    overflow-x: hidden;
-    font-family: Roboto, Helvetica, sans-serif;
-    font-size: 100%;
+  overflow-x: hidden;
+  font-family: Roboto, Helvetica, sans-serif;
+  font-size: 100%;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 *,
 *:before,
 *:after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 input,
 textarea,
 select,
 button {
-    outline: none;
+  outline: none;
 }
 input {
-    line-height: normal;
+  line-height: normal;
 }
 label,
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 a {
-    text-decoration: none;
-    color: #000;
-}
-img {
-    display: block;
-    max-width: 100%;
+  text-decoration: none;
+  color: #000;
 }
 ol,
 ul {
-    list-style: none;
+  list-style: none;
 }

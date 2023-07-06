@@ -1,15 +1,40 @@
 @import '../../variables/variables.module';
 
 .images {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
 
-    margin-top: 120px;
+  margin-top: 120px;
+
+  & img {
+    object-fit: cover;
+    width: 300px;
+  }
+}
+
+@media (max-width: 1025px) {
+  .images {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 769px) {
+  .images {
+    flex-direction: column;
+    margin-top: 56px;
 
     & img {
-        object-fit: cover;
-        width: 300px;
+      width: 350px;
     }
+  }
+}
+
+@media (max-width: 481px) {
+  .images {
+    & img {
+      width: 280px;
+    }
+  }
 }

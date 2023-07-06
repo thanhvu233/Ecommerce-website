@@ -1,9 +1,15 @@
 @import '../../variables/variables.module';
 
 .purchaseBtn {
-    margin-top: 48px;
-    margin-bottom: -48px;
+  margin-top: 48px;
+  margin-bottom: -48px;
 
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 1025px) {
+  .purchaseBtn {
+    margin-bottom: -28px;
+  }
 }

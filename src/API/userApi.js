@@ -1,26 +1,49 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
-    getById(id) {
-        const url = `/users?id=${id}`;
+  signUp(data) {
+    const url = '/users/signup';
 
-        return axiosClient.get(url);
-    },
-    getByAccount({ username, password }) {
-        const url = `/users?username=${username}&password=${password}`;
+    return axiosClient.post(url, data);
+  },
+  login(data) {
+    const url = '/users/login';
 
-        return axiosClient.get(url);
-    },
-    update(data) {
-        const url = `/users/${data.id}`;
+    return axiosClient.post(url, data);
+  },
+  getCurrentUser() {
+    const url = `/users/me`;
 
-        return axiosClient.patch(url, data);
-    },
-    add(data) {
-        const url = '/users';
+    const token = localStorage.getItem('access_token');
 
-        return axiosClient.post(url, data);
-    },
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  updateUserProfile(data) {
+    const url = `/users/updateMe`;
+
+    const token = localStorage.getItem('access_token');
+
+    return axiosClient.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  updateUserPassword(data) {
+    const url = `/users/updateMyPassword`;
+
+    const token = localStorage.getItem('access_token');
+
+    return axiosClient.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default userApi;

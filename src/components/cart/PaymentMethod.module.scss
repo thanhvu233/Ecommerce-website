@@ -1,13 +1,25 @@
 @import '../../variables/variables.module';
 
 .paymentMethod {
-    margin-top: 56px;
+  margin-top: 56px;
 }
 .header {
-    font-size: 20px;
-    font-weight: 500;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .paymentOtps {
-    margin-top: 8px;
+  margin-top: 8px;
+}
+
+@media (max-width: 1025px) {
+  .paymentMethod {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 481px) {
+  .paymentMethod {
+    margin-top: 24px;
+  }
 }

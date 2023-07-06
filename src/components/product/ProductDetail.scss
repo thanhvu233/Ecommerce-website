@@ -1,118 +1,124 @@
 @import '../../variables/variables.module';
 
 .mainImg {
-    & .magnifier-image {
-        object-fit: cover;
-        width: 520px;
-        height: 500px;
-    }
+  & .magnifier-image {
+    object-fit: cover;
+    width: 520px;
+    height: 500px;
+  }
 }
 
 .otherImg {
-    & .swiper-button-next,
-    .swiper-button-prev {
-        color: #2f9dff;
-    }
+  & .swiper-button-next,
+  .swiper-button-prev {
+    color: #2f9dff;
+  }
 
-    & .swiper-button-next:after,
-    .swiper-button-prev:after {
-        font-size: 20px;
-        font-weight: 700;
-    }
+  & .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: 700;
+  }
 
-    & .swiper-button-next,
-    .swiper-rtl .swiper-button-prev {
-        right: 2px;
-        left: auto;
-    }
+  & .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
+    right: 2px;
+    left: auto;
+  }
 
-    & .swiper-button-prev,
-    .swiper-rtl .swiper-button-next {
-        left: 2px;
-        right: auto;
-    }
+  & .swiper-button-prev,
+  .swiper-rtl .swiper-button-next {
+    left: 2px;
+    right: auto;
+  }
 }
 
 .sizeOpts {
-    & .ant-radio-button-wrapper {
-        margin-right: 16px;
-        position: relative;
+  & .ant-radio-button-wrapper {
+    margin-right: 16px;
+    position: relative;
 
-        width: 40px;
-        height: 40px;
-        text-align: center;
+    width: 40px;
+    height: 40px;
+    text-align: center;
 
-        padding: 4px 0;
+    padding: 4px 0;
 
-        font-size: 16px;
+    font-size: 16px;
+  }
+
+  & .ant-radio-button-wrapper:hover {
+    border: 1px solid #1890ff;
+
+    &::before {
+      background-color: #1890ff;
     }
+  }
 
-    & .ant-radio-button-wrapper:hover {
-        border: 1px solid #1890ff;
+  & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    font-weight: 500;
+    border-width: 2px;
 
-        &::before {
-            background-color: #1890ff;
-        }
+    &::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-image: url('../../assets/images/checkMark.svg');
+      background-repeat: no-repeat;
+      background-position: right -1px bottom -1px;
+      background-size: 14px 14px;
     }
+  }
 
-    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-        font-weight: 500;
-        border-width: 2px;
+  &
+    .ant-radio-button-wrapper-checked:not(
+      .ant-radio-button-wrapper-disabled
+    )::before {
+    width: 0;
+  }
 
-        &::after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            background-image: url('../../assets/images/checkMark.svg');
-            background-repeat: no-repeat;
-            background-position: right -1px bottom -1px;
-            background-size: 14px 14px;
-        }
-    }
-
-    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
-        width: 0;
-    }
-
-    & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover::before {
-        width: 0;
-    }
+  &
+    .ant-radio-button-wrapper-checked:not(
+      .ant-radio-button-wrapper-disabled
+    ):hover::before {
+    width: 0;
+  }
 }
 
 .amountInput {
-    & .ant-input-number {
-        width: 56px;
-        height: 40px;
-        padding-top: 4px;
-    }
+  & .ant-input-number {
+    width: 56px;
+    height: 40px;
+    padding-top: 4px;
+  }
 
-    & .ant-input-number:focus,
-    & .ant-input-number-focused {
-        border: 2px solid #40a9ff;
-        border-right-width: 2px !important;
-    }
+  & .ant-input-number:focus,
+  & .ant-input-number-focused {
+    border: 2px solid #40a9ff;
+    border-right-width: 2px !important;
+  }
 }
 
 .buyBtn {
-    & button {
-        background-color: $third-color !important;
-        color: #fff !important;
-        border: none !important;
-    }
+  & button {
+    background-color: $third-color !important;
+    color: #fff !important;
+    border: none !important;
+  }
 
-    & button:hover {
-        opacity: 0.9;
-        background-color: $third-color;
-        color: #fff;
-        border: none;
-    }
+  & button:hover {
+    opacity: 0.9;
+    background-color: $third-color;
+    color: #fff;
+    border: none;
+  }
 
-    & button:active {
-        background-color: $third-color !important;
-        color: #fff !important;
-        border: none !important;
-    }
+  & button:active {
+    background-color: $third-color !important;
+    color: #fff !important;
+    border: none !important;
+  }
 }

@@ -3,88 +3,113 @@ import React from 'react';
 import { Container } from './../common';
 import styles from './CartTable.module.scss';
 import './CartTable.scss';
+import { useSelector } from 'react-redux';
+import { selectUnpaidItemList } from '../../redux/slices/orderedItemSlice';
+import { useMemo } from 'react';
+import { SmallCartTable } from './SmallCartTable';
 
-export function CartTable({ list, onRemove, onAmountChange }) {
-    let subTotal = 0;
-    const transferFee = 2;
-    let total = 0;
+const TRANSPORT_FEE = 2;
 
-    if (list.length != 0) {
-        subTotal = list.reduce((sum, item) => {
-            return sum + item.subTotal;
-        }, 0);
+export function CartTable({ onRemove, onAmountChange }) {
+  const orderedItems = useSelector(selectUnpaidItemList);
 
-        total = subTotal + transferFee;
+  const total = useMemo(() => {
+    if (orderedItems.length !== 0) {
+      const subTotal = orderedItems.reduce((sum, item) => {
+        return sum + item.subTotal;
+      }, 0);
+
+      return subTotal + TRANSPORT_FEE;
     }
 
-    const handleRemove = (item) => {
-        onRemove(item);
-    };
+    return 0;
+  }, [orderedItems]);
 
-    const handleAmountChange = (product, e) => {
-        onAmountChange(product, e.target.value);
-    };
+  const handleRemove = (item) => {
+    onRemove(item);
+  };
 
-    return (
-        <Container>
-            <div className={styles.cartTable}>
-                <div className={styles.header}>Cart</div>
+  const handleAmountChange = (product, amount) => {
+    onAmountChange(product, amount);
+  };
 
-                <div className={`${styles.detail} detail`}>
-                    <table className={styles.table}>
-                        <thead>
-                            <tr className={styles.tableHeader}>
-                                <th>Remove</th>
-                                <th>Product Name</th>
-                                <th>Size</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {list.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td className={styles.removeBtn}>
-                                        <i
-                                            className={`las la-times`}
-                                            onClick={() => handleRemove(item)}
-                                        ></i>
-                                    </td>
-                                    <td className={styles.product}>
-                                        <img src={item.image} alt='' className={styles.img} />
-                                        <div className={styles.name}>{item.name}</div>
-                                    </td>
-                                    <td className={styles.size}>{item.size}</td>
-                                    <td className={`${styles.amountInput} quantityInput`}>
-                                        <InputNumber
-                                            min={1}
-                                            max={100}
-                                            controls={false}
-                                            value={item.amount}
-                                            onPressEnter={(e) => handleAmountChange(item, e)}
-                                            keyboard={false}
-                                        />
-                                    </td>
-                                    <td className={styles.subtotal}>${item.subTotal}.00</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+  return (
+    <Container>
+      <div className={styles.cartTable}>
+        <div className={styles.header}>Cart</div>
 
-                <div className={styles.checkout}>
-                    <div className={styles.title}>
-                        <div>Subtotal:</div>
-                        <div>Transport Fee:</div>
-                        <div>Total:</div>
+        <div className={`${styles.detail} detail`}>
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.tableHeader}>
+                <th>Remove</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedItems.map((item, idx) => (
+                <tr key={idx}>
+                  <td className={styles.removeBtn}>
+                    <i
+                      className={`las la-times`}
+                      onClick={() => handleRemove(item)}
+                    ></i>
+                  </td>
+                  <td className={styles.product}>
+                    <img
+                      src={item.product.images[0]}
+                      alt=''
+                      className={styles.img}
+                    />
+                    <div className={styles.name}>
+                      {item.product.productName}
                     </div>
-                    <div className={styles.payment}>
-                        <div>${subTotal}.00</div>
-                        <div>${transferFee}.00</div>
-                        <div>${total}.00</div>
-                    </div>
-                </div>
+                  </td>
+                  <td className={styles.size}>{item.size}</td>
+                  <td className={`${styles.amountInput} quantityInput`}>
+                    <InputNumber
+                      min={1}
+                      max={100}
+                      value={item.amount}
+                      onChange={(value) =>
+                        handleAmountChange(item.product, value)
+                      }
+                    />
+                  </td>
+                  <td className={styles.subtotal}>${item.subTotal}.00</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={styles.smallCartTable}>
+          <SmallCartTable
+            orderedItems={orderedItems}
+            handleAmountChange={handleAmountChange}
+            handleRemove={handleRemove}
+          />
+        </div>
+
+        <div className={styles.checkout}>
+          <div className={styles.title}>
+            <div>Subtotal:</div>
+            <div>Transport Fee:</div>
+            <div>Total:</div>
+          </div>
+          <div className={styles.payment}>
+            <div>
+              ${total - TRANSPORT_FEE > 0 ? total - TRANSPORT_FEE : '0'}
+              .00
             </div>
-        </Container>
-    );
+            <div>${TRANSPORT_FEE}.00</div>
+            <div>${total}.00</div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
 }
