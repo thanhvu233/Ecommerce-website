@@ -51,7 +51,13 @@
 
 @media (max-width: 1441px) {
   .row {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
     justify-content: space-around;
+  }
+
+  .heading {
+    margin-bottom: 64px;
   }
 }
 
@@ -88,10 +94,6 @@
       left: 45%;
     }
   }
-
-  .row {
-    justify-content: space-around;
-  }
 }
 
 @media (max-width: 577px) {
@@ -109,7 +111,7 @@
   }
 
   .row {
-    justify-content: space-around;
+    grid-template-columns: repeat(1, auto);
   }
 }
 

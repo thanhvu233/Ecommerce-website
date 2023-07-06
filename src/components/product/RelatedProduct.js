@@ -20,7 +20,11 @@ export function RelatedProduct({ list, item }) {
 
         <div className={styles.productList}>
           <div className={styles.row}>
-            <Row gutter={[24, 48]} justify='space-between' className={styles.relatedProductRow}>
+            <Row
+              gutter={[24, 48]}
+              justify='space-between'
+              className={styles.relatedProductRow}
+            >
               {list.map((product) => (
                 <Link
                   to={`/products/detail/${product.productId}`}

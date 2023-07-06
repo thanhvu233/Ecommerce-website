@@ -87,6 +87,12 @@
 }
 
 @media (max-width: 1441px) {
+  .image {
+    & img {
+      height: 450px;
+    }
+  }
+
   .image2 {
     & img {
       width: 450px;
