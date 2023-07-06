@@ -60,3 +60,9 @@
   display: flex;
   justify-content: flex-end;
 }
+
+@media (max-width: 1025px) {
+  .userForm {
+    padding-bottom: 32px;
+  }
+}
