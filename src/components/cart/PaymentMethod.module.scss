@@ -11,3 +11,9 @@
 .paymentOtps {
   margin-top: 8px;
 }
+
+@media (max-width: 1025px) {
+  .paymentMethod {
+    margin-top: 16px;
+  }
+}

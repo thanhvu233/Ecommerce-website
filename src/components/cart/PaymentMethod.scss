@@ -3,15 +3,12 @@
 .paymentOtps {
   & .ant-radio-wrapper {
     font-size: 16px;
+    align-items: unset;
 
     & span:nth-child(2) {
       display: flex;
       align-items: center;
       gap: 12px;
-
-      & div:nth-child(2) {
-        transform: translateY(40%);
-      }
     }
   }
 
@@ -35,6 +32,5 @@
   & img {
     object-fit: contain;
     width: 32px;
-    transform: translateY(25%);
   }
 }
