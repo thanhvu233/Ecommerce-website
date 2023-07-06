@@ -49,4 +49,10 @@
     padding-right: 0;
     padding-left: 0;
   }
+
+  .loginImg {
+    & img {
+      height: 400px;
+    }
+  }
 }
