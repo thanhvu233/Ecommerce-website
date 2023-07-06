@@ -109,3 +109,48 @@
     margin-left: 24px;
   }
 }
+
+@media (max-width: 769px) {
+  .productDetail {
+    flex-direction: column;
+  }
+
+  .mainImg {
+    & img {
+      width: 100% !important;
+    }
+  }
+
+  .otherImg {
+    width: 100% !important;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  .detail {
+    margin-left: 0;
+
+    .price {
+      margin-top: 4px;
+    }
+
+    .size {
+      margin-top: 4px;
+    }
+
+    .amount {
+      margin-top: 16px;
+    }
+
+    .desc {
+      margin-top: 16px;
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
