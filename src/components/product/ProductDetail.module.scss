@@ -104,9 +104,29 @@
   }
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1440px) {
   .detail {
     margin-left: 24px;
+  }
+}
+
+@media (max-width: 1025px) {
+  .detail {
+    .name {
+      font-size: 40px;
+    }
+
+    .price, .size {
+      margin-top: 4px;
+    }
+
+    .amount {
+      margin-top: 12px;
+    }
+
+    .desc {
+      margin-top: 12px;
+    }
   }
 }
 
