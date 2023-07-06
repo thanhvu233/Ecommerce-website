@@ -1,8 +1,5 @@
 @import '../../variables/variables.module';
 
-.relatedProduct {
-}
-
 .title {
   display: flex;
   justify-content: space-between;
@@ -54,5 +51,18 @@
 @media (max-width: 1441px) {
   .cardItem {
     width: 260px;
+  }
+}
+
+@media (max-width: 1025px) {
+  .title {
+    margin-top: 36px;
+    margin-bottom: 16px;
+  }
+
+  .row {
+    & div:first-child {
+      row-gap: 24px !important;
+    }
   }
 }
