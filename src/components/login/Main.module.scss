@@ -56,3 +56,15 @@
     }
   }
 }
+
+@media (max-width: 481px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .loginImg {
+    & img {
+      height: 300px;
+    }
+  }
+}
