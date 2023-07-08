@@ -23,11 +23,22 @@ function LoginPage() {
 
       localStorage.setItem('access_token', data.token);
 
-      if (path == '/register') {
-        history.push('/');
-      } else {
-        history.push(`${path}`);
-      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successfully',
+        showConfirmButton: false,
+        timer: 2000,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      });
+
+      setTimeout(() => {
+        if (path == '/register') {
+          history.push('/');
+        } else {
+          history.push(`${path}`);
+        }
+      }, 2000);
     } catch (error) {
       console.log('error', error);
       Swal.fire({
