@@ -17,7 +17,7 @@ export function LoginForm({ initialValues, onSubmit }) {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
@@ -67,7 +67,7 @@ export function LoginForm({ initialValues, onSubmit }) {
       </div>
 
       <div className={`${styles.submitBtn} submitBtn`}>
-        <Button htmlType='submit' size='large'>
+        <Button htmlType='submit' size='large' loading={isSubmitting}>
           Enter
         </Button>
       </div>
